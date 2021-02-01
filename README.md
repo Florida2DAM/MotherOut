@@ -2,10 +2,10 @@
 
 ## Members
 
-Pablo Ferriol -  pafego01@floriduniversitaria.es
-Jesus Ferrer  -  jefega01@floridauniversitaria.es
-Juan Lujan    -  jululo@floridauniversitaria.es
-Jordi García  -  jogaib@floridauniversitaria.es
+* Pablo Ferriol -  pafego01@floriduniversitaria.es
+* Jesus Ferrer  -  jefega01@floridauniversitaria.es
+* Juan Lujan    -  jululo@floridauniversitaria.es
+* Jordi García  -  jogaib@floridauniversitaria.es
 
 ## Description
 
