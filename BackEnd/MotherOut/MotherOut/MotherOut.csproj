@@ -295,6 +295,9 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\IconsController.cs" />
+    <Compile Include="Controllers\PreDefinedTasksController.cs" />
+    <Compile Include="Controllers\TeamsController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -307,11 +310,14 @@
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Icon.cs" />
+    <Compile Include="Models\IconsRepository.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Controllers\UserTasksController.cs" />
     <Compile Include="Models\MotherOutContext.cs" />
     <Compile Include="Models\PreDefinedTask.cs" />
+    <Compile Include="Models\PreDefinedTaskRepository.cs" />
     <Compile Include="Models\Team.cs" />
+    <Compile Include="Models\TeamsRepository.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UsersRepository.cs" />
     <Compile Include="Models\UserTask.cs" />
