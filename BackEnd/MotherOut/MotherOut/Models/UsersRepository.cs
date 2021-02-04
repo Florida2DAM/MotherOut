@@ -60,7 +60,7 @@ namespace MotherOut_BackEnd.Models
             }
         }
 
-        internal bool updateUserHelp(int idUser, int idTeam, bool help)
+        internal bool updateUserHelp(int idUser, bool help)
         {
             User user = new User();
 
@@ -196,6 +196,27 @@ namespace MotherOut_BackEnd.Models
                 {
                     return false;
                 }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Se ha producido un error inesperado: " + e);
+                return false;
+                throw;
+            }
+        }
+
+        internal bool unassignTeam(int idUser)
+        {
+            try
+            {
+                TeamsRepository teams = new TeamsRepository();
+                User user = getUserById(idUser);
+                //teams.decrementTeamMembers(user.AsignedTeam);
+                user.AsignedTeam = 0;
+                context.Update(user);
+                context.SaveChanges();
+                return true;
+
             }
             catch (Exception e)
             {

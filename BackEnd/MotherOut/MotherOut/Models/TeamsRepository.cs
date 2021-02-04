@@ -262,5 +262,25 @@ namespace MotherOut_BackEnd.Models
 
         #endregion
 
+      // internal bool decrementTeamMembers(int idTeam)
+      // {
+      //     try
+      //     {
+      //         Team team = context.Teams.Where(idT => idT.TeamId == idTeam).FirstOrDefault();
+      //         team.TeamMembers -= 1;
+      //         context.Teams.Update(team);
+      //         context.SaveChanges();
+      //         return true;
+      //
+      //     }
+      //     catch (Exception e)
+      //     {
+      //         Console.WriteLine("Se ha producido un error inesperado: " + e);
+      //         return false;
+      //         throw;
+      //     }
+      //
+      // }
+
     }
 }

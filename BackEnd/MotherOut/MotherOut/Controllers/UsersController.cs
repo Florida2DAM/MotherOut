@@ -44,9 +44,14 @@ namespace MotherOut_BackEnd.Controllers
         }
 
         // PUT: api/Users/5
-        public bool PutCompletUserHelp(int idUser, int idTeam, bool help)
+        public bool PutCompletUserHelp(int idUser, bool help)
         {
-            return repo.updateUserHelp(idUser, idTeam, help);
+            return repo.updateUserHelp(idUser, help);
+        }
+
+        public bool PutUnassignUser(int idUser)
+        {
+            return repo.unassignTeam(idUser);
         }
 
         // DELETE: api/Users/5
