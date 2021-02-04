@@ -99,15 +99,15 @@ namespace MotherOut_BackEnd.Models
                     //check = checkEmail(email);
                     //if (check)
                     //{
-                        user.Email = email;
-                        user.Name = name;
-                        user.Password = password;
-                        return true;
-                 //   }
-                 //   else
-                 //   {
-                 //       return false;
-                 //   }
+                    user.Email = email;
+                    user.Name = name;
+                    user.Password = password;
+                    return true;
+                    //   }
+                    //   else
+                    //   {
+                    //       return false;
+                    //   }
                 }
             }
             catch (Exception e)
@@ -121,9 +121,9 @@ namespace MotherOut_BackEnd.Models
         internal int saveUser(User user)
         {
             int state;
-            //bool check = checkEmail(email);
-            //if (check == true)
-            
+            bool check = checkEmail(user.Email);
+            if (check == true)
+            {
                 try
                 {
                     context.Users.Add(user);
@@ -134,11 +134,14 @@ namespace MotherOut_BackEnd.Models
                 {
                     Console.WriteLine("Se ha producido un error inesperado: " + e);
                     state = 0;
-                    throw;              
+                    throw;
                 }
-
+            }
+            else
+            {
+                state = 2;
+            }
             return state;
-
         }
 
         internal User getUserById(int idUser)
@@ -179,27 +182,27 @@ namespace MotherOut_BackEnd.Models
             }
         }
 
-  //     internal bool checkEmail(string email)
-  //     {
-  //         try
-  //         {
-  //            User user = new User();
-  //            user = context.Users.Where(s => s.Email == email).FirstOrDefault();
-  //            if (user != null)
-  //            {
-  //                return true;
-  //            }
-  //            else
-  //            {
-  //                return false;
-  //            }
-  //        }
-  //        catch (Exception e)
-  //        {
-  //            Console.WriteLine("Se ha producido un error inesperado: " + e);
-  //            return false;
-  //            throw;
-  //        }
-  //    }
+        internal bool checkEmail(string email)
+        {
+            try
+            {
+                User user = new User();
+                user = context.Users.Where(s => s.Email == email).FirstOrDefault();
+                if (user != null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Se ha producido un error inesperado: " + e);
+                return false;
+                throw;
+            }
+        }
     }
 }

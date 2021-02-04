@@ -11,7 +11,6 @@ namespace MotherOut_BackEnd.Models
         [Key]
         public int PredifId { get; set; }
         public int TaskScore { get; set; }
-        public byte[] TaskIcon { get; set; }
         public string TaskName { get; set; }
     }
 }
