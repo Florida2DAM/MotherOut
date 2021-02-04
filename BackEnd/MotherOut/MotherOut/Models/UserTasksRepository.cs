@@ -130,8 +130,9 @@ namespace MotherOut_BackEnd.Models
 
         internal bool randomAsignment(int idTeam)
         {
+            UsersRepository usersRepository = new UsersRepository();
             List<UserTask> userTasks = showTask(idTeam);
-            List<User> users = new List<User>(); //showUserByteam(idTeam);
+            List<User> users = usersRepository.showUserByteam(idTeam);
             Random randNum = new Random();
             bool correctAsingnment = true;
 
