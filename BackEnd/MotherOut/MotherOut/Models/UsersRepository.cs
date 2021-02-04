@@ -211,7 +211,7 @@ namespace MotherOut_BackEnd.Models
             {
                 TeamsRepository teams = new TeamsRepository();
                 User user = getUserById(idUser);
-                //teams.decrementTeamMembers(user.AsignedTeam);
+                /*teams.decrementTeamMembers(user.AsignedTeam);*/
                 user.AsignedTeam = 0;
                 context.Update(user);
                 context.SaveChanges();
