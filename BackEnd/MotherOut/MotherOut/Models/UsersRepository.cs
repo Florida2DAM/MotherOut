@@ -81,7 +81,7 @@ namespace MotherOut_BackEnd.Models
         }
 
 
-        internal bool updateUser(int idUser, int idTeam, string email, string name, string password)
+        internal bool updateUser(int idUser, string email, string name, string password)
         {
             bool check;
             try
@@ -92,6 +92,8 @@ namespace MotherOut_BackEnd.Models
                 {
                     user.Name = name;
                     user.Password = password;
+                    context.Update(user);
+                    context.SaveChanges();
                     return true;
                 }
                 else
@@ -102,6 +104,8 @@ namespace MotherOut_BackEnd.Models
                     user.Email = email;
                     user.Name = name;
                     user.Password = password;
+                    context.Update(user);
+                    context.SaveChanges();
                     return true;
                     //   }
                     //   else
