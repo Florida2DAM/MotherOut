@@ -25,7 +25,7 @@ namespace MotherOut_BackEnd.Models
 
         }
 
-        internal bool updateUserScoreAndNumTask(int idUser, int nTask, int idTask, bool done, int taskScore)
+        internal bool updateUserScoreAndNumTask(int idUser, int idTask, bool done)
         {
             try
             {
@@ -60,7 +60,7 @@ namespace MotherOut_BackEnd.Models
             }
         }
 
-        internal bool updateUserHelp(int idUser, int idTeam, bool help)
+        internal bool updateUserHelp(int idUser, bool help)
         {
             User user = new User();
 
@@ -81,7 +81,7 @@ namespace MotherOut_BackEnd.Models
         }
 
 
-        internal bool updateUser(int idUser, int idTeam, string email, string name, string password)
+        internal bool updateUser(int idUser, string email, string name, string password)
         {
             bool check;
             try
@@ -92,6 +92,8 @@ namespace MotherOut_BackEnd.Models
                 {
                     user.Name = name;
                     user.Password = password;
+                    context.Update(user);
+                    context.SaveChanges();
                     return true;
                 }
                 else
@@ -99,15 +101,17 @@ namespace MotherOut_BackEnd.Models
                     //check = checkEmail(email);
                     //if (check)
                     //{
-                        user.Email = email;
-                        user.Name = name;
-                        user.Password = password;
-                        return true;
-                 //   }
-                 //   else
-                 //   {
-                 //       return false;
-                 //   }
+                    user.Email = email;
+                    user.Name = name;
+                    user.Password = password;
+                    context.Update(user);
+                    context.SaveChanges();
+                    return true;
+                    //   }
+                    //   else
+                    //   {
+                    //       return false;
+                    //   }
                 }
             }
             catch (Exception e)
@@ -121,9 +125,9 @@ namespace MotherOut_BackEnd.Models
         internal int saveUser(User user)
         {
             int state;
-            //bool check = checkEmail(email);
-            //if (check == true)
-            
+            bool check = checkEmail(user.Email);
+            if (check == true)
+            {
                 try
                 {
                     context.Users.Add(user);
@@ -134,11 +138,14 @@ namespace MotherOut_BackEnd.Models
                 {
                     Console.WriteLine("Se ha producido un error inesperado: " + e);
                     state = 0;
-                    throw;              
+                    throw;
                 }
-
+            }
+            else
+            {
+                state = 2;
+            }
             return state;
-
         }
 
         internal User getUserById(int idUser)
@@ -179,27 +186,47 @@ namespace MotherOut_BackEnd.Models
             }
         }
 
-  //     internal bool checkEmail(string email)
-  //     {
-  //         try
-  //         {
-  //            User user = new User();
-  //            user = context.Users.Where(s => s.Email == email).FirstOrDefault();
-  //            if (user != null)
-  //            {
-  //                return true;
-  //            }
-  //            else
-  //            {
-  //                return false;
-  //            }
-  //        }
-  //        catch (Exception e)
-  //        {
-  //            Console.WriteLine("Se ha producido un error inesperado: " + e);
-  //            return false;
-  //            throw;
-  //        }
-  //    }
+        internal bool checkEmail(string email)
+        {
+            try
+            {
+                User user = new User();
+                List<User> users = context.Users.ToList();
+
+                foreach (User userItem in users)
+                {
+                    if (userItem.Email.Equals(email)) return false; ;
+
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Se ha producido un error inesperado: " + e);
+                return false;
+                throw;
+            }
+        }
+
+        internal bool unassignTeam(int idUser)
+        {
+            try
+            {
+                TeamsRepository teams = new TeamsRepository();
+                User user = getUserById(idUser);
+                /*teams.decrementTeamMembers(user.AsignedTeam);*/
+                user.AsignedTeam = 0;
+                context.Update(user);
+                context.SaveChanges();
+                return true;
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Se ha producido un error inesperado: " + e);
+                return false;
+                throw;
+            }
+        }
     }
 }
