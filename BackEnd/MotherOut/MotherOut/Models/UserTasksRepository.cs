@@ -130,6 +130,7 @@ namespace MotherOut_BackEnd.Models
 
         internal bool randomAsignment(int idTeam)
         {
+            //review
             UsersRepository usersRepository = new UsersRepository();
             List<UserTask> userTasks = showTask(idTeam);
             List<User> users = usersRepository.showUserByteam(idTeam);
@@ -139,7 +140,7 @@ namespace MotherOut_BackEnd.Models
             try
             {
                 int possRep = -1;
-                //do
+                do
                 {
                     int poss = randNum.Next(0, users.Count - 1);
                     if (poss != possRep)
