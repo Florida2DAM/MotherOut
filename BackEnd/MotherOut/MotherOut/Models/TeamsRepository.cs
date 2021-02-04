@@ -23,9 +23,11 @@ namespace MotherOut_BackEnd.Models
 
         internal bool saveNewTeam(Team newTeam, int idUser)
         {
+            UserTasksRepository userTasks = new UserTasksRepository();
 
             try
             {
+                newTeam.UserId = idUser;
                 context.Teams.Add(newTeam);
                 context.SaveChanges();
 
@@ -33,12 +35,13 @@ namespace MotherOut_BackEnd.Models
                 {
                     if (asignedIdTeam(newTeam.TeamId, idUser))
                     {
-                        newTeam.TeamMembers += 1;
+
                         context.Update(newTeam);
                         context.SaveChanges();
 
                         if (getUserMaster(idUser))
                         {
+                            userTasks.createDefaultTask(newTeam.TeamId);
 
                             return true;
 
@@ -195,17 +198,28 @@ namespace MotherOut_BackEnd.Models
         {
             try
             {
-                User newUser = context.Users.Where(idT => idT.UserId == idUser).FirstOrDefault();
-
-
-                if (newUser != null)
+                if (checkIdTeam(idTeam))
                 {
-                    newUser.AsignedTeam = idTeam;
-                    newUser.UserMaster = false;
-                    context.Users.Update(newUser);
-                    context.SaveChanges();
-                    return true;
+                    User newUser = context.Users.Where(idT => idT.UserId == idUser).FirstOrDefault();
+                    Team team = context.Teams.Where(idT => idT.TeamId == idTeam).FirstOrDefault();
 
+                    if (newUser != null)
+                    {
+
+                        newUser.AsignedTeam = idTeam;
+                        newUser.UserMaster = false;
+                        context.Users.Update(newUser);
+                        context.SaveChanges();
+                        team.TeamMembers += 1;
+                        context.Teams.Update(team);
+                        context.SaveChanges();
+                        return true;
+
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else
                 {
@@ -231,7 +245,7 @@ namespace MotherOut_BackEnd.Models
         /// <param name="idUser"></param>
         /// <returns></returns>
 
-        internal bool getUserMaster (int idUser)
+        internal bool getUserMaster(int idUser)
         {
             try
             {
@@ -258,6 +272,30 @@ namespace MotherOut_BackEnd.Models
                 return false;
                 throw;
             }
+        }
+
+        #endregion
+
+        #region decrementTeamMembers
+
+        internal bool decrementTeamMembers(int idTeam)
+        {
+            try
+            {
+                Team team = context.Teams.Where(idT => idT.TeamId == idTeam).FirstOrDefault();
+                team.TeamMembers -= 1;
+                context.Teams.Update(team);
+                context.SaveChanges();
+                return true;
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Se ha producido un error inesperado: " + e);
+                return false;
+                throw;
+            }
+            
         }
 
         #endregion
