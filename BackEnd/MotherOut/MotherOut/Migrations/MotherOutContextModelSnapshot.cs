@@ -26,12 +26,7 @@ namespace MotherOut.Migrations
                     b.Property<byte[]>("IconImage")
                         .HasColumnType("longblob");
 
-                    b.Property<int>("UserTaskId")
-                        .HasColumnType("int");
-
                     b.HasKey("IconId");
-
-                    b.HasIndex("UserTaskId");
 
                     b.ToTable("Icons");
                 });
@@ -51,19 +46,14 @@ namespace MotherOut.Migrations
                     b.Property<int>("TaskScore")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserTaskId")
-                        .HasColumnType("int");
-
                     b.HasKey("PredifId");
-
-                    b.HasIndex("UserTaskId");
 
                     b.ToTable("PreDefinedTasks");
                 });
 
             modelBuilder.Entity("MotherOut_BackEnd.Models.Team", b =>
                 {
-                    b.Property<int>("IdTeam")
+                    b.Property<int>("TeamId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
@@ -73,7 +63,12 @@ namespace MotherOut.Migrations
                     b.Property<string>("TeamName")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.HasKey("IdTeam");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("TeamId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Teams");
                 });
@@ -82,6 +77,9 @@ namespace MotherOut.Migrations
                 {
                     b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("AsignedTeam")
                         .HasColumnType("int");
 
                     b.Property<byte[]>("Avatar")
@@ -99,8 +97,8 @@ namespace MotherOut.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<int>("TeamId")
-                        .HasColumnType("int");
+                    b.Property<string>("Password")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<bool>("UserMaster")
                         .HasColumnType("tinyint(1)");
@@ -108,13 +106,7 @@ namespace MotherOut.Migrations
                     b.Property<int>("UserScore")
                         .HasColumnType("int");
 
-                    b.Property<string>("password")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
                     b.HasKey("UserId");
-
-                    b.HasIndex("TeamId")
-                        .IsUnique();
 
                     b.ToTable("Users");
                 });
@@ -127,9 +119,6 @@ namespace MotherOut.Migrations
 
                     b.Property<bool>("Done")
                         .HasColumnType("tinyint(1)");
-
-                    b.Property<int>("IdTeam")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("SelectDay")
                         .HasColumnType("datetime(6)");
@@ -146,48 +135,33 @@ namespace MotherOut.Migrations
                     b.Property<int>("TaskScore")
                         .HasColumnType("int");
 
+                    b.Property<int>("TeamId")
+                        .HasColumnType("int");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("UserTaskId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("TeamId");
 
                     b.ToTable("UserTasks");
                 });
 
-            modelBuilder.Entity("MotherOut_BackEnd.Models.Icon", b =>
+            modelBuilder.Entity("MotherOut_BackEnd.Models.Team", b =>
                 {
-                    b.HasOne("MotherOut_BackEnd.Models.UserTask", "UserTask")
-                        .WithMany("Icons")
-                        .HasForeignKey("UserTaskId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("MotherOut_BackEnd.Models.PreDefinedTask", b =>
-                {
-                    b.HasOne("MotherOut_BackEnd.Models.UserTask", "Task")
-                        .WithMany("PreDefinedTasks")
-                        .HasForeignKey("UserTaskId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("MotherOut_BackEnd.Models.User", b =>
-                {
-                    b.HasOne("MotherOut_BackEnd.Models.Team", "Team")
-                        .WithOne("User")
-                        .HasForeignKey("MotherOut_BackEnd.Models.User", "TeamId")
+                    b.HasOne("MotherOut_BackEnd.Models.User", "User")
+                        .WithMany("Teams")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("MotherOut_BackEnd.Models.UserTask", b =>
                 {
-                    b.HasOne("MotherOut_BackEnd.Models.User", "User")
+                    b.HasOne("MotherOut_BackEnd.Models.Team", "Team")
                         .WithMany("UserTasks")
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("TeamId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

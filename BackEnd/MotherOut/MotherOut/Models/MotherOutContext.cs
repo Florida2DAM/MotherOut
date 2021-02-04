@@ -37,10 +37,6 @@ namespace MotherOut_BackEnd.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>()
-                .HasOne(a => a.Team)
-                .WithOne(b => b.User)
-                .HasForeignKey<User>(b => b.TeamId);
         }
     }
 }

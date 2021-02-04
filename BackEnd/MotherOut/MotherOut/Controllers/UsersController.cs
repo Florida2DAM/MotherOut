@@ -26,9 +26,9 @@ namespace MotherOut_BackEnd.Controllers
         }
 
         // POST: api/Users
-        public int Post(string nameUser, string email, string password)
+        public int Post(User user)
         {            
-            return repo.saveUser(nameUser, email, password);            
+            return repo.saveUser(user);            
         }
 
         // PUT: api/Users/5

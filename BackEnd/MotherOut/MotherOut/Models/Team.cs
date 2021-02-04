@@ -9,11 +9,15 @@ namespace MotherOut_BackEnd.Models
     public class Team
     {
         [Key]
-        public int IdTeam { get; set; }
+        public int TeamId { get; set; }
         public String TeamName { get; set; }
         public int TeamMembers { get; set; }
 
+        public int UserId { get; set; }
         public User User { get; set; }
+
+        //ref Tasks
+        public List<UserTask> UserTasks { get; set; }
 
     }
 }

@@ -14,7 +14,7 @@ namespace MotherOut_BackEnd.Models
         {
             try
             {
-                List<UserTask> userTasks = context.UserTasks.Where(u => u.IdTeam == IdTeam).ToList();
+                List<UserTask> userTasks = context.UserTasks.Where(u => u.TeamId == IdTeam).ToList();
                 return userTasks;
             }
             catch (Exception e)
@@ -29,7 +29,7 @@ namespace MotherOut_BackEnd.Models
         {
             try
             {
-                List<UserTask> userTasks = context.UserTasks.Where(u => u.IdTeam == idTeam && u.UserId == idUser).ToList();
+                List<UserTask> userTasks = context.UserTasks.Where(u => u.TeamId == idTeam && u.UserId == idUser).ToList();
                 return userTasks;
             }
             catch (Exception e)
@@ -70,7 +70,7 @@ namespace MotherOut_BackEnd.Models
                     UserTask userTask = new UserTask();
                     userTask.TaskScore = preDefinedTask.TaskScore;
                     userTask.TaskName = preDefinedTask.TaskName;
-                    userTask.IdTeam = IdTeam;
+                    userTask.TeamId = IdTeam;
                     userTask.TaskIcon = iconPreDefined.IconImage;
 
                     context.UserTasks.Add(userTask);

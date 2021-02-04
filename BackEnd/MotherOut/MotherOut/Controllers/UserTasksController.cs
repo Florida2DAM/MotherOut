@@ -35,7 +35,6 @@ namespace MotherOut_BackEnd.Controllers
             repo.createDefaultTask(IdTeam);
         }
 
-
         // POST: api/UserTasks
         public void Post([FromBody] UserTask user)
         {

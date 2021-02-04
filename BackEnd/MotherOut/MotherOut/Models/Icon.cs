@@ -11,8 +11,5 @@ namespace MotherOut_BackEnd.Models
         [Key]
         public int IconId { get; set; }
         public byte[] IconImage { get; set; }
-
-        public int UserTaskId { get; set; }
-        public UserTask UserTask { get; set; }
     }
 }

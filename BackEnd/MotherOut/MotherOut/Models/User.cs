@@ -8,20 +8,19 @@ namespace MotherOut_BackEnd.Models
 {
     public class User
     {
-        public User(int userId, string name, byte[] avatar, string email, string password, int nTaks, bool userMaster, int userScore, int teamId, bool help, Team team, List<UserTask> userTasks)
+        public User(int userId, string name, byte[] avatar, string email, string password, int nTaks, bool userMaster, int userScore, int teamId, bool help, List<Team> team)
         {
             UserId = userId;
             Name = name;
             Avatar = avatar;
             Email = email;
-            this.password = password;
+            Password = password;
             NTaks = nTaks;
             UserMaster = userMaster;
             UserScore = userScore;
-            TeamId = teamId;
+            AsignedTeam = teamId;
             Help = help;
-            Team = team;
-            UserTasks = userTasks;
+            Teams = team;
         }
 
         public User()
@@ -33,17 +32,14 @@ namespace MotherOut_BackEnd.Models
         public string Name { get; set; }
         public byte[] Avatar { get; set; }
         public string Email { get; set; }
-        public string password { get; set; }
+        public string Password { get; set; }
         public int NTaks { get; set; }
         public bool UserMaster { get; set; }
         public int UserScore { get; set; }
-        public int TeamId { get; set; }
-        //public int UserState { get; set; }
+        public int AsignedTeam { get; set; }
         public bool Help { get; set; }
 
         //ref Team
-        public Team Team { get; set; }
-        //ref Tasks
-        public List<UserTask> UserTasks { get; set; }
+        public List<Team> Teams { get; set; }
     }
 }

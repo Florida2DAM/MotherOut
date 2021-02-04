@@ -29,9 +29,9 @@ namespace MotherOut_BackEnd.Models
                 context.Teams.Add(newTeam);
                 context.SaveChanges();
 
-                if (checkIdTeam(newTeam.IdTeam))
+                if (checkIdTeam(newTeam.TeamId))
                 {
-                    if (asignedIdTeam(newTeam.IdTeam, idUser))
+                    if (asignedIdTeam(newTeam.TeamId, idUser))
                     {
                         newTeam.TeamMembers += 1;
                         context.Update(newTeam);
@@ -82,7 +82,7 @@ namespace MotherOut_BackEnd.Models
         {
             try
             {
-                Team team = context.Teams.Where(idT => idT.IdTeam == idTeam).FirstOrDefault();
+                Team team = context.Teams.Where(idT => idT.TeamId == idTeam).FirstOrDefault();
 
                 if (team != null)
                 {
@@ -118,7 +118,7 @@ namespace MotherOut_BackEnd.Models
 
             try
             {
-                Team team = context.Teams.Where(idT => idT.IdTeam == idTeam).FirstOrDefault();
+                Team team = context.Teams.Where(idT => idT.TeamId == idTeam).FirstOrDefault();
 
                 if (team != null)
                 {
@@ -155,7 +155,7 @@ namespace MotherOut_BackEnd.Models
         {
             try
             {
-                Team team = context.Teams.Where(idT => idT.IdTeam == idTeam).FirstOrDefault();
+                Team team = context.Teams.Where(idT => idT.TeamId == idTeam).FirstOrDefault();
 
                 if (team != null)
                 {
@@ -200,7 +200,7 @@ namespace MotherOut_BackEnd.Models
 
                 if (newUser != null)
                 {
-                    newUser.TeamId = idTeam;
+                    newUser.AsignedTeam = idTeam;
                     newUser.UserMaster = false;
                     context.Users.Update(newUser);
                     context.SaveChanges();

@@ -18,7 +18,7 @@ namespace MotherOut_BackEnd.Models
             //{
             List<User> users = new List<User>();
 
-            users = context.Users.Where(s => s.TeamId == idTeam)
+            users = context.Users.Where(s => s.AsignedTeam == idTeam)
                 .ToList();
             return users;
             //}            
@@ -91,23 +91,23 @@ namespace MotherOut_BackEnd.Models
                 if (user.Email == email)
                 {
                     user.Name = name;
-                    user.password = password;
+                    user.Password = password;
                     return true;
                 }
                 else
                 {
-                    check = checkEmail(email);
-                    if (check)
-                    {
+                    //check = checkEmail(email);
+                    //if (check)
+                    //{
                         user.Email = email;
                         user.Name = name;
-                        user.password = password;
+                        user.Password = password;
                         return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
+                 //   }
+                 //   else
+                 //   {
+                 //       return false;
+                 //   }
                 }
             }
             catch (Exception e)
@@ -118,25 +118,14 @@ namespace MotherOut_BackEnd.Models
             }
         }
 
-        internal int saveUser(string name, string email, string password)
+        internal int saveUser(User user)
         {
             int state;
-            bool check = checkEmail(email);
-            if (check == true)
-            {
+            //bool check = checkEmail(email);
+            //if (check == true)
+            
                 try
                 {
-                    User user = new User();
-
-                    user.Name = name;
-                    user.Avatar = null;
-                    user.Email = email;
-                    user.NTaks = 0;
-                    user.UserMaster = false;
-                    user.UserScore = 0;
-                    user.Help = true;
-                    user.TeamId = 2;
-
                     context.Users.Add(user);
                     context.SaveChanges();
                     state = 1;
@@ -144,14 +133,10 @@ namespace MotherOut_BackEnd.Models
                 catch (Exception e)
                 {
                     Console.WriteLine("Se ha producido un error inesperado: " + e);
-                    throw;
                     state = 0;
+                    throw;              
                 }
-            }
-            else
-            {
-                state = 3;
-            }
+
             return state;
 
         }
@@ -194,27 +179,27 @@ namespace MotherOut_BackEnd.Models
             }
         }
 
-        internal bool checkEmail(string email)
-        {
-            try
-            {
-                User user = new User();
-                user = context.Users.Where(s => s.Email == email).FirstOrDefault();
-                if (user != null)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Se ha producido un error inesperado: " + e);
-                return false;
-                throw;
-            }
-        }
+  //     internal bool checkEmail(string email)
+  //     {
+  //         try
+  //         {
+  //            User user = new User();
+  //            user = context.Users.Where(s => s.Email == email).FirstOrDefault();
+  //            if (user != null)
+  //            {
+  //                return true;
+  //            }
+  //            else
+  //            {
+  //                return false;
+  //            }
+  //        }
+  //        catch (Exception e)
+  //        {
+  //            Console.WriteLine("Se ha producido un error inesperado: " + e);
+  //            return false;
+  //            throw;
+  //        }
+  //    }
     }
 }

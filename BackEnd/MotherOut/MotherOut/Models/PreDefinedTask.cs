@@ -13,8 +13,5 @@ namespace MotherOut_BackEnd.Models
         public int TaskScore { get; set; }
         public byte[] TaskIcon { get; set; }
         public string TaskName { get; set; }
-
-        public int UserTaskId { get; set; }
-        public UserTask Task { get; set; }
     }
 }
