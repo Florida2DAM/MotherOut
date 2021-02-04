@@ -35,7 +35,7 @@ namespace MotherOut_BackEnd.Models
                 {
                     if (asignedIdTeam(newTeam.TeamId, idUser))
                     {
-                        newTeam.TeamMembers += 1;
+
                         context.Update(newTeam);
                         context.SaveChanges();
 
@@ -198,17 +198,28 @@ namespace MotherOut_BackEnd.Models
         {
             try
             {
-                User newUser = context.Users.Where(idT => idT.UserId == idUser).FirstOrDefault();
-
-
-                if (newUser != null)
+                if (checkIdTeam(idTeam))
                 {
-                    newUser.AsignedTeam = idTeam;
-                    newUser.UserMaster = false;
-                    context.Users.Update(newUser);
-                    context.SaveChanges();
-                    return true;
+                    User newUser = context.Users.Where(idT => idT.UserId == idUser).FirstOrDefault();
+                    Team team = context.Teams.Where(idT => idT.TeamId == idTeam).FirstOrDefault();
 
+                    if (newUser != null)
+                    {
+
+                        newUser.AsignedTeam = idTeam;
+                        newUser.UserMaster = false;
+                        context.Users.Update(newUser);
+                        context.SaveChanges();
+                        team.TeamMembers += 1;
+                        context.Teams.Update(team);
+                        context.SaveChanges();
+                        return true;
+
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else
                 {
@@ -234,7 +245,7 @@ namespace MotherOut_BackEnd.Models
         /// <param name="idUser"></param>
         /// <returns></returns>
 
-        internal bool getUserMaster (int idUser)
+        internal bool getUserMaster(int idUser)
         {
             try
             {

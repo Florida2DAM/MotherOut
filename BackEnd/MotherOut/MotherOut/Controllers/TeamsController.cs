@@ -34,10 +34,17 @@ namespace MotherOut_BackEnd.Controllers
         }
 
         // PUT: api/Teams/5
-        public bool Put(int idTeam, [FromBody] string newTeamName)
+        public bool Put(int idTeam, string newTeamName)
         {
             var repo = new TeamsRepository();
             bool updated = repo.updateTeamName(idTeam, newTeamName);
+            return updated;
+        }
+
+        public bool Put(int idTeam, int idUser)
+        {
+            var repo = new TeamsRepository();
+            bool updated = repo.asignedIdTeam(idTeam, idUser);
             return updated;
         }
 
