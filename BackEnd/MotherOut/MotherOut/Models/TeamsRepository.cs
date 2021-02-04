@@ -23,9 +23,11 @@ namespace MotherOut_BackEnd.Models
 
         internal bool saveNewTeam(Team newTeam, int idUser)
         {
+            UserTasksRepository userTasks = new UserTasksRepository();
 
             try
             {
+                newTeam.UserId = idUser;
                 context.Teams.Add(newTeam);
                 context.SaveChanges();
 
@@ -39,6 +41,7 @@ namespace MotherOut_BackEnd.Models
 
                         if (getUserMaster(idUser))
                         {
+                            userTasks.createDefaultTask(newTeam.TeamId);
 
                             return true;
 
