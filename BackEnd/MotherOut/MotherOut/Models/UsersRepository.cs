@@ -25,7 +25,7 @@ namespace MotherOut_BackEnd.Models
 
         }
 
-        internal bool updateUserScoreAndNumTask(int idUser, int nTask, int idTask, bool done, int taskScore)
+        internal bool updateUserScoreAndNumTask(int idUser, int idTask, bool done)
         {
             try
             {
