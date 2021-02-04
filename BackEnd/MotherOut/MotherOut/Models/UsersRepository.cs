@@ -187,15 +187,14 @@ namespace MotherOut_BackEnd.Models
             try
             {
                 User user = new User();
-                user = context.Users.Where(s => s.Email == email).FirstOrDefault();
-                if (user != null)
+                List<User> users = context.Users.ToList();
+
+                foreach (User userItem in users)
                 {
-                    return true;
+                    if (userItem.Email.Equals(email)) return false; ;
+
                 }
-                else
-                {
-                    return false;
-                }
+                return true;
             }
             catch (Exception e)
             {
