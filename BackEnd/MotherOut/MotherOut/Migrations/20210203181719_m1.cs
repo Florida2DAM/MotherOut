@@ -62,7 +62,7 @@ namespace MotherOut.Migrations
                     TaskIcon = table.Column<byte[]>(nullable: true),
                     Done = table.Column<bool>(nullable: false),
                     TaskName = table.Column<string>(nullable: true),
-                    UserId = table.Column<int>(nullable: false)
+                    UserId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -82,7 +82,7 @@ namespace MotherOut.Migrations
                     IconId = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     IconImage = table.Column<byte[]>(nullable: true),
-                    UserTaskId = table.Column<int>(nullable: false)
+                    UserTaskId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -104,7 +104,7 @@ namespace MotherOut.Migrations
                     TaskScore = table.Column<int>(nullable: false),
                     TaskIcon = table.Column<byte[]>(nullable: true),
                     TaskName = table.Column<string>(nullable: true),
-                    UserTaskId = table.Column<int>(nullable: false)
+                    UserTaskId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {

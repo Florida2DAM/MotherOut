@@ -39,7 +39,6 @@ namespace MotherOut_BackEnd.Models
             }
         }
 
-
         internal bool createTask(UserTask userTask)
         {
             try
