@@ -32,15 +32,15 @@ namespace MotherOut_BackEnd.Controllers
         }
 
         // PUT: api/Users/5
-        public bool Put(int idUser, int nTask, int idTask, bool done, int taskScore)
+        public bool Put(int idUser, int idTask, bool done)
         {
-           return repo.updateUserScoreAndNumTask(idUser, nTask, idTask, done, taskScore);
+           return repo.updateUserScoreAndNumTask(idUser, idTask, done);
         }
 
         // PUT: api/Users/5
-        public bool PutCompletUser(int idUser, int idTeam, string email, string name, string password)
+        public bool PutCompletUser(int idUser, string email, string name, string password)
         {
-            return repo.updateUser(idUser, idTeam, email, name, password);
+            return repo.updateUser(idUser, email, name, password);
         }
 
         // PUT: api/Users/5

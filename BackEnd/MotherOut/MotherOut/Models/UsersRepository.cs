@@ -25,7 +25,7 @@ namespace MotherOut_BackEnd.Models
 
         }
 
-        internal bool updateUserScoreAndNumTask(int idUser, int nTask, int idTask, bool done, int taskScore)
+        internal bool updateUserScoreAndNumTask(int idUser, int idTask, bool done)
         {
             try
             {
@@ -81,7 +81,7 @@ namespace MotherOut_BackEnd.Models
         }
 
 
-        internal bool updateUser(int idUser, int idTeam, string email, string name, string password)
+        internal bool updateUser(int idUser, string email, string name, string password)
         {
             bool check;
             try
@@ -92,6 +92,8 @@ namespace MotherOut_BackEnd.Models
                 {
                     user.Name = name;
                     user.Password = password;
+                    context.Update(user);
+                    context.SaveChanges();
                     return true;
                 }
                 else
@@ -102,6 +104,8 @@ namespace MotherOut_BackEnd.Models
                     user.Email = email;
                     user.Name = name;
                     user.Password = password;
+                    context.Update(user);
+                    context.SaveChanges();
                     return true;
                     //   }
                     //   else
@@ -187,15 +191,14 @@ namespace MotherOut_BackEnd.Models
             try
             {
                 User user = new User();
-                user = context.Users.Where(s => s.Email == email).FirstOrDefault();
-                if (user != null)
+                List<User> users = context.Users.ToList();
+
+                foreach (User userItem in users)
                 {
-                    return true;
+                    if (userItem.Email.Equals(email)) return false; ;
+
                 }
-                else
-                {
-                    return false;
-                }
+                return true;
             }
             catch (Exception e)
             {
