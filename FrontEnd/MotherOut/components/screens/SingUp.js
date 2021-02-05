@@ -32,6 +32,11 @@ import {
 } from 'react-native-elements';
 
 
+import imagen from '../../assets/logo.png'
+
+const picture = Image.resolveAssetSource(imagen).uri;
+
+
 class SingUp extends Component {
 
     render() {
@@ -39,10 +44,10 @@ class SingUp extends Component {
             <>
                 <View style={styles.contenidor}>
                 <ScrollView>
-                    <View style={{ alignSelf: 'center', marginTop: 30, marginBottom: 50 }}>
+                    <View style={styles.pictures}>
                         <Image
-                            style={{ width: 270, height: 270 }}
-                            source={{ uri: 'https://ep00.epimg.net/elpais/imagenes/2014/10/08/buenavida/1412766626_849373_1412938902_noticia_normal.jpg' }}
+                            style={{ width: 310, height: 270  }}
+                            source={{ uri: picture }}
                         />
                     </View>
                     
@@ -68,7 +73,7 @@ class SingUp extends Component {
                         />
                     </View>
                    
-                    <View style={{  marginTop: 90, marginBottom: 10 }} >
+                    <View style={{  marginTop: 140, marginBottom: 0 }} >
                         <Button
                             title="Create Account"
                         />
@@ -93,6 +98,11 @@ const styles = StyleSheet.create({
 
 
     },
+    pictures:{
+        alignSelf: 'center',
+         marginTop: 30, 
+         marginBottom: 10 
+    }
     
 });
 

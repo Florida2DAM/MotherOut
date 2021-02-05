@@ -3,7 +3,7 @@
  */
 
 import {AppRegistry} from 'react-native';
-import TaskAssignment from './components/screens/TaskAssignment';
+import ManualAssignment from './components/screens/ManualAssignment';
 import {name as appName} from './app.json';
 
-AppRegistry.registerComponent(appName, () => TaskAssignment);
+AppRegistry.registerComponent(appName, () => ManualAssignment);
