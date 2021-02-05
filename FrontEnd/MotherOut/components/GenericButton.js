@@ -41,6 +41,6 @@ const styles = StyleSheet.create({
         fontSize: 23,
         fontFamily: 'Roboto',
         color: 'white',
-        fontWeight:"bold"
+        fontWeight:"bold",
     },
 });

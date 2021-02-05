@@ -50,9 +50,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     viewIcon: {
-        flex: 0.4,
+        flex: 1,
         flexDirection: 'row',
         justifyContent: "space-evenly",
     },
-
 });
