@@ -7,7 +7,7 @@
  */
 
 import React, {Component} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {GenericInput1} from './components/GenericInput1';
@@ -15,24 +15,33 @@ import {GenericInput1} from './components/GenericInput1';
 class App extends Component {
 constructor(props) {
     super(props);
+    this.state={
+        email : null,
+        password:null
+    }
 
 }
+    changeEmail(text){
+    this.setState({email: text});
+}
+    changePassword(text){
+    this.setState({password: text});
+    }
     render() {
         return (
             <>
                 <View style={styles.backGround}>
                     <View style={{flex: 1, backgroundColor: 'pink'}}></View>
                     <View style={{flex: 1}}>
-                        <GenericInput1 value={'Email'} passValue={false}/>
-                        <GenericInput1 value={'Password'} passValue={true}/>
+                        <GenericInput1 placeHolder={'Email'} passValue={false} value={this.state.email} onChange={text => this.changeEmail(text) }/>
+                        <GenericInput1 placeHolder={'Password'} passValue={true} value={this.state.password} onChange={text=>this.changePassword(text)}/>
+                        <Text>{this.state.password}</Text>
                     </View>
                     <View style={{flex: 1, backgroundColor: 'grey'}}></View>
-
                 </View>
             </>
         );
     }
-
 }
 
 const styles = StyleSheet.create({

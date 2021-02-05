@@ -10,8 +10,8 @@ export class GenericInput1 extends Component{
     render(){
         return(
             <Input inputStyle={styles.personalInput} inputContainerStyle={styles.personalInput2}
-                   placeholder={this.props.value} secureTextEntry={this.props.passValue}
-                   placeholderTextColor='black'/>
+                   placeholder={this.props.placeHolder} secureTextEntry={this.props.passValue}
+                   placeholderTextColor='black' onChangeText={this.props.onChange} value={this.props.value}/>
         )
     }
 }
