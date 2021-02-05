@@ -18,11 +18,13 @@ export class GenericInput1 extends Component{
 const styles = StyleSheet.create({
     personalInput: {
         backgroundColor: '#90A8C3',
+        fontFamily:'roboto'
     },
     personalInput2: {
         borderBottomColor: '#D7B9D5',
         margin: 10,
         width: 375,
         paddingLeft: 8,
+        fontFamily:'roboto'
     }
 })
