@@ -65,7 +65,7 @@ class Login extends Component {
                             onChangeText={value => this.setState({ comment: value })}
                         />
                     </View>
-                    <View style={{  marginTop: 20, marginBottom: 30 }} >
+                    <View style={styles.button1} >
                         <Button
                             title="Log In"
                         />
@@ -73,7 +73,7 @@ class Login extends Component {
                     <View style={{ alignSelf: 'center',}}>
                         <Text>Don't have a login?</Text>
                     </View>
-                    <View style={{  marginTop: 20, marginBottom: 30 }} >
+                    <View style={styles.button2} >
                         <Button
                             title="Sign Up"
                         />
@@ -103,7 +103,17 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
          marginTop: 30, 
          marginBottom: 10 
+    },
+    button1:{
+        marginTop: 20,
+        marginBottom: 30,
+    },
+    button2:{
+        marginTop: 20,
+        marginBottom: 30,
     }
+
+    
     
 });
 

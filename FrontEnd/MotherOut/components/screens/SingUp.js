@@ -73,7 +73,7 @@ class SingUp extends Component {
                         />
                     </View>
                    
-                    <View style={{  marginTop: 140, marginBottom: 0 }} >
+                    <View style={styles.button} >
                         <Button
                             title="Create Account"
                         />
@@ -102,6 +102,10 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
          marginTop: 30, 
          marginBottom: 10 
+    },
+    button:{
+        marginTop: 140,
+        marginBottom: 0
     }
     
 });

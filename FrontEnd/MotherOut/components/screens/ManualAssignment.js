@@ -32,7 +32,7 @@ import {
     Input,
 } from 'react-native-elements';
 
-import imagen from '../../assets/taskAssignment.png'
+import imagen from '../../assets/manualAssignment.png'
 
 const picture = Image.resolveAssetSource(imagen).uri;
 
@@ -42,37 +42,43 @@ class ManualAssignment extends Component {
         return (
             <>
                 <View style={styles.contenidor}>
-                <ScrollView>
-                <View style={{ alignSelf: 'center', marginTop: 30, marginBottom: 10 ,marginLeft:10, marginRight:10}}>
-                    <Image
-                            style={{ width: 330, height: 110 }}
-                            source={{ uri: picture }}
-                        />
+                    <View style={styles.secction1}>
+                        <View style={styles.pictures}>
+                            <Image
+                                style={{ width: 300, height: 90 }}
+                                source={{ uri: picture }}
+                            />
+                        </View>
                     </View>
-                    
-                    <View style={ styles.StyleText}>
-                        <Text style={{ color: 'black', fontSize:24}}>Task Name</Text>
+                    <View style={styles.secction2}>
+                        <View style={styles.StyleText}>
+                            <Text style={{ color: 'black', fontSize: 24 }}>Task Name</Text>
+                        </View>
+                        <View>
+                            <Input style={styles.box}></Input>
+                        </View>
+                        <View style={styles.StyleText}>
+                            <Text style={{ color: 'black', fontSize: 24 }}>Select Members</Text>
+                        </View>
+                        <View>
+                            <Input style={styles.box}></Input>
+                        </View>
+                        <View style={styles.StyleText}>
+                            <Text style={{ color: 'black', fontSize: 24 }}>Select Day</Text>
+                        </View>
+                        <View>
+                            <Input style={styles.box}></Input>
+                        </View>
                     </View>
-                    <View>
-                    <Input style={styles.box }></Input>
+                    <View style={styles.secction3}>
+                        <View>
+                            <Text>HOLA</Text>
+                        </View>
                     </View>
-                    <View style={ styles.StyleText}>
-                    <Text style={{ color: 'black', fontSize:24}}>Select Members</Text>
-                    </View>
-                    <View>
-                    <Input style={styles.box }></Input>
-                    </View>
-                    <View style={ styles.StyleText}>
-                    <Text style={{ color: 'black', fontSize:24}}>Select Day</Text>
-                    </View>
-                    <View>
-                    <Input style={styles.box }></Input>
-                    </View>
-                    <View></View>
-                   
-                    </ScrollView>
+
+
                 </View>
-                
+
             </>
         );
     }
@@ -82,7 +88,6 @@ class ManualAssignment extends Component {
 const styles = StyleSheet.create({
     contenidor: {
         flex: 1,
-
         flexDirection: 'column',
         borderColor: 'white',
         alignContent: 'center',
@@ -90,24 +95,52 @@ const styles = StyleSheet.create({
 
 
     },
-    StyleText:{
-        marginTop: 20, 
-        marginBottom: 10 ,
-        marginLeft:30, 
-        marginRight:10,
-        
-    },
-    box:{
-             
-       
-        borderRadius: 3,
-        backgroundColor:'#D7B9D5',
-        marginLeft:27
-       
-      },
 
-  
-    
+    secction1: {
+        flex: 2,
+        flexDirection: 'column',
+        borderWidth: 3,
+        borderColor: 'black',
+
+    },
+    secction2: {
+        flex: 10,
+        borderWidth: 3,
+        flexDirection: 'column',
+        borderColor: 'black',
+
+
+    },
+    secction3: {
+        flex: 1,
+        flexDirection: 'column',
+        borderWidth: 3,
+        borderColor: 'black',
+
+
+    },
+
+    StyleText: {
+        marginTop: 20,
+        marginBottom: 10,
+        marginLeft: 30,
+        marginRight: 10,
+
+    },
+    box: {
+
+        borderRadius: 3,
+        backgroundColor: '#D7B9D5',
+        marginLeft: 27
+
+    },
+    pictures: {
+        alignSelf: 'center',
+        padding:5,
+    }
+
+
+
 });
 
 export default ManualAssignment;
