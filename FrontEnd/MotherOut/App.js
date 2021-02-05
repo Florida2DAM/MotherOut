@@ -7,69 +7,28 @@
  */
 
 import React, {Component} from 'react';
-import {
-    SafeAreaView,
-    StyleSheet,
-    ScrollView,
-    View,
-    Text,
-    StatusBar,
-} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 
-import {
-    Header,
-    LearnMoreLinks,
-    Colors,
-    DebugInstructions,
-    ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {GenericInput1} from './components/GenericInput1';
 
 class App extends Component {
+constructor(props) {
+    super(props);
 
+}
     render() {
         return (
             <>
-                <StatusBar barStyle="dark-content"/>
-                <SafeAreaView>
-                    <ScrollView
-                        contentInsetAdjustmentBehavior="automatic"
-                        style={styles.scrollView}>
-                        <Header/>
-                        {global.HermesInternal == null ? null : (
-                            <View style={styles.engine}>
-                                <Text style={styles.footer}>Engine: Hermes</Text>
-                            </View>
-                        )}
-                        <View style={styles.body}>
-                            <View style={styles.sectionContainer}>
-                                <Text style={styles.sectionTitle}>Step One</Text>
-                                <Text style={styles.sectionDescription}>
-                                    Edit <Text style={styles.highlight}>App.js</Text> to change this
-                                    screen and then come back to see your edits.
-                                </Text>
-                            </View>
-                            <View style={styles.sectionContainer}>
-                                <Text style={styles.sectionTitle}>See Your Changes</Text>
-                                <Text style={styles.sectionDescription}>
-                                    <ReloadInstructions/>
-                                </Text>
-                            </View>
-                            <View style={styles.sectionContainer}>
-                                <Text style={styles.sectionTitle}>Debug</Text>
-                                <Text style={styles.sectionDescription}>
-                                    <DebugInstructions/>
-                                </Text>
-                            </View>
-                            <View style={styles.sectionContainer}>
-                                <Text style={styles.sectionTitle}>Learn More</Text>
-                                <Text style={styles.sectionDescription}>
-                                    Read the docs to discover what to do next:
-                                </Text>
-                            </View>
-                            <LearnMoreLinks/>
-                        </View>
-                    </ScrollView>
-                </SafeAreaView>
+                <View style={styles.backGround}>
+                    <View style={{flex: 1, backgroundColor: 'pink'}}></View>
+                    <View style={{flex: 1}}>
+                        <GenericInput1 value={'Email'} passValue={false}/>
+                        <GenericInput1 value={'Password'} passValue={true}/>
+                    </View>
+                    <View style={{flex: 1, backgroundColor: 'grey'}}></View>
+
+                </View>
             </>
         );
     }
@@ -77,6 +36,11 @@ class App extends Component {
 }
 
 const styles = StyleSheet.create({
+    backGround: {
+        flex: 1,
+        flexDirection: 'column',
+        backgroundColor: '#90A8C3',
+    },
     scrollView: {
         backgroundColor: Colors.lighter,
     },
