@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
     StyleSheet,
     View,
@@ -11,10 +11,11 @@ import {
 } from "react-native-elements"
 
 //Se le pasará un icono de la base de datos, dejo este codigo como ejemplo para otros imports locales
-import logo from '../assets/house_bed_icon-icons.com_74373.png'
+import logo from '../assets/house_bed_icon-icons.com_74373.png';
+
 const defaultLogo = Image.resolveAssetSource(logo).uri;
 
-export class CardTaskbox extends Component {
+export class TaskCard extends Component {
 
     render() {
         return (
@@ -22,15 +23,17 @@ export class CardTaskbox extends Component {
                 <View style={styles.cardTaskbox}>
                     <Image
                         style={styles.logo}
-                        source={{ uri: defaultLogo }}
+                        source={{uri: defaultLogo}}
                     />
                     <Text style={styles.textStyle}>{this.props.text}</Text>
-                    <Icon
-                        name={this.props.icon}
-                        type='font-awesome'
-                        color='#F4CAE0'
-                        onPress={this.props.press}
-                        size={50} />
+                    <View style={styles.paddingView}>
+                        <Icon
+                            name={this.props.icon}
+                            type='font-awesome'
+                            color='#F4CAE0'
+                            onPress={this.props.press}
+                            size={42}/>
+                    </View>
                 </View>
             </>
         );
@@ -41,7 +44,7 @@ export class CardTaskbox extends Component {
 const styles = StyleSheet.create({
     cardTaskbox: {
         flexDirection: "row",
-        justifyContent: "space-evenly",
+        justifyContent: "space-between",
         backgroundColor: "#ADA7C9",
         borderRadius: 5,
         borderWidth: 2,
@@ -63,7 +66,10 @@ const styles = StyleSheet.create({
         fontWeight: "bold"
     },
     logo: {
-        width: 66,
-        height: 58,
+        width: 56,
+        height: 48,
     },
+    paddingView: {
+        padding: 5,
+    }
 });

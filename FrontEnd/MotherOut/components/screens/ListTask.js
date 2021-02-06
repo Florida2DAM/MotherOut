@@ -51,15 +51,13 @@ class ListTask extends Component {
                         </View>
                     </View>
                     <View style={styles.secction2}>
-                        
+
                     </View>
                     <View style={styles.secction3}>
                         <View>
                             <Text>HOLA</Text>
                         </View>
                     </View>
-
-
                 </View>
 
             </>
