@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 import {Icon} from 'react-native-elements';
 
-export default class GenericIconButton extends Component {
+export  class GenericIconButton extends Component {
 
     render() {
         return (

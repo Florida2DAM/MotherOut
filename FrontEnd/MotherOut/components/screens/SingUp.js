@@ -33,6 +33,8 @@ import {
 
 
 import imagen from '../../assets/logo.png'
+import { GenericInput1 } from '../GenericInput1';
+import { GenericButton } from '../GenericButton';
 
 const picture = Image.resolveAssetSource(imagen).uri;
 
@@ -43,44 +45,27 @@ class SingUp extends Component {
         return (
             <>
                 <View style={styles.contenidor}>
-                <ScrollView>
+
                     <View style={styles.pictures}>
                         <Image
-                            style={{ width: 310, height: 270  }}
+                            style={{ width: 310, height: 270 }}
                             source={{ uri: picture }}
                         />
                     </View>
-                    
-                    <View>
-                        <Input
-                            placeholder="Name"
-                            style={styles}
-                            onChangeText={value => this.setState({ comment: value })}
-                        />
-                    </View>
-                    <View>
-                        <Input
-                            placeholder="Email"
-                            style={styles}
-                            onChangeText={value => this.setState({ comment: value })}
-                        />
-                    </View>
-                    <View>
-                        <Input
-                            placeholder="Pasword"
-                            style={styles}
-                            onChangeText={value => this.setState({ comment: value })}
-                        />
-                    </View>
-                   
-                    <View style={styles.button} >
-                        <Button
-                            title="Create Account"
-                        />
-                    </View>
+                    <ScrollView>
+                        <View>
+                            <GenericInput1 placeHolder="Name" />
+
+                            <GenericInput1 placeHolder="Email" />
+
+                            <GenericInput1 placeHolder="Pasword" />
+
+                            <GenericButton button="Create Account" />
+
+                        </View>
                     </ScrollView>
                 </View>
-                
+
             </>
         );
     }
@@ -95,19 +80,12 @@ const styles = StyleSheet.create({
         borderColor: 'white',
         alignContent: 'center',
         backgroundColor: '#90A8C3',
-
-
     },
-    pictures:{
+    pictures: {
         alignSelf: 'center',
-         marginTop: 30, 
-         marginBottom: 10 
+        marginTop: 30,
+        marginBottom: 10
     },
-    button:{
-        marginTop: 140,
-        marginBottom: 0
-    }
-    
 });
 
 export default SingUp;
