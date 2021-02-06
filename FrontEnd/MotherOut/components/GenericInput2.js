@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     personalInput: {
         backgroundColor: '#D7B9D5',
         borderRadius: 10,
-        //fontWeight:'bold',
+        fontWeight:'bold',
         fontFamily: 'roboto',
     },
     personalInput2: {

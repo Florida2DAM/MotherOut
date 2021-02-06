@@ -1,39 +1,16 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React, { Component } from 'react';
-
 import {
-    SafeAreaView,
-    StyleSheet,
-    ScrollView,
-    View,
-    Text,
-    StatusBar,
-    Button,
-
-    LogBox,
+    Button, StyleSheet,
+    View
 } from 'react-native';
-
 import {
-    Header,
-    LearnMoreLinks,
-    Colors,
-    DebugInstructions,
-    ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-import {
-    Image,
-    Input,
+    Image
 } from 'react-native-elements';
+import imagen from '../../assets/taskAssignment.png';
 
-import imagen from '../../assets/taskAssignment.png'
+
+
+
 
 const picture = Image.resolveAssetSource(imagen).uri;
 

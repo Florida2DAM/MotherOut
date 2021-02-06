@@ -1,39 +1,14 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React, { Component } from 'react';
-
 import {
-    SafeAreaView,
     StyleSheet,
-    ScrollView,
-    View,
-    Button,
-    Text,
-
-    LogBox,
+    Text, View
 } from 'react-native';
-
-import {
-    Header,
-    LearnMoreLinks,
-    Colors,
-    DebugInstructions,
-    ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
 import {
     Image,
-    Input,
+    Input
 } from 'react-native-elements';
 
-import imagen from '../../assets/tasksEditiing.png'
-
+import imagen from '../../assets/tasksEditiing.png';
 const picture = Image.resolveAssetSource(imagen).uri;
 
 class TasksEditiing extends Component {
@@ -75,14 +50,11 @@ class TasksEditiing extends Component {
                             <Text>HOLA</Text>
                         </View>
                     </View>
-
-
                 </View>
 
             </>
         );
     }
-
 }
 
 const styles = StyleSheet.create({
@@ -92,55 +64,33 @@ const styles = StyleSheet.create({
         borderColor: 'white',
         alignContent: 'center',
         backgroundColor: '#90A8C3',
-
-
     },
-
     secction1: {
         flex: 2,
         flexDirection: 'column',
-        borderWidth: 3,
-        borderColor: 'black',
-
     },
     secction2: {
         flex: 10,
-        borderWidth: 3,
         flexDirection: 'column',
-        borderColor: 'black',
-
-
     },
     secction3: {
         flex: 1,
         flexDirection: 'column',
-        borderWidth: 3,
-        borderColor: 'black',
-
-
     },
-
     StyleText: {
         marginTop: 20,
         marginBottom: 10,
         marginLeft: 30,
         marginRight: 10,
-
     },
     box: {
-
-        borderRadius: 3,
         backgroundColor: '#D7B9D5',
         marginLeft: 27
-
     },
     pictures: {
         alignSelf: 'center',
-        padding:5,
+        padding: 5,
     }
-
-
-
 });
 
 export default TasksEditiing;

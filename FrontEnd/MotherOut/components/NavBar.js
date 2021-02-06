@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Icon} from 'react-native-elements';
 
-export default class NavBar extends Component {
+export  class NavBar extends Component {
 
     render() {
 

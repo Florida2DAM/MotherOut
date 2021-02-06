@@ -1,38 +1,17 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
 
 import React, { Component } from 'react';
-
 import {
-    SafeAreaView,
     StyleSheet,
-    ScrollView,
-    View,
-    Button,
-    Text,
-
-    LogBox,
+    View
 } from 'react-native';
-
 import {
-    Header,
-    LearnMoreLinks,
-    Colors,
-    DebugInstructions,
-    ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-import {
-    Image,
-    Input,
+    Image
 } from 'react-native-elements';
+import imagen from '../../assets/newOrEditTask.png';
+import { GenericInput2 } from '../GenericInput2';
+import { NavBar } from '../NavBar';
+import { RoundedButton } from '../RoundedButton';
 
-import imagen from '../../assets/newOrEditTask.png'
 
 const picture = Image.resolveAssetSource(imagen).uri;
 
@@ -42,102 +21,48 @@ class NewOrEditTask extends Component {
         return (
             <>
                 <View style={styles.contenidor}>
-                    <View style={styles.secction1}>
-                        <View style={styles.pictures}>
-                            <Image
-                                style={{ width: 300, height: 90 }}
-                                source={{ uri: picture }}
-                            />
-                        </View>
+                    <View style={styles.header}>
+                        <Image
+                            style={{ width: 300, height: 90 }}
+                            source={{ uri: picture }} />
                     </View>
-                    <View style={styles.secction2}>
-                        <View style={styles.StyleText}>
-                            <Text style={{ color: 'black', fontSize: 24 }}>Task Name</Text>
-                        </View>
-                        <View>
-                            <Input style={styles.box}></Input>
-                        </View>
-                        <View style={styles.StyleText}>
-                            <Text style={{ color: 'black', fontSize: 24 }}>Score</Text>
-                        </View>
-                        <View>
-                            <Input style={styles.box}></Input>
-                        </View>
-                        <View style={styles.StyleText}>
-                            <Text style={{ color: 'black', fontSize: 24 }}>Icon</Text>
-                        </View>
+                    <View style={styles.body}>
+                     
+                        <GenericInput2 placeHolder="Task name" />
+               
+                        <GenericInput2 placeHolder="Score" />
+                
+                        <GenericInput2 placeHolder="Iconooooooos" />
+                        
+                        <RoundedButton icon="check"/>
                     </View>
-                    <View style={styles.secction3}>
-                        <View>
-                            <Text>HOLA</Text>
-                        </View>
+                    <View>
+                        <NavBar />
                     </View>
-
-
                 </View>
-
             </>
         );
     }
-
 }
 
 const styles = StyleSheet.create({
     contenidor: {
         flex: 1,
         flexDirection: 'column',
-        borderColor: 'white',
-        alignContent: 'center',
         backgroundColor: '#90A8C3',
-
-
+        borderWidth: 2,
     },
-
-    secction1: {
-        flex: 2,
-        flexDirection: 'column',
-        borderWidth: 3,
-        borderColor: 'black',
-
+    header: {
+        marginTop:2,
+        flexDirection: 'row',
+        justifyContent: 'center'
     },
-    secction2: {
-        flex: 10,
-        borderWidth: 3,
-        flexDirection: 'column',
-        borderColor: 'black',
-
-
+    body: {
+        marginTop:2,
+        justifyContent:'space-evenly',
+        padding:15,
+        flex:10,
     },
-    secction3: {
-        flex: 1,
-        flexDirection: 'column',
-        borderWidth: 3,
-        borderColor: 'black',
-
-
-    },
-
-    StyleText: {
-        marginTop: 20,
-        marginBottom: 10,
-        marginLeft: 30,
-        marginRight: 10,
-
-    },
-    box: {
-
-        borderRadius: 3,
-        backgroundColor: '#D7B9D5',
-        marginLeft: 27
-
-    },
-    pictures: {
-        alignSelf: 'center',
-        padding:5,
-    }
-
-
-
 });
 
 export default NewOrEditTask;

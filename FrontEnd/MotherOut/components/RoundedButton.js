@@ -3,14 +3,14 @@ import {StyleSheet, View} from 'react-native';
 import {Icon} from 'react-native-elements';
 
 
-export default class RoundedButton extends Component {
+export  class RoundedButton extends Component {
 
     render() {
 
         return (
             <View>
                 <View style={styles.buttonView}>
-                    <Icon raised reverse name='plus' type='font-awesome' color='#D7B9D5' size={35}
+                    <Icon raised reverse name={this.props.icon} type='font-awesome' color='#D7B9D5' size={35}
                           onPress={this.props.press} style={styles.shadow}/>
                 </View>
             </View>
