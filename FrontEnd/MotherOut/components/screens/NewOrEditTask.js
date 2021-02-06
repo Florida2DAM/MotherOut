@@ -8,11 +8,7 @@ import {
     Image
 } from 'react-native-elements';
 import imagen from '../../assets/newOrEditTask.png';
-import { GenericInput2 } from '../GenericInput2';
 import { NavBar } from '../NavBar';
-import { RoundedButton } from '../RoundedButton';
-
-
 const picture = Image.resolveAssetSource(imagen).uri;
 
 class NewOrEditTask extends Component {
@@ -27,14 +23,7 @@ class NewOrEditTask extends Component {
                             source={{ uri: picture }} />
                     </View>
                     <View style={styles.body}>
-                     
-                        <GenericInput2 placeHolder="Task name" />
-               
-                        <GenericInput2 placeHolder="Score" />
-                
-                        <GenericInput2 placeHolder="Iconooooooos" />
                         
-                        <RoundedButton icon="check"/>
                     </View>
                     <View>
                         <NavBar />
@@ -53,15 +42,15 @@ const styles = StyleSheet.create({
         borderWidth: 2,
     },
     header: {
-        marginTop:2,
+        marginTop: 2,
         flexDirection: 'row',
         justifyContent: 'center'
     },
     body: {
-        marginTop:2,
-        justifyContent:'space-evenly',
-        padding:15,
-        flex:10,
+        marginTop: 2,
+        justifyContent: 'space-evenly',
+        padding: 15,
+        flex: 10,
     },
 });
 

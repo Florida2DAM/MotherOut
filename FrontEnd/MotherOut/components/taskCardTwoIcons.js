@@ -15,14 +15,15 @@ import {
 //const defaultLogo = Image.resolveAssetSource(logo).uri;
 
 export class TaskCardTwoIcons extends Component {
+    
     render() {
         return (
             <>
                 <View style={styles.cardTaskbox}>
-                    
+
                     <Image
                         style={styles.logo}
-                        source={{ uri: this.props.iconCard}}
+                        source={{ uri: this.props.iconCard }}
                     />
                     <Text style={styles.textStyle}>{this.props.text}</Text>
                     <View style={styles.icons}>
@@ -31,7 +32,7 @@ export class TaskCardTwoIcons extends Component {
                                 name={this.props.icon1}
                                 type='font-awesome'
                                 color='#F4CAE0'
-                                onPress={this.props.press}
+                                onPress={this.props.press1}
                                 size={42} />
                         </View>
                         <View style={styles.icon2}>
@@ -39,7 +40,7 @@ export class TaskCardTwoIcons extends Component {
                                 name={this.props.icon2}
                                 type='font-awesome'
                                 color='#F4CAE0'
-                                onPress={this.props.press}
+                                onPress={this.props.press2}
                                 size={42} />
                         </View>
                     </View>
@@ -75,7 +76,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold"
     },
     logo: {
-        marginLeft:10,
+        marginLeft: 10,
         width: 56,
         height: 48,
     },

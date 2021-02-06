@@ -11,10 +11,10 @@ import {
 } from "react-native-elements"
 
 //Se le pasará un icono de la base de datos, dejo este codigo como ejemplo para otros imports locales
-import logo from '../assets/house_bed_icon-icons.com_74373.png'
+import logo from '../assets/avatar2.png'
 const defaultLogo = Image.resolveAssetSource(logo).uri;
 
-export class CardTaskbox extends Component {
+export class TaskCard extends Component {
 
     render() {
         return (

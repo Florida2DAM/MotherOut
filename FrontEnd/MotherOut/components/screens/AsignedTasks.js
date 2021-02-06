@@ -1,26 +1,26 @@
 
 import React, { Component } from 'react';
 import {
-    StyleSheet,
-    View,
-    FlatList,
-    Text,
+    FlatList, StyleSheet,
+
+
+    Text, View
 } from 'react-native';
 import {
     Image
 } from 'react-native-elements';
-
 import importedPicture from '../../assets/asignedTasks.png';
-import importAvatar from '../../assets/circle-cropped.png';
 import importAvatar2 from '../../assets/avatar2.png';
 import importIcon from '../../assets/bathtub.png';
+import importAvatar from '../../assets/circle-cropped.png';
+import { NavBar } from '../NavBar';
+import { TaskCardTwoIcons } from '../TaskCardTwoIcons';
+
 const avatar = Image.resolveAssetSource(importAvatar).uri
 const avatar2 = Image.resolveAssetSource(importAvatar2).uri
 const icon = Image.resolveAssetSource(importIcon).uri
 const picture = Image.resolveAssetSource(importedPicture).uri;
 
-import { NavBar } from '../NavBar';
-import { TaskCardTwoIcons } from '../TaskCardTwoIcons'
 
 const taskList = [
     { task: "Clean Bathroom", blop: icon },
@@ -30,10 +30,25 @@ const taskList = [
 ];
 
 const listUsers = [
-    { name: 'Pablo', blop: avatar2 }, { name: 'Juan', blop: avatar },  { name: 'Jesus', blop: avatar }
+    { name: 'Pablo', blop: avatar2 }, { name: 'Juan', blop: avatar }, { name: 'Jesus', blop: avatar }
 ]
 
+
+
 class AsignedTasks extends Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            task: null,
+        }
+    }
+
+
+
+    getTask = (itemSelected) => {
+        return alert(itemSelected)
+    }
 
     render() {
         return (
@@ -57,11 +72,11 @@ class AsignedTasks extends Component {
                                             source={{ uri: item.blop }}
                                         />
                                     </View>
-                                    <FlatList                           
+                                    <FlatList
                                         data={taskList}
                                         keyExtractor={(item, index) => index.toString()}
                                         renderItem={({ item }) =>
-                                            <View     style={styles.flatStyle}>
+                                            <View style={styles.flatStyle}>
                                                 <TaskCardTwoIcons text={item.task}
                                                     icon1="trash"
                                                     icon2="edit"
@@ -117,7 +132,7 @@ const styles = StyleSheet.create({
         padding: 10
     },
     flatStyle: {
-        padding:5
+        padding: 5
     }
 });
 
