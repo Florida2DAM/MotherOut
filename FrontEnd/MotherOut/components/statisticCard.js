@@ -15,6 +15,7 @@ export class StatisticCard extends Component {
         super(props)
         this.state = {
             score: this.props.score,
+            scoreMessage: null,
             message: null
         }
     }
@@ -24,16 +25,20 @@ export class StatisticCard extends Component {
 
     changeColorScore() {
         if (this.state.score >= 0 && this.state.score < 50) {
-            this.setState({ message: <Text style={styles.score1}>{this.state.score}</Text> })
+            this.setState({ scoreMessage: <Text style={styles.score1}>{this.state.score}</Text> })
+            this.setState({ message: <Text style={styles.titleStyle}>The pig king</Text> })
         }
         if (this.state.score >= 50 && this.state.score < 100) {
-            this.setState({ message: <Text style={styles.score2}>{this.state.score}</Text> })
+            this.setState({ scoreMessage: <Text style={styles.score2}>{this.state.score}</Text> })
+            this.setState({ message: <Text style={styles.titleStyle}>Piggy, but not much</Text> })
         }
         if (this.state.score >= 100 && this.state.score < 175) {
-            this.setState({ message: <Text style={styles.score3}>{this.state.score}</Text> })
+            this.setState({ scoreMessage: <Text style={styles.score3}>{this.state.score}</Text> })
+            this.setState({ message: <Text style={styles.titleStyle}>Good boy</Text> })
         }
         if (this.state.score > 175) {
-            this.setState({ message: <Text style={styles.score4}>{this.state.score}</Text> })
+            this.setState({ scoreMessage: <Text style={styles.score4}>{this.state.score}</Text> })
+            this.setState({ message: <Text style={styles.titleStyle}>The best boy</Text> })
         }
     }
     render() {
@@ -48,7 +53,7 @@ export class StatisticCard extends Component {
                         </View>
                         <View style={styles.scoreBox}>
                             <Text style={styles.textStyle}>Score: </Text>
-                            {this.state.message}
+                            {this.state.scoreMessage}
                         </View>
                     </View>
                     <View style={styles.avatarBox}>
@@ -59,7 +64,7 @@ export class StatisticCard extends Component {
                             />
                         </View>
                         <View style={styles.avatar}>
-                            <Text style={styles.titleStyle}>Good boy</Text>
+                            {this.state.message}
                         </View>
                     </View>
                 </View>
@@ -130,6 +135,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column'
     },
     avatar: {
+        alignSelf: 'center',
         padding: 10,
     },
     logo: {
