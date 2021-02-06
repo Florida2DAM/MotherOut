@@ -6,60 +6,48 @@
  * @flow strict-local
  */
 
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
-import {
-    SafeAreaView,
-    StyleSheet,
-    ScrollView,
-    View,
-    Button,
-    Text,
+import {FlatList, StyleSheet, View} from 'react-native';
 
-    LogBox,
-} from 'react-native';
+import {Image} from 'react-native-elements';
 
-import {
-    Header,
-    LearnMoreLinks,
-    Colors,
-    DebugInstructions,
-    ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-import {
-    Image,
-    Input,
-} from 'react-native-elements';
-
-import imagen from '../../assets/statistics.png'
+import imagen from '../../assets/statistics.png';
+import {NavBar} from '../NavBar';
+import {StatisticCard} from '../StatisticCard';
 
 const picture = Image.resolveAssetSource(imagen).uri;
 
 class Statistics extends Component {
-
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: [{user: 'Animus58', quantity: 15, Score:230},
+                {user: 'Ambros77', quantity: 7, Score:77},
+                {user: 'Arnald12', quantity: 12, Score:200},
+            ],
+        };
+    }
     render() {
         return (
             <>
                 <View style={styles.contenidor}>
-                    <View style={styles.secction1}>
-                        <View style={styles.pictures}>
+                    <View style={styles.header}>
                             <Image
-                                style={{ width: 300, height: 90 }}
-                                source={{ uri: picture }}
+                                style={{width: 300, height: 90}}
+                                source={{uri: picture}}
                             />
-                        </View>
                     </View>
-                    <View style={styles.secction2}>
-                        
+                    <View style={styles.body}>
+                        <FlatList data={this.state.data}
+                                  keyExtractor={(item,index)=>index.toString()}
+                                  renderItem={({item})=>(<StatisticCard user={item.user} quantity={item.quantity}
+                                  score={item.Score}/>)}
+                                      />
                     </View>
-                    <View style={styles.secction3}>
-                        <View>
-                            <Text>HOLA</Text>
-                        </View>
+                    <View>
+                        <NavBar/>
                     </View>
-
-
                 </View>
 
             </>
@@ -72,58 +60,20 @@ const styles = StyleSheet.create({
     contenidor: {
         flex: 1,
         flexDirection: 'column',
-        borderColor: 'white',
-        alignContent: 'center',
         backgroundColor: '#90A8C3',
-
-
+        borderWidth: 2,
     },
-
-    secction1: {
-        flex: 2,
-        flexDirection: 'column',
-        borderWidth: 3,
-        borderColor: 'black',
-
+    header: {
+        marginTop: 2,
+        flexDirection: 'row',
+        justifyContent: 'center',
     },
-    secction2: {
+    body: {
+        marginTop: 2,
+        justifyContent: 'space-evenly',
+        padding: 15,
         flex: 10,
-        borderWidth: 3,
-        flexDirection: 'column',
-        borderColor: 'black',
-
-
     },
-    secction3: {
-        flex: 1,
-        flexDirection: 'column',
-        borderWidth: 3,
-        borderColor: 'black',
-
-
-    },
-
-    StyleText: {
-        marginTop: 20,
-        marginBottom: 10,
-        marginLeft: 30,
-        marginRight: 10,
-
-    },
-    box: {
-
-        borderRadius: 3,
-        backgroundColor: '#D7B9D5',
-        marginLeft: 27
-
-    },
-    pictures: {
-        alignSelf: 'center',
-        padding:5,
-    }
-
-
-
 });
 
 export default Statistics;

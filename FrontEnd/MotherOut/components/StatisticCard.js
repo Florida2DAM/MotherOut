@@ -1,13 +1,9 @@
-import React, { Component } from 'react';
-import {
-    StyleSheet,
-    View,
-    Text,
-    Image,
-} from 'react-native';
+import React, {Component} from 'react';
+import {Image, StyleSheet, Text, View} from 'react-native';
 
 //Añadir el avatar de la bbdd
-import avatar from '../assets/circle-cropped.png'
+import avatar from '../assets/help1.png';
+
 const userAvatar = Image.resolveAssetSource(avatar).uri
 
 export class StatisticCard extends Component {

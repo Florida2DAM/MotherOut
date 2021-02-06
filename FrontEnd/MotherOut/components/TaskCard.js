@@ -1,17 +1,11 @@
-import React, { Component } from 'react';
-import {
-    StyleSheet,
-    View,
-    Text,
-    Image
-} from 'react-native';
+import React, {Component} from 'react';
+import {Image, StyleSheet, Text, View} from 'react-native';
 
-import {
-    Icon,
-} from "react-native-elements"
+import {Icon} from 'react-native-elements';
 
 //Se le pasará un icono de la base de datos, dejo este codigo como ejemplo para otros imports locales
 import logo from '../assets/bathroom_icon.png';
+
 const defaultLogo = Image.resolveAssetSource(logo).uri;
 
 export class TaskCard extends Component {
