@@ -35,6 +35,7 @@ import {
 import imagen from '../../assets/listTask.png';
 import {NavBar} from '../NavBar';
 import {TaskCard} from '../TaskCard';
+import {RoundedButton} from '../RoundedButton';
 
 const picture = Image.resolveAssetSource(imagen).uri;
 
@@ -69,6 +70,7 @@ class ListTask extends Component {
                                           <TaskCard text={item.text} icon={item.taskName}/>
                                       </View>)}
                         />
+                        <RoundedButton icon={'plus'}/>
                     </View>
                     <View>
                         <NavBar/>
