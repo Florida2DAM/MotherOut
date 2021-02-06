@@ -55,7 +55,7 @@ class ScreenToDo extends Component {
 
     }
 
-    loadArray1 = () => {
+    loadArrayUndone = () => {
         let element = [];
         data.map(item => {
             if (item.done) {
@@ -65,7 +65,7 @@ class ScreenToDo extends Component {
         return element;
     }
 
-    loadArray2 = () => {
+    loadArrayDone = () => {
         let element = [];
         data.map(item => {
             if (!item.done) {
@@ -73,6 +73,11 @@ class ScreenToDo extends Component {
             }
         });
         return element;
+    }
+
+    completeTask = (item) => {
+
+
     }
 
     render() {
@@ -89,16 +94,16 @@ class ScreenToDo extends Component {
                     </View>
                     <View style={styles.body}>
                         <Text style={styles.textStyle}>Pending Tasks</Text>
-                        <FlatList data={this.loadArray2()} keyExtractor={((item, index) => index.toString())}
+                        <FlatList data={this.loadArrayUndone()} keyExtractor={((item, index) => index.toString())}
                                   renderItem={({item}) =>
                                       <View style={styles.paddingView}>
-                                          <TaskCard text={item.taskName} icon={"square-o"}/>
+                                          <TaskCard text={item.taskName} icon={"square-o"} press={()=>this.completeTask(item)}/>
                                       </View>
 
                                   }
                         />
                         <Text style={styles.textStyle}>Completed Tasks!</Text>
-                        <FlatList data={this.loadArray1()} keyExtractor={(item, index) => index.toString()}
+                        <FlatList data={this.loadArrayDone()} keyExtractor={(item, index) => index.toString()}
                                   renderItem={({item}) =>
                                       <View style={styles.paddingView}>
                                           <TaskCard text={item.taskName} icon={"check-square-o"}/>
