@@ -37,6 +37,8 @@ import imagen from '../../assets/help1.png'
 const picture = Image.resolveAssetSource(imagen).uri;
 
 
+
+
 class Help1 extends Component {
 
     render() {
@@ -49,18 +51,20 @@ class Help1 extends Component {
                             style={{ width: 350, height: 460 }}
                             source={{ uri: picture }}
                         />
+     
                     </View>
+                   
                     <View style={styles.button}>
                     <Button
                             title="Skip!"
                         />
                     </View>
                     
-                   
                     </ScrollView>
                 </View>
                 
             </>
+            
         );
     }
 
