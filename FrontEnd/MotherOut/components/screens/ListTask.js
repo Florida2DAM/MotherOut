@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 import {
     SafeAreaView,
@@ -16,7 +16,7 @@ import {
     Button,
     Text,
 
-    LogBox,
+    LogBox, FlatList,
 } from 'react-native';
 
 import {
@@ -32,53 +32,71 @@ import {
     Input,
 } from 'react-native-elements';
 
-import imagen from '../../assets/listTask.png'
+import imagen from '../../assets/listTask.png';
+import {NavBar} from '../NavBar';
+import {TaskCard} from '../TaskCard';
 
 const picture = Image.resolveAssetSource(imagen).uri;
 
 class ListTask extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: [{taskName: 'trash', text: 'clean bathroom'},
+                {taskName: 'trash', text: 'clean room'},
+                {taskName: 'trash', text: '2 clean room'},
+            ],
+        };
+    }
 
     render() {
         return (
             <>
                 <View style={styles.contenidor}>
-                    <View style={styles.secction1}>
-                        <View style={styles.pictures}>
-                            <Image
-                                style={{ width: 300, height: 90 }}
-                                source={{ uri: picture }}
-                            />
-                        </View>
+                    <View style={styles.header}>
+                        <Image
+                            style={{width: 300, height: 90}}
+                            source={{uri: picture}}
+                        />
                     </View>
-                    <View style={styles.secction2}>
-                        
-                    </View>
-                    <View style={styles.secction3}>
-                        <View>
-                            <Text>HOLA</Text>
-                        </View>
-                    </View>
+                    <View style={styles.body}>
 
+                        <FlatList data={this.state.data}
+                                  keyExtractor={(item, index) => index.toString()}
 
+                                  renderItem={({item}) => (
+                                      <View style={{padding: 5}}>
+                                          <TaskCard text={item.text} icon={item.taskName}/>
+                                      </View>)}
+                        />
+                    </View>
+                    <View>
+                        <NavBar/>
+                    </View>
                 </View>
-
             </>
         );
     }
-
 }
 
 const styles = StyleSheet.create({
     contenidor: {
         flex: 1,
         flexDirection: 'column',
-        borderColor: 'white',
-        alignContent: 'center',
         backgroundColor: '#90A8C3',
-
-
+        borderWidth: 2,
     },
-
+    header: {
+        marginTop: 2,
+        flexDirection: 'row',
+        justifyContent: 'center',
+    },
+    body: {
+        marginTop: 2,
+        justifyContent: 'space-evenly',
+        padding: 15,
+        flex: 10,
+    },
     secction1: {
         flex: 2,
         flexDirection: 'column',
@@ -114,14 +132,13 @@ const styles = StyleSheet.create({
 
         borderRadius: 3,
         backgroundColor: '#D7B9D5',
-        marginLeft: 27
+        marginLeft: 27,
 
     },
     pictures: {
         alignSelf: 'center',
-        padding:5,
-    }
-
+        padding: 5,
+    },
 
 
 });
