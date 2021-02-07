@@ -16,7 +16,7 @@ export class TaskCard extends Component {
                 <View style={styles.cardTaskbox}>
                     <Image
                         style={styles.logo}
-                        source={{ uri: defaultLogo }}
+                        source={{uri: defaultLogo}}
                     />
                     <Text style={styles.textStyle}>{this.props.text}</Text>
                     <View style={styles.paddingView}>

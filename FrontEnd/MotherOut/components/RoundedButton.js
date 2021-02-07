@@ -3,7 +3,7 @@ import {StyleSheet, View} from 'react-native';
 import {Icon} from 'react-native-elements';
 
 
-export  class RoundedButton extends Component {
+export class RoundedButton extends Component {
 
     render() {
 

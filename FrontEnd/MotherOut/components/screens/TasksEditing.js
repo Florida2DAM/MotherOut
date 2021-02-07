@@ -1,57 +1,64 @@
-import React, { Component } from 'react';
-import {
-    StyleSheet,
-    Text, View
-} from 'react-native';
-import {
-    Image,
-    Input
-} from 'react-native-elements';
+import React, {Component} from 'react';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {Image} from 'react-native-elements';
 
 import imagen from '../../assets/tasksEditiing.png';
+import {GenericInput2} from "../GenericInput2";
+import {RoundedButton} from "../RoundedButton";
+import {NavBar} from "../NavBar";
+import {SelectedItem} from "../SelectedItem";
+import {InputData} from "../InputData";
+
 const picture = Image.resolveAssetSource(imagen).uri;
+const listUsers = [
+    {name: 'Pablo'}, {name: 'Juan'}, {name: 'Jesús'}
+];
 
 class TasksEditing extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            name: null,
+            date: null,
+        }
+
+    }
+
+    getName = (item) => {
+        return this.setState({
+            name: item.name
+        })
+    }
 
     render() {
         return (
             <>
                 <View style={styles.contenidor}>
-                    <View style={styles.secction1}>
-                        <View style={styles.pictures}>
-                            <Image
-                                style={{ width: 300, height: 90 }}
-                                source={{ uri: picture }}
-                            />
-                        </View>
+                    <View style={styles.header}>
+                        <Image
+                            style={{width: 290, height: 90}}
+                            source={{uri: picture}}/>
                     </View>
-                    <View style={styles.secction2}>
-                        <View style={styles.StyleText}>
-                            <Text style={{ color: 'black', fontSize: 24 }}>Task Name</Text>
+                    <ScrollView>
+                        <View style={styles.body}>
+                            <Text style={styles.textStyle}>Task name</Text>
+                            <GenericInput2 placeHolder={"Clean room"} passValue={false}/>
+                            <Text style={styles.textStyle}>Selected member</Text>
+                            <SelectedItem list={listUsers} value={this.state.name} selectedItem={this.getName}/>
+                            <Text style={styles.textStyle}>Select day</Text>
+                            <InputData value={this.state.date}
+                                       press={(item) => this.setState({date: item.day + "-" + item.month + "-" + item.year})}/>
                         </View>
-                        <View>
-                            <Input style={styles.box}></Input>
-                        </View>
-                        <View style={styles.StyleText}>
-                            <Text style={{ color: 'black', fontSize: 24 }}>Select Member</Text>
-                        </View>
-                        <View>
-                            <Input style={styles.box}></Input>
-                        </View>
-                        <View style={styles.StyleText}>
-                            <Text style={{ color: 'black', fontSize: 24 }}>Select Day</Text>
-                        </View>
-                        <View>
-                            <Input style={styles.box}></Input>
-                        </View>
+                    </ScrollView>
+                    <View>
+                        <RoundedButton icon='check'/>
                     </View>
-                    <View style={styles.secction3}>
-                        <View>
-                            <Text>HOLA</Text>
-                        </View>
+                    <View>
+                        <NavBar/>
                     </View>
                 </View>
-
             </>
         );
     }
@@ -61,36 +68,27 @@ const styles = StyleSheet.create({
     contenidor: {
         flex: 1,
         flexDirection: 'column',
-        borderColor: 'white',
-        alignContent: 'center',
         backgroundColor: '#90A8C3',
+        borderWidth: 2,
     },
-    secction1: {
-        flex: 2,
-        flexDirection: 'column',
+    header: {
+        marginTop: 2,
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        alignItems: "center",
     },
-    secction2: {
+    body: {
+        marginTop: 2,
+        justifyContent: 'space-evenly',
+        padding: 10,
         flex: 10,
-        flexDirection: 'column',
     },
-    secction3: {
-        flex: 1,
-        flexDirection: 'column',
+    textStyle: {
+        fontWeight: "bold",
+        fontSize: 20,
+        fontFamily: "Roboto",
+        padding: 10,
     },
-    StyleText: {
-        marginTop: 20,
-        marginBottom: 10,
-        marginLeft: 30,
-        marginRight: 10,
-    },
-    box: {
-        backgroundColor: '#D7B9D5',
-        marginLeft: 27
-    },
-    pictures: {
-        alignSelf: 'center',
-        padding: 5,
-    }
 });
 
 export default TasksEditing;
