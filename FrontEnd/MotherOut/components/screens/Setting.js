@@ -1,26 +1,12 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React, { Component } from 'react';
-
 import {
     ScrollView,
     StyleSheet,
-    View,
-
+    View
 } from 'react-native';
-
 import {
-    Image,
-    Icon,
-
+    Image
 } from 'react-native-elements';
-
 import imagen from '../../assets/setting.png';
 import { GenericIconButton } from '../GenericIconButton';
 import { NavBar } from '../NavBar';
@@ -28,7 +14,6 @@ import { NavBar } from '../NavBar';
 const picture = Image.resolveAssetSource(imagen).uri;
 
 class Setting extends Component {
-
     render() {
         return (
             <>
@@ -43,31 +28,37 @@ class Setting extends Component {
                             </View>
                         </View>
                         <View style={styles.body}>
-                            <View >
-                                <GenericIconButton button="Create Team" icon='users' />
-                            </View>
-                            <View >
-                                <GenericIconButton button="Join Team" icon='user' />
-                            </View>
-                            <View >
-                                <GenericIconButton button="Global settings" icon='cogs' />
-                            </View>
+                            <GenericIconButton
+                                button="Create Team"
+                                icon='users'
+                                press={() => this.props.navigation.navigate('YourTeam')}
+                            />
+                            <GenericIconButton
+                                button="Join Team"
+                                icon='user'
+                                press={() => this.props.navigation.navigate('JoinTeam')}
+                            />
+                            <GenericIconButton
+                                button="Global settings"
+                                icon='cogs'
+                                press={() => this.props.navigation.navigate('Setting')}
+                            />
                         </View>
                     </ScrollView>
-                    <View>
-                        <NavBar />
-                    </View>
+                    <NavBar
+                        checked={() => this.props.navigation.navigate('ScreenToDo')}
+                        list={() => this.props.navigation.navigate('ListTask')}
+                        calendar={() => this.props.navigation.navigate('TaskAssignment')}
+                        nav={() => this.props.navigation.navigate('Statistics')}
+                        settings={() => this.props.navigation.navigate('Setting')}
+                    />
                 </View>
-
             </>
         );
     }
-
 }
 
 const styles = StyleSheet.create({
-
-
     contenidor: {
         flex: 1,
         flexDirection: 'column',
@@ -78,22 +69,12 @@ const styles = StyleSheet.create({
         marginTop: 30,
         flexDirection: 'row',
         justifyContent: 'center',
-
     },
     body: {
         marginTop: 2,
         justifyContent: 'space-evenly',
         padding: 10,
         flex: 10,
-
-    },
-
-    StyleText: {
-        marginTop: 20,
-        marginBottom: 10,
-        marginLeft: 30,
-        marginRight: 10,
-
     },
     pictures: {
         alignSelf: 'center',

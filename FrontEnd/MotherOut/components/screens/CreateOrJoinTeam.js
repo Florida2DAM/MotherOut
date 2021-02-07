@@ -1,11 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React, { Component } from 'react';
 
 import {
@@ -51,7 +43,13 @@ class CreateOrJoinTeam extends Component {
                     </View>
 
                     <View>
-                        <NavBar />
+                    <NavBar
+                            checked={() => this.props.navigation.navigate('ScreenToDo')}
+                            list={() => this.props.navigation.navigate('ListTask')}
+                            calendar={() => this.props.navigation.navigate('TaskAssignment')}
+                            nav={() => this.props.navigation.navigate('Statistics')}
+                            settings={() => this.props.navigation.navigate('Setting')}
+                        />
                     </View>
                 </View>
 

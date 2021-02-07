@@ -1,75 +1,55 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
-import React, {Component} from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import React, { Component } from 'react';
 import {
-    SafeAreaView,
-    StyleSheet,
-    ScrollView,
-    View,
-    Text,
-    StatusBar,
+    StyleSheet
 } from 'react-native';
-
+import 'react-native-gesture-handler';
 import {
-    Header,
-    LearnMoreLinks,
-    Colors,
-    DebugInstructions,
-    ReloadInstructions,
+    Colors
 } from 'react-native/Libraries/NewAppScreen';
+//All screens
+import AddUser from './components/screens/AddUser';
+import AsignedTask from './components/screens/AsignedTasks';
+import CreateOrJoinTeam from './components/screens/CreateOrJoinTeam';
+import JoinTeam from './components/screens/JoinTeam';
+import ListTask from './components/screens/ListTask';
+import Login from './components/screens/Login';
+import ManualAssignment from './components/screens/ManualAssignment';
+import NewOrEditTask from './components/screens/NewOrEditTask';
+import ScreenToDo from './components/screens/ScreenToDo';
+import Setting from './components/screens/Setting';
+import SingUp from './components/screens/SingUp';
+import Statistics from './components/screens/Statistics';
+import TaskAssignment from './components/screens/TaskAssignment';
+import TasksEditing from './components/screens/TasksEditing';
+import YourTeam from './components/screens/YourTeam';
+//Help Screens
+const navigationContainer = createStackNavigator();
 
 class App extends Component {
-
     render() {
         return (
             <>
-                <StatusBar barStyle="dark-content"/>
-                <SafeAreaView>
-                    <ScrollView
-                        contentInsetAdjustmentBehavior="automatic"
-                        style={styles.scrollView}>
-                        <Header/>
-                        {global.HermesInternal == null ? null : (
-                            <View style={styles.engine}>
-                                <Text style={styles.footer}>Engine: Hermes</Text>
-                            </View>
-                        )}
-                        <View style={styles.body}>
-                            <View style={styles.sectionContainer}>
-                                <Text style={styles.sectionTitle}>Step One</Text>
-                                <Text style={styles.sectionDescription}>
-                                    Edit <Text style={styles.highlight}>App.js</Text> to change this
-                                    screen and then come back to see your edits.
-                                </Text>
-                            </View>
-                            <View style={styles.sectionContainer}>
-                                <Text style={styles.sectionTitle}>See Your Changes</Text>
-                                <Text style={styles.sectionDescription}>
-                                    <ReloadInstructions/>
-                                </Text>
-                            </View>
-                            <View style={styles.sectionContainer}>
-                                <Text style={styles.sectionTitle}>Debug</Text>
-                                <Text style={styles.sectionDescription}>
-                                    <DebugInstructions/>
-                                </Text>
-                            </View>
-                            <View style={styles.sectionContainer}>
-                                <Text style={styles.sectionTitle}>Learn More</Text>
-                                <Text style={styles.sectionDescription}>
-                                    Read the docs to discover what to do next:
-                                </Text>
-                            </View>
-                            <LearnMoreLinks/>
-                        </View>
-                    </ScrollView>
-                </SafeAreaView>
+                <NavigationContainer>
+                    <navigationContainer.Navigator>
+                        <navigationContainer.Screen options={{ headerShown: false }} name="Login" component={Login} />
+                        <navigationContainer.Screen options={{ headerShown: false }} name="AddUser" component={AddUser} />
+                        <navigationContainer.Screen options={{ headerShown: false }} name="AsignedTask" component={AsignedTask} />
+                        <navigationContainer.Screen options={{ headerShown: false }} name="CreateOrJoinTeam" component={CreateOrJoinTeam} />
+                        <navigationContainer.Screen options={{ headerShown: false }} name="JoinTeam" component={JoinTeam} />
+                        <navigationContainer.Screen options={{ headerShown: false }} name="ListTask" component={ListTask} />
+                        <navigationContainer.Screen options={{ headerShown: false }} name="ManualAssignment" component={ManualAssignment} />
+                        <navigationContainer.Screen options={{ headerShown: false }} name="NewOrEditTask" component={NewOrEditTask} />
+                        <navigationContainer.Screen options={{ headerShown: false }} name="ScreenToDo" component={ScreenToDo} />
+                        <navigationContainer.Screen options={{ headerShown: false }} name="Setting" component={Setting} />
+                        <navigationContainer.Screen options={{ headerShown: false }} name="SingUp" component={SingUp} />
+                        <navigationContainer.Screen options={{ headerShown: false }} name="Statistics" component={Statistics} />
+                        <navigationContainer.Screen options={{ headerShown: false }} name="TaskAssignment" component={TaskAssignment} />
+                        <navigationContainer.Screen options={{ headerShown: false }} name="TasksEditing" component={TasksEditing} />
+                        <navigationContainer.Screen options={{ headerShown: false }} name="YourTeam" component={YourTeam} />
+                    </navigationContainer.Navigator>
+                </NavigationContainer>
             </>
         );
     }

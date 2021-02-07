@@ -11,7 +11,6 @@ import importedPicture from '../../assets/asignedTasks.png';
 import importAvatar2 from '../../assets/avatar2.png';
 import importIcon from '../../assets/bathtub.png';
 import importAvatar from '../../assets/circle-cropped.png';
-import { NavBar } from '../NavBar';
 import { TaskCardTwoIcons } from '../TaskCardTwoIcons';
 
 const avatar = Image.resolveAssetSource(importAvatar).uri
@@ -91,7 +90,13 @@ class AsignedTasks extends Component {
 
                     </View>
                     <View>
-                        <NavBar />
+                    <NavBar
+                            checked={() => this.props.navigation.navigate('ScreenToDo')}
+                            list={() => this.props.navigation.navigate('ListTask')}
+                            calendar={() => this.props.navigation.navigate('TaskAssignment')}
+                            nav={() => this.props.navigation.navigate('Statistics')}
+                            settings={() => this.props.navigation.navigate('Setting')}
+                        />
                     </View>
                 </View>
             </>
