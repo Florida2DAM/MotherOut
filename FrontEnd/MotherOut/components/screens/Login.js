@@ -52,7 +52,6 @@ class Login extends Component {
                             source={{ uri: picture }}
                         />
                     </View>
-                    
                         <View>
                             <GenericInput1 placeHolder="Login" />
                         </View>
