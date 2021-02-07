@@ -1,19 +1,20 @@
 import React, {Component} from 'react';
-import {ScrollView, StyleSheet, Text, View,} from 'react-native';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {Image} from 'react-native-elements';
-import image from '../../assets/manualAssignment.png'
-import {NavBar} from "../NavBar";
+
+import imagen from '../../assets/tasksEditiing.png';
 import {GenericInput2} from "../GenericInput2";
 import {RoundedButton} from "../RoundedButton";
-import {InputData} from '../InputData'
-import {SelectedItem} from '../SelectedItem'
+import {NavBar} from "../NavBar";
+import {SelectedItem} from "../SelectedItem";
+import {InputData} from "../InputData";
 
-const picture = Image.resolveAssetSource(image).uri;
+const picture = Image.resolveAssetSource(imagen).uri;
 const listUsers = [
     {name: 'Pablo'}, {name: 'Juan'}, {name: 'Jesús'}
-]
+];
 
-class ManualAssignment extends Component {
+class TasksEditing extends Component {
 
     constructor(props) {
         super(props);
@@ -48,7 +49,7 @@ class ManualAssignment extends Component {
                             <SelectedItem list={listUsers} value={this.state.name} selectedItem={this.getName}/>
                             <Text style={styles.textStyle}>Select day</Text>
                             <InputData value={this.state.date}
-                                       press={(item) => this.setState({date: item.day+"-"+item.month+"-"+item.year})}/>
+                                       press={(item) => this.setState({date: item.day + "-" + item.month + "-" + item.year})}/>
                         </View>
                     </ScrollView>
                     <View>
@@ -90,4 +91,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default ManualAssignment;
+export default TasksEditing;
