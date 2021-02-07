@@ -1,18 +1,76 @@
 
 import React, { Component } from 'react';
 import {
-    StyleSheet,
-    View
+    FlatList,
+    Pressable, StyleSheet,
+
+    Text, View
 } from 'react-native';
+import { Calendar, LocaleConfig } from 'react-native-calendars';
 import {
-    Image
+    Icon, Image
 } from 'react-native-elements';
-import imagen from '../../assets/newOrEditTask.png';
+import Menu from 'react-native-material-menu';
+import importedPicture from '../../assets/asignedTasks.png';
+import importAvatar2 from '../../assets/avatar2.png';
+import importIcon from '../../assets/bathtub.png';
+import importAvatar from '../../assets/circle-cropped.png';
 import { NavBar } from '../NavBar';
-const picture = Image.resolveAssetSource(imagen).uri;
+
+const avatar = Image.resolveAssetSource(importAvatar).uri
+const avatar2 = Image.resolveAssetSource(importAvatar2).uri
+const icon = Image.resolveAssetSource(importIcon).uri
+const picture = Image.resolveAssetSource(importedPicture).uri;
+
+
+
+import { InputData } from '../InputData'
+import { SelectedItem } from '../SelectedItem'
+
+
+const listUsers = [
+    { name: 'Pablo', blop: avatar2 }, { name: 'Juan', blop: avatar }, { name: 'Jesus', blop: avatar }
+]
+
+
+
 
 class NewOrEditTask extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            name: null,
+            fecha: null,
+        }
+    }
 
+
+
+    _menu = null;
+
+    setMenuRef = ref => {
+        this._menu = ref;
+    };
+
+    hideMenu = () => {
+        this._menu.hide();
+    };
+
+    showMenu = () => {
+        this._menu.show();
+    };
+
+    algo = (item) => {
+        this.setState({ name: item.name })
+        this.hideMenu;
+    }
+
+    getName = (item) => {
+        return this.setState({
+            name: item.name
+        })
+    }
+    
     render() {
         return (
             <>
@@ -23,7 +81,8 @@ class NewOrEditTask extends Component {
                             source={{ uri: picture }} />
                     </View>
                     <View style={styles.body}>
-                        
+                        <SelectedItem list={listUsers} value={this.state.name} selectedItem={this.getName}></SelectedItem>
+                        <InputData value={this.state.fecha} press={(item) => this.setState({ fecha: item.dateString })}></InputData>
                     </View>
                     <View>
                         <NavBar />
@@ -49,8 +108,28 @@ const styles = StyleSheet.create({
     body: {
         marginTop: 2,
         justifyContent: 'space-evenly',
-        padding: 15,
         flex: 10,
+    },
+    menuView: {
+        flexDirection: 'column',
+        alignItems: 'flex-end',
+        padding: 10,
+    },
+    headUser: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        padding: 10,
+        backgroundColor: 'pink'
+    },
+    textStyle: {
+        padding: 10,
+        fontSize: 25,
+        fontFamily: "Roboto",
+        fontWeight: "bold"
+    },
+    logo: {
+        width: 66,
+        height: 58,
     },
 });
 

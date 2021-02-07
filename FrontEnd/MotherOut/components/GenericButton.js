@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 
-export default class GenericButton extends Component {
+export  class GenericButton extends Component {
 
     render() {
         return (
