@@ -11,7 +11,7 @@ import {
 import imagen from '../../assets/tasksEditiing.png';
 const picture = Image.resolveAssetSource(imagen).uri;
 
-class TasksEditiing extends Component {
+class TasksEditing extends Component {
 
     render() {
         return (
@@ -93,4 +93,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default TasksEditiing;
+export default TasksEditing;
