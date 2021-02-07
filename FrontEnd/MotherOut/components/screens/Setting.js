@@ -9,6 +9,7 @@
 import React, { Component } from 'react';
 
 import {
+    ScrollView,
     StyleSheet,
     View,
 
@@ -32,26 +33,27 @@ class Setting extends Component {
         return (
             <>
                 <View style={styles.contenidor}>
-                    <View style={styles.header}>
-                        <View style={styles.pictures}>
-                            <Image
-                                style={{ width: 300, height: 90 }}
-                                source={{ uri: picture }}
-                            />
+                    <ScrollView>
+                        <View style={styles.header}>
+                            <View style={styles.pictures}>
+                                <Image
+                                    style={{ width: 300, height: 90 }}
+                                    source={{ uri: picture }}
+                                />
+                            </View>
                         </View>
-                    </View>
-                    <View style={styles.body}>
-                        <View >
-                            <GenericIconButton button="Create Team" icon='users' />
+                        <View style={styles.body}>
+                            <View >
+                                <GenericIconButton button="Create Team" icon='users' />
+                            </View>
+                            <View >
+                                <GenericIconButton button="Join Team" icon='user' />
+                            </View>
+                            <View >
+                                <GenericIconButton button="Global settings" icon='cogs' />
+                            </View>
                         </View>
-                        <View >
-                            <GenericIconButton button="Join Team" icon='user' />
-                        </View>
-                        <View >
-                            <GenericIconButton button="Global settings" icon='cogs' />
-                        </View>
-                    </View>
-
+                    </ScrollView>
                     <View>
                         <NavBar />
                     </View>

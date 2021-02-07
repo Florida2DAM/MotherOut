@@ -45,14 +45,13 @@ class SingUp extends Component {
         return (
             <>
                 <View style={styles.contenidor}>
-
-                    <View style={styles.pictures}>
-                        <Image
-                            style={{ width: 310, height: 270 }}
-                            source={{ uri: picture }}
-                        />
-                    </View>
                     <ScrollView>
+                        <View style={styles.pictures}>
+                            <Image
+                                style={{ width: 310, height: 270 }}
+                                source={{ uri: picture }}
+                            />
+                        </View>
                         <View>
                             <GenericInput1 placeHolder="Name" />
 
@@ -61,11 +60,9 @@ class SingUp extends Component {
                             <GenericInput1 placeHolder="Pasword" />
 
                             <GenericButton button="Create Account" />
-
                         </View>
                     </ScrollView>
                 </View>
-
             </>
         );
     }
@@ -83,8 +80,7 @@ const styles = StyleSheet.create({
     },
     pictures: {
         alignSelf: 'center',
-        marginTop: 30,
-        marginBottom: 10
+      
     },
 });
 

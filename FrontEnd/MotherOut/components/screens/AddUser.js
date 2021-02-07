@@ -27,12 +27,12 @@ class AddUser extends Component {
                             source={{ uri: picture }} />
                     </View>
                     <View style={styles.body}>
-                        <View style={styles.input}>
+                        
                             <GenericInput2 placeHolder="Email" />
-                        </View>
-                        <View style={styles.button}>
+                        
+                        
                             <GenericButton button="Add User" />
-                        </View>
+                        
                     </View>
                     <View>
                         <NavBar />
@@ -57,16 +57,9 @@ const styles = StyleSheet.create({
     },
     body: {
         marginTop: 2,
-        justifyContent: 'space-evenly',
+        justifyContent: 'space-between',
         padding: 15,
         flex: 10,
-    },
-    input: {
-        marginTop: 60,
-        marginBottom: 150,
-    },
-    button: {
-        marginTop: 100,
     },
     pictures: {
         alignSelf: 'center',

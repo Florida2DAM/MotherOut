@@ -22,9 +22,7 @@ const styles = StyleSheet.create({
     },
     personalInput2: {
         borderBottomColor: '#D7B9D5',
-        margin: 10,
-        width: 375,
-        paddingLeft: 8,
-        fontFamily:'roboto'
-    }
+        padding: 5,
+        fontFamily: 'roboto',
+    },
 })

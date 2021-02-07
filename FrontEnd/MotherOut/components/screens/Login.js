@@ -45,14 +45,14 @@ class Login extends Component {
         return (
             <>
                 <View style={styles.container}>
-
+                <ScrollView>
                     <View style={styles.pictures}>
                         <Image
                             style={{ width: 310, height: 270 }}
                             source={{ uri: picture }}
                         />
                     </View>
-                    <ScrollView>
+                    
                         <View>
                             <GenericInput1 placeHolder="Login" />
                         </View>

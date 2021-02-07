@@ -27,12 +27,8 @@ class JoinTeam extends Component {
                             source={{ uri: picture }} />
                     </View>
                     <View style={styles.body}>
-                        <View style={styles.input}>
-                            <GenericInput2 placeHolder="Id Team" />
-                        </View>
-                        <View style={styles.button}>
-                            <GenericButton button="Join Team" />
-                        </View>
+                        <GenericInput2 placeHolder="Id Team" />
+                        <GenericButton button="Join Team" />
                     </View>
                     <View>
                         <NavBar />
@@ -61,13 +57,7 @@ const styles = StyleSheet.create({
         padding: 15,
         flex: 10,
     },
-    input: {
-        marginTop: 60,
-        marginBottom: 150,
-    },
-    button: {
-        marginTop: 100,
-    },
+
     pictures: {
         alignSelf: 'center',
         padding: 5,
