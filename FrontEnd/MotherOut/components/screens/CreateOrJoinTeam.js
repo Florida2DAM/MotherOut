@@ -20,13 +20,13 @@ import {
 
 } from 'react-native-elements';
 
-import imagen from '../../assets/asignedTasks.png';
+import imagen from '../../assets/CreateOrJoinTeam.png';
 import { GenericIconButton } from '../GenericIconButton';
 import { NavBar } from '../NavBar';
 
 const picture = Image.resolveAssetSource(imagen).uri;
 
-class AsignedTasks extends Component {
+class CreateOrJoinTeam extends Component {
 
     render() {
         return (
@@ -42,11 +42,12 @@ class AsignedTasks extends Component {
                     </View>
                     <View style={styles.body}>
                         <View >
-                            <GenericIconButton button="MANUAL ASSIGNMENT" icon='wrench' />
+                            <GenericIconButton button="Create Team" icon='plus' />
                         </View>
                         <View >
-                            <GenericIconButton button="RANDOM ASSIGNMENT" icon='random' />
+                            <GenericIconButton button="Join Team" icon='users' />
                         </View>
+
                     </View>
 
                     <View>
@@ -90,16 +91,10 @@ const styles = StyleSheet.create({
         marginRight: 10,
 
     },
-    button1: {
-        marginBottom: 1,
-    },
-    button2: {
-        marginTop: 1,
-    },
     pictures: {
         alignSelf: 'center',
         padding: 5,
     }
 });
 
-export default AsignedTasks;
+export default CreateOrJoinTeam;

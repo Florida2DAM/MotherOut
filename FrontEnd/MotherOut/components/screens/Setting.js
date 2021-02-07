@@ -9,6 +9,7 @@
 import React, { Component } from 'react';
 
 import {
+    ScrollView,
     StyleSheet,
     View,
 
@@ -20,35 +21,39 @@ import {
 
 } from 'react-native-elements';
 
-import imagen from '../../assets/asignedTasks.png';
+import imagen from '../../assets/setting.png';
 import { GenericIconButton } from '../GenericIconButton';
 import { NavBar } from '../NavBar';
 
 const picture = Image.resolveAssetSource(imagen).uri;
 
-class AsignedTasks extends Component {
+class Setting extends Component {
 
     render() {
         return (
             <>
                 <View style={styles.contenidor}>
-                    <View style={styles.header}>
-                        <View style={styles.pictures}>
-                            <Image
-                                style={{ width: 300, height: 90 }}
-                                source={{ uri: picture }}
-                            />
+                    <ScrollView>
+                        <View style={styles.header}>
+                            <View style={styles.pictures}>
+                                <Image
+                                    style={{ width: 300, height: 90 }}
+                                    source={{ uri: picture }}
+                                />
+                            </View>
                         </View>
-                    </View>
-                    <View style={styles.body}>
-                        <View >
-                            <GenericIconButton button="MANUAL ASSIGNMENT" icon='wrench' />
+                        <View style={styles.body}>
+                            <View >
+                                <GenericIconButton button="Create Team" icon='users' />
+                            </View>
+                            <View >
+                                <GenericIconButton button="Join Team" icon='user' />
+                            </View>
+                            <View >
+                                <GenericIconButton button="Global settings" icon='cogs' />
+                            </View>
                         </View>
-                        <View >
-                            <GenericIconButton button="RANDOM ASSIGNMENT" icon='random' />
-                        </View>
-                    </View>
-
+                    </ScrollView>
                     <View>
                         <NavBar />
                     </View>
@@ -90,16 +95,10 @@ const styles = StyleSheet.create({
         marginRight: 10,
 
     },
-    button1: {
-        marginBottom: 1,
-    },
-    button2: {
-        marginTop: 1,
-    },
     pictures: {
         alignSelf: 'center',
         padding: 5,
     }
 });
 
-export default AsignedTasks;
+export default Setting;

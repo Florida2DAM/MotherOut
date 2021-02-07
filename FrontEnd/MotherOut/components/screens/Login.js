@@ -33,6 +33,8 @@ import {
     Input,
 } from 'react-native-elements';
 import imagen from '../../assets/logo.png'
+import { GenericInput1 } from '../GenericInput1';
+import { GenericButton } from '../GenericButton';
 
 const picture = Image.resolveAssetSource(imagen).uri;
 
@@ -51,36 +53,24 @@ class Login extends Component {
                         />
                     </View>
                     
-                    <View>
-                        <Input
-                            placeholder="Login"
-                            style={styles}
-                            onChangeText={value => this.setState({ comment: value })}
-                        />
-                    </View>
-                    <View>
-                        <Input
-                            placeholder="Password"
-                            style={styles}
-                            onChangeText={value => this.setState({ comment: value })}
-                        />
-                    </View>
-                    <View style={styles.button1} >
-                        <Button
-                            title="Log In"
-                        />
-                    </View>
-                    <View style={{ alignSelf: 'center',}}>
-                        <Text>Don't have a login?</Text>
-                    </View>
-                    <View style={styles.button2} >
-                        <Button
-                            title="Sign Up"
-                        />
-                    </View>
+                        <View>
+                            <GenericInput1 placeHolder="Login" />
+                        </View>
+                        <View>
+                            <GenericInput1 placeHolder="Password" />
+                        </View>
+                        <View style={styles.button1} >
+                            <GenericButton button="Log In" />
+                        </View>
+                        <View style={styles.text}>
+                            <Text>Don't have a login?</Text>
+                        </View>
+                        <View style={styles.button2} >
+                            <GenericButton button="Sing Up" />
+                        </View>
                     </ScrollView>
                 </View>
-                
+
             </>
         );
     }
@@ -90,31 +80,29 @@ class Login extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-
         flexDirection: 'column',
         borderColor: 'white',
         alignContent: 'center',
         backgroundColor: '#90A8C3',
-
-
     },
 
-    pictures:{
+    pictures: {
         alignSelf: 'center',
-         marginTop: 30, 
-         marginBottom: 10 
+        marginTop: 30,
+        marginBottom: 10
     },
-    button1:{
-        marginTop: 20,
-        marginBottom: 30,
+    button1: {
+        padding: 1,
     },
-    button2:{
+    button2: {
+        padding: 2,
+
+    },
+    text: {
+        alignSelf: 'center',
         marginTop: 20,
-        marginBottom: 30,
     }
 
-    
-    
 });
 
 export default Login;
