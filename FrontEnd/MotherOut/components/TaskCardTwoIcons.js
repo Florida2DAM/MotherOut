@@ -11,17 +11,19 @@ import {
 } from "react-native-elements"
 
 //Se le pasará un icono de la base de datos, dejo este codigo como ejemplo para otros imports locales
-import logo from '../assets/house_bed_icon-icons.com_74373.png'
-const defaultLogo = Image.resolveAssetSource(logo).uri;
+//import logo from '../assets/house_bed_icon-icons.com_74373.png'
+//const defaultLogo = Image.resolveAssetSource(logo).uri;
 
 export class TaskCardTwoIcons extends Component {
+    
     render() {
         return (
             <>
                 <View style={styles.cardTaskbox}>
+
                     <Image
                         style={styles.logo}
-                        source={{ uri: defaultLogo }}
+                        source={{ uri: this.props.iconCard }}
                     />
                     <Text style={styles.textStyle}>{this.props.text}</Text>
                     <View style={styles.icons}>
@@ -30,7 +32,7 @@ export class TaskCardTwoIcons extends Component {
                                 name={this.props.icon1}
                                 type='font-awesome'
                                 color='#F4CAE0'
-                                onPress={this.props.press}
+                                onPress={this.props.press1}
                                 size={42} />
                         </View>
                         <View style={styles.icon2}>
@@ -38,7 +40,7 @@ export class TaskCardTwoIcons extends Component {
                                 name={this.props.icon2}
                                 type='font-awesome'
                                 color='#F4CAE0'
-                                onPress={this.props.press}
+                                onPress={this.props.press2}
                                 size={42} />
                         </View>
                     </View>
@@ -74,18 +76,19 @@ const styles = StyleSheet.create({
         fontWeight: "bold"
     },
     logo: {
-        width: 66,
-        height: 58,
+        marginLeft: 10,
+        width: 56,
+        height: 48,
     },
     icons: {
         flexDirection: "row",
         justifyContent: 'space-around',
     },
     icon1: {
-        padding: 10,
+        padding: 5,
     },
     icon2: {
-        padding: 10,
+        padding: 7,
     }
 
 });

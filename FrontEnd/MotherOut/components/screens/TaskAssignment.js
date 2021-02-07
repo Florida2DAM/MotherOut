@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
 import {
-    Button, StyleSheet,
+    StyleSheet,
     View
 } from 'react-native';
 import {
     Image
 } from 'react-native-elements';
 import imagen from '../../assets/taskAssignment.png';
-
-
-
-
 
 const picture = Image.resolveAssetSource(imagen).uri;
 
@@ -21,93 +17,69 @@ class TaskAssignment extends Component {
         return (
             <>
                 <View style={styles.contenidor}>
-                <View style={styles.secction1}>
-                
-                    <View style={styles.pictures}>
-                    <Image
-                            style={{  width: 300, height: 90  }}
-                            source={{ uri: picture }}
-                        />
+                    <View style={styles.header}>
+                        <View style={styles.pictures}>
+                            <Image
+                                style={{ width: 300, height: 90 }}
+                                source={{ uri: picture }}
+                            />
+                        </View>
                     </View>
+                    <View style={styles.body}>
+                        <View >
+                            <GenericIconButton button="MANUAL ASSIGNMENT" icon='wrench' />
+                        </View>
+                        <View >
+                            <GenericIconButton button="RANDOM ASSIGNMENT" icon='random' />
+                        </View>
                     </View>
-                    <View style={styles.secction2}>
-                   
-                    <View style={styles.button1 }>
-                        <Button
-                            title="MANUAL ASSIGNMENT"
-                        />
-                    </View>
-                    
-                    <View style={styles.button2} >
-                        <Button
-                            title="RANDOM ASSIGNMENT"
-                        />
-                    </View>
-                    </View>
-                    <View style={styles.secction3}>
                     <View>
-                        <View></View>
+                        <NavBar />
                     </View>
-                    </View>
-                   
-                    
                 </View>
-                
             </>
         );
     }
-
 }
+
 
 const styles = StyleSheet.create({
     contenidor: {
         flex: 1,
-
         flexDirection: 'column',
-        borderColor: 'white',
-        alignContent: 'center',
         backgroundColor: '#90A8C3',
-
-
+        borderWidth: 2,
     },
-    secction1: {
-        flex: 2,
-        flexDirection: 'column',
-        borderWidth: 3,
-        borderColor: 'black',
-
-    },
-    secction2: {
-        flex: 10,
-        borderWidth: 3,
-        flexDirection: 'column',
-        borderColor: 'black',
-
-
-    },
-    secction3: {
-        flex: 1,
-        flexDirection: 'column',
-        borderWidth: 3,
-        borderColor: 'black',
-
-
-    },
-    pictures:{
+    header: {
         marginTop: 30,
+        flexDirection: 'row',
+        justifyContent: 'center',
+
+    },
+    body: {
+        marginTop: 2,
+        justifyContent: 'space-evenly',
+        padding: 10,
+        flex: 10,
+
+    },
+    StyleText: {
+        marginTop: 20,
         marginBottom: 10,
-        marginLeft:10,
-        marginRight:10
+        marginLeft: 30,
+        marginRight: 10,
+
     },
-    button1:{
-        marginTop: 150,
-        marginBottom: 10 ,
+    button1: {
+        marginBottom: 1,
     },
-    button2:{
-        marginTop: 50,
-         marginBottom: 10,
+    button2: {
+        marginTop: 1,
+    },
+    pictures: {
+        alignSelf: 'center',
+        padding: 5,
     }
-    
 });
 
 export default TaskAssignment;

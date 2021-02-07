@@ -7,12 +7,12 @@ export class GenericInput1 extends Component {
     constructor(props) {
         super(props);
     }
-
     render() {
         return (
             <Input inputStyle={styles.personalInput} inputContainerStyle={styles.personalInput2}
-                   placeholder={this.props.placeHolder} secureTextEntry={this.props.passValue}
-                   placeholderTextColor='black' onChangeText={this.props.onChange} value={this.props.value}/>
+                placeholder={this.props.placeHolder} secureTextEntry={this.props.passValue}
+                placeholderTextColor='black' onChangeText={this.props.onChange} value={this.props.value}
+            />
         )
     }
 }

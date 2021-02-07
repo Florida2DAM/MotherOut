@@ -4957,10 +4957,14 @@ mkdirp@^0.5.1:
     minimist "^1.2.5"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 moment@>=2.10.3:
 =======
 moment@>=2.10.3, moment@^2.24.0:
 >>>>>>> MotherOut_FrontEnd_JESUS
+=======
+moment@^2.24.0:
+>>>>>>> MotherOut_FrontEnd_Pablo
   version "2.29.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.1.tgz#b2be769fa31940be9eeea6469c075e35006fa3d3"
   integrity sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==
@@ -5608,6 +5612,7 @@ react-is@^17.0.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.1.tgz#5b3531bd76a645a4c9fb6e693ed36419e3301339"
   integrity sha512-NAnt2iGDXohE5LI7uBnLnqvLQMtzhkiAOLXTmv+qnF9Ky7xAPcX8Up/xWIhxvLVGJvuLiNc4xQLtuqDRzb4fSA==
 
+<<<<<<< HEAD
 react-native-calendar@^0.13.1:
   version "0.13.1"
   resolved "https://registry.yarnpkg.com/react-native-calendar/-/react-native-calendar-0.13.1.tgz#c3fb4b7dfb47adbf6f5f2d7313a88f99916b0fee"
@@ -5617,6 +5622,8 @@ react-native-calendar@^0.13.1:
 
 <<<<<<< HEAD
 =======
+=======
+>>>>>>> MotherOut_FrontEnd_Pablo
 react-native-calendars@^1.1247.0:
   version "1.1247.0"
   resolved "https://registry.yarnpkg.com/react-native-calendars/-/react-native-calendars-1.1247.0.tgz#63af7dcafbddffc9fedc5af4717c10ae48e637af"
@@ -5630,7 +5637,10 @@ react-native-calendars@^1.1247.0:
     react-native-swipe-gestures "^1.0.5"
     xdate "^0.8.0"
 
+<<<<<<< HEAD
 >>>>>>> MotherOut_FrontEnd_JESUS
+=======
+>>>>>>> MotherOut_FrontEnd_Pablo
 react-native-elements@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/react-native-elements/-/react-native-elements-3.1.0.tgz#ff2d6fd0ed91b1ebdd15598c4da1fcb2d5780c5f"

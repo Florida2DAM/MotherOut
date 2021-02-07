@@ -1,63 +1,102 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
 
 import React, { Component } from 'react';
-
 import {
-    StyleSheet,
-    View,
-
+    FlatList, StyleSheet,
+    Text, View
 } from 'react-native';
-
 import {
-    Image,
-    Icon,
-
+    Image
 } from 'react-native-elements';
+import importedPicture from '../../assets/asignedTasks.png';
+import importAvatar2 from '../../assets/avatar2.png';
+import importIcon from '../../assets/bathtub.png';
+import importAvatar from '../../assets/circle-cropped.png';
+import { NavBar } from '../NavBar';
+import { TaskCardTwoIcons } from '../TaskCardTwoIcons';
+
+const avatar = Image.resolveAssetSource(importAvatar).uri
+const avatar2 = Image.resolveAssetSource(importAvatar2).uri
+const icon = Image.resolveAssetSource(importIcon).uri
+const picture = Image.resolveAssetSource(importedPicture).uri;
+
+
+const taskList = [
+    { task: "Clean Bathroom", blop: icon },
+    { task: "Clean Bathroom", blop: icon },
+    { task: "Clean Bathroom", blop: icon },
+    { task: "Clean Bathroom", blop: icon },
+];
+
+const listUsers = [
+    { name: 'Pablo', blop: avatar2 }, { name: 'Juan', blop: avatar }, { name: 'Jesus', blop: avatar }
+]
 
 import imagen from '../../assets/asignedTasks.png';
 import { GenericIconButton } from '../GenericIconButton';
 import { NavBar } from '../NavBar';
 
-const picture = Image.resolveAssetSource(imagen).uri;
 
 class AsignedTasks extends Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            task: null,
+        }
+    }
+
+
+
+    getTask = (itemSelected) => {
+        return alert(itemSelected)
+    }
 
     render() {
         return (
             <>
                 <View style={styles.contenidor}>
                     <View style={styles.header}>
-                        <View style={styles.pictures}>
-                            <Image
-                                style={{ width: 300, height: 90 }}
-                                source={{ uri: picture }}
-                            />
-                        </View>
+                        <Image
+                            style={{ width: 300, height: 90 }}
+                            source={{ uri: picture }} />
                     </View>
                     <View style={styles.body}>
-                        <View >
-                            <GenericIconButton button="MANUAL ASSIGNMENT" icon='wrench' />
-                        </View>
-                        <View >
-                            <GenericIconButton button="RANDOM ASSIGNMENT" icon='random' />
-                        </View>
-                    </View>
+                        <FlatList
+                            data={listUsers}
+                            keyExtractor={(item, index) => index.toString()}
+                            renderItem={({ item }) =>
+                                <View>
+                                    <View style={styles.headUser}>
+                                        <Text style={styles.textStyle}>{item.name}</Text>
+                                        <Image
+                                            style={styles.logo}
+                                            source={{ uri: item.blop }}
+                                        />
+                                    </View>
+                                    <FlatList
+                                        data={taskList}
+                                        keyExtractor={(item, index) => index.toString()}
+                                        renderItem={({ item }) =>
+                                            <View style={styles.flatStyle}>
+                                                <TaskCardTwoIcons text={item.task}
+                                                    icon1="trash"
+                                                    icon2="edit"
+                                                    iconCard={item.blop} />
+                                            </View>
+                                        }
+                                    />
+                                </View>
+                            }
+                        />
 
+                    </View>
                     <View>
                         <NavBar />
                     </View>
                 </View>
-
             </>
         );
     }
-
 }
 
 const styles = StyleSheet.create({
@@ -70,35 +109,33 @@ const styles = StyleSheet.create({
         borderWidth: 2,
     },
     header: {
-        marginTop: 30,
+        marginTop: 2,
         flexDirection: 'row',
-        justifyContent: 'center',
-
+        justifyContent: 'center'
     },
     body: {
         marginTop: 2,
         justifyContent: 'space-evenly',
-        padding: 10,
+        padding: 15,
         flex: 10,
-
     },
-
-    StyleText: {
-        marginTop: 20,
-        marginBottom: 10,
-        marginLeft: 30,
-        marginRight: 10,
-
+    textStyle: {
+        padding: 10,
+        fontSize: 25,
+        fontFamily: "Roboto",
+        fontWeight: "bold"
     },
-    button1: {
-        marginBottom: 1,
+    logo: {
+        width: 66,
+        height: 58,
     },
-    button2: {
-        marginTop: 1,
+    headUser: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        padding: 10
     },
-    pictures: {
-        alignSelf: 'center',
-        padding: 5,
+    flatStyle: {
+        padding: 5
     }
 });
 
