@@ -1,16 +1,10 @@
-
-import React, { Component } from 'react';
-import {
-    StyleSheet,
-    View
-} from 'react-native';
-import {
-    Image
-} from 'react-native-elements';
+import React, {Component} from 'react';
+import {StyleSheet, View} from 'react-native';
+import {Image} from 'react-native-elements';
 import imagen from '../../assets/addUser.png';
-import { GenericInput2 } from '../GenericInput2';
-import { NavBar } from '../NavBar';
-import { GenericButton } from '../GenericButton';
+import {GenericInput2} from '../GenericInput2';
+import {NavBar} from '../NavBar';
+import {GenericButton} from '../GenericButton';
 
 
 const picture = Image.resolveAssetSource(imagen).uri;
@@ -23,19 +17,15 @@ class AddUser extends Component {
                 <View style={styles.contenidor}>
                     <View style={styles.header}>
                         <Image
-                            style={{ width: 300, height: 90 }}
-                            source={{ uri: picture }} />
+                            style={{width: 300, height: 90}}
+                            source={{uri: picture}}/>
                     </View>
                     <View style={styles.body}>
-                        
-                            <GenericInput2 placeHolder="Email" />
-                        
-                        
-                            <GenericButton button="Add User" />
-                        
+                        <GenericInput2 placeHolder="Email"/>
+                        <GenericButton button="Add User"/>
                     </View>
                     <View>
-                        <NavBar />
+                        <NavBar/>
                     </View>
                 </View>
             </>

@@ -1,16 +1,10 @@
-
-import React, { Component } from 'react';
-import {
-    StyleSheet,
-    View
-} from 'react-native';
-import {
-    Image
-} from 'react-native-elements';
+import React, {Component} from 'react';
+import {StyleSheet, View} from 'react-native';
+import {Image} from 'react-native-elements';
 import imagen from '../../assets/joinTeam.png';
-import { GenericInput2 } from '../GenericInput2';
-import { NavBar } from '../NavBar';
-import { GenericButton } from '../GenericButton';
+import {GenericInput2} from '../GenericInput2';
+import {NavBar} from '../NavBar';
+import {GenericButton} from '../GenericButton';
 
 
 const picture = Image.resolveAssetSource(imagen).uri;
@@ -23,15 +17,15 @@ class JoinTeam extends Component {
                 <View style={styles.contenidor}>
                     <View style={styles.header}>
                         <Image
-                            style={{ width: 300, height: 90 }}
-                            source={{ uri: picture }} />
+                            style={{width: 300, height: 90}}
+                            source={{uri: picture}}/>
                     </View>
                     <View style={styles.body}>
-                        <GenericInput2 placeHolder="Id Team" />
-                        <GenericButton button="Join Team" />
+                        <GenericInput2 placeHolder="Id Team"/>
+                        <GenericButton button="Join Team"/>
                     </View>
                     <View>
-                        <NavBar />
+                        <NavBar/>
                     </View>
                 </View>
             </>
@@ -47,21 +41,22 @@ const styles = StyleSheet.create({
         borderWidth: 2,
     },
     header: {
-        marginTop: 30,
+        marginTop: 2,
         flexDirection: 'row',
-        justifyContent: 'center'
+        justifyContent: 'space-evenly',
+        alignItems: "center",
     },
     body: {
         marginTop: 2,
         justifyContent: 'space-evenly',
         padding: 15,
         flex: 10,
-    },
-
-    pictures: {
-        alignSelf: 'center',
-        padding: 5,
-    },
+        borderTopColor: 'grey',
+        borderBottomColor: '#90A8C3',
+        borderRightColor: '#90A8C3',
+        borderLeftColor: '#90A8C3',
+        borderWidth: 1,
+    }
 });
 
 export default JoinTeam;

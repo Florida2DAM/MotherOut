@@ -30,7 +30,7 @@ const data = [
     },
     {
         taskName: 'Clean Bathroom', done: true
-    },{
+    }, {
         taskName: 'Clean Bathroom', done: true
     },
     {
@@ -97,7 +97,8 @@ class ScreenToDo extends Component {
                         <FlatList data={this.loadArrayUndone()} keyExtractor={((item, index) => index.toString())}
                                   renderItem={({item}) =>
                                       <View style={styles.paddingView}>
-                                          <TaskCard text={item.taskName} icon={"square-o"} press={()=>this.completeTask(item)}/>
+                                          <TaskCard text={item.taskName} icon={"square-o"}
+                                                    press={() => this.completeTask(item)}/>
                                       </View>
 
                                   }
@@ -150,7 +151,7 @@ const styles = StyleSheet.create({
         fontFamily: "Roboto",
         padding: 15,
     },
-    paddingView:{
+    paddingView: {
         padding: 5,
     }
 });

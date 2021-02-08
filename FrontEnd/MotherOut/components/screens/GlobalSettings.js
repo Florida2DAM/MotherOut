@@ -1,16 +1,31 @@
 import React, {Component} from 'react';
-
-import {StyleSheet, View} from 'react-native';
-
+import {StyleSheet, Text, View} from 'react-native';
 import {Image} from 'react-native-elements';
-
-import image from '../../assets/CreateOrJoinTeam.png';
-import {GenericIconButton} from '../GenericIconButton';
-import {NavBar} from '../NavBar';
+import image from '../../assets/GSettings.png';
+import {NavBar} from "../NavBar";
+import {GenericIconButton} from "../GenericIconButton";
 
 const picture = Image.resolveAssetSource(image).uri;
 
-class CreateOrJoinTeam extends Component {
+class GlobalSettings extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            icon: 'toggle-on',
+            change: true,
+        }
+    }
+
+    enabledOrDisabledHelp = () => {
+        if (this.state.change) {
+            this.setState({change: false});
+            this.setState({icon: 'toggle-off'});
+        } else {
+            this.setState({change: true});
+            this.setState({icon: 'toggle-on'});
+        }
+    }
 
     render() {
         return (
@@ -18,13 +33,12 @@ class CreateOrJoinTeam extends Component {
                 <View style={styles.contenidor}>
                     <View style={styles.header}>
                         <Image
-                            style={{width: 300, height: 90}}
-                            source={{uri: picture}}
-                        />
+                            style={{width: 350, height: 100}}
+                            source={{uri: picture}}/>
                     </View>
                     <View style={styles.body}>
-                        <GenericIconButton button="Create Team" icon='plus'/>
-                        <GenericIconButton button="Join Team" icon='users'/>
+                        <GenericIconButton press={this.enabledOrDisabledHelp} icon={this.state.icon}
+                                           button={'Show Help'}/>
                     </View>
                     <View>
                         <NavBar/>
@@ -33,7 +47,6 @@ class CreateOrJoinTeam extends Component {
             </>
         );
     }
-
 }
 
 const styles = StyleSheet.create({
@@ -59,16 +72,7 @@ const styles = StyleSheet.create({
         borderRightColor: '#90A8C3',
         borderLeftColor: '#90A8C3',
         borderWidth: 1,
-    },
-    textStyle: {
-        fontWeight: "bold",
-        fontSize: 20,
-        fontFamily: "Roboto",
-        padding: 15,
-    },
-    paddingView: {
-        padding: 5,
     }
 });
 
-export default CreateOrJoinTeam;
+export default GlobalSettings;
