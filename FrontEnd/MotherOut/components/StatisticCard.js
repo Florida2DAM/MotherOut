@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 
 //Añadir el avatar de la bbdd
-import avatar from '../assets/help1.png';
+import avatar from '../assets/avatar2.png';
 
 const userAvatar = Image.resolveAssetSource(avatar).uri
 
