@@ -41,7 +41,13 @@ class GlobalSettings extends Component {
                                            button={'Show Help'}/>
                     </View>
                     <View>
-                        <NavBar/>
+                        <NavBar
+                            checked={() => this.props.navigation.navigate('ScreenToDo')}
+                            list={() => this.props.navigation.navigate('ListTask')}
+                            calendar={() => this.props.navigation.navigate('TaskAssignment')}
+                            nav={() => this.props.navigation.navigate('Statistics')}
+                            settings={() => this.props.navigation.navigate('Setting')}
+                        />
                     </View>
                 </View>
             </>

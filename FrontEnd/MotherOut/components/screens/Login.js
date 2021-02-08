@@ -29,7 +29,7 @@ class Login extends Component {
                             <GenericInput1 placeHolder="Password" />
                         </View>
                         <View style={styles.buttons} >
-                            <GenericButton button="Log In" press={() => this.props.navigation.navigate('ScreenToDo')} />
+                            <GenericButton button="Log In" press={() => this.props.navigation.navigate('Help1')} />
                             <View style={styles.text}>
                                 <Text>Don't have a login?</Text>
                             </View>
