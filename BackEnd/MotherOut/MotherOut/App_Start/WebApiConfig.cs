@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Web.Http;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
+using System.Web.Http.Cors;
 
 namespace MotherOut
 {
@@ -12,10 +13,11 @@ namespace MotherOut
     {
         public static void Register(HttpConfiguration config)
         {
-            // Configuración y servicios de Web API
-            // Configure Web API para usar solo la autenticación de token de portador.
-            config.SuppressDefaultHostAuthentication();
-            config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
+            // New code
+            config.EnableCors();
+
+            var cors = new EnableCorsAttribute("*", "*", "*");
+            config.EnableCors(cors);
 
             // Rutas de Web API
             config.MapHttpAttributeRoutes();
