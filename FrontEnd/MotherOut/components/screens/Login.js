@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { Component } from 'react';
 import {
     ScrollView, StyleSheet,
@@ -12,7 +13,36 @@ import { GenericInput1 } from '../GenericInput1';
 
 const picture = Image.resolveAssetSource(imagen).uri;
 
+/*const instance = axios.create({
+    baseURL: 'https://localhost:44397/api',
+    timeout: 1000,
+    headers: {'content-type': 'application/json'}
+  });*/
+
 class Login extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            email: null,
+            persons : null,
+        }
+    }
+
+    componentDidMount(){
+    
+    }
+
+    getUserbyEmail = () => {
+        axios.get('https://localhost:44397/api/Users?email=Memem@gmail.com')
+            .then(response => {
+                alert("Hola" + response.data)
+            })
+            .catch(function (error) {
+                alert("meh")
+                alert(error);
+            });
+        //this.props.navigation.navigate('ScreenToDo')
+    }
     render() {
         return (
             <>
@@ -25,11 +55,12 @@ class Login extends Component {
                             />
                         </View>
                         <View style={styles.inputs}>
-                            <GenericInput1 placeHolder="Login" />
+                            <GenericInput1 placeHolder="Email" value={this.state.email}
+                                onChange={(item) => this.setState({ email: item })} />
                             <GenericInput1 placeHolder="Password" />
                         </View>
                         <View style={styles.buttons} >
-                            <GenericButton button="Log In" press={() => this.props.navigation.navigate('ScreenToDo')} />
+                            <GenericButton button="Log In" press={this.getUserbyEmail} />
                             <View style={styles.text}>
                                 <Text>Don't have a login?</Text>
                             </View>
