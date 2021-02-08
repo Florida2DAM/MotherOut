@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Image } from 'react-native-elements';
-import imagen from '../../assets/tasksEditiing.png';
+import imagen from '../../assets/tasksEditing.png';
 import { GenericInput2 } from "../GenericInput2";
 import { InputData } from "../InputData";
 import { NavBar } from "../NavBar";
