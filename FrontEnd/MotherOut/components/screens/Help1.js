@@ -12,7 +12,7 @@ import {ScrollView, StyleSheet, View} from 'react-native';
 
 import {Image} from 'react-native-elements';
 import imagen from '../../assets/help1_1.png';
-import imagen2 from '../../assets/help2_1-png.png';
+import imagen2 from '../../assets/help2_1.png';
 import imagen3 from '../../assets/help3_1.png';
 import imagen4 from '../../assets/help4_1.png';
 import imagen5 from '../../assets/help5_1.png';
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#90A8C3',
     },
     pictures: {
-        padding:5
+        padding: 5,
     },
 });
 
