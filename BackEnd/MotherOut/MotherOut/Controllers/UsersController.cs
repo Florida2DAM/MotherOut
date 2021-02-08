@@ -25,6 +25,13 @@ namespace MotherOut_BackEnd.Controllers
             return user;
         }
 
+
+        public User GetUser(string email)
+        {
+            User user = repo.getUserByEmail(email);
+            return user;
+        }
+
         // POST: api/Users
         public int Post(User user)
         {            
