@@ -6,37 +6,23 @@
  * @flow strict-local
  */
 
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
-import {
-    SafeAreaView,
-    StyleSheet,
-    ScrollView,
-    View,
-    Text,
-    StatusBar,
-    Button,
+import {ScrollView, StyleSheet, View} from 'react-native';
 
-    LogBox,
-} from 'react-native';
-
-import {
-    Header,
-    LearnMoreLinks,
-    Colors,
-    DebugInstructions,
-    ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-import {
-    Image,
-    Input,
-} from 'react-native-elements';
-import imagen from '../../assets/help1.png'
+import {Image} from 'react-native-elements';
+import imagen from '../../assets/help1_1.png';
+import imagen2 from '../../assets/help2_1.png';
+import imagen3 from '../../assets/help3_1.png';
+import imagen4 from '../../assets/help4_1.png';
+import imagen5 from '../../assets/help5_1.png';
+import GenericButton from '../GenericButton';
 
 const picture = Image.resolveAssetSource(imagen).uri;
-
-
+const picture2 = Image.resolveAssetSource(imagen2).uri;
+const picture3 = Image.resolveAssetSource(imagen3).uri;
+const picture4 = Image.resolveAssetSource(imagen4).uri;
+const picture5 = Image.resolveAssetSource(imagen5).uri;
 
 
 class Help1 extends Component {
@@ -45,26 +31,45 @@ class Help1 extends Component {
         return (
             <>
                 <View style={styles.container}>
-                <ScrollView>
-                    <View style={styles.pictures}>
-                        <Image
-                            style={{ width: 350, height: 460 }}
-                            source={{ uri: picture }}
-                        />
-     
-                    </View>
-                   
-                    <View style={styles.button}>
-                    <Button
-                            title="Skip!"
-                        />
-                    </View>
-                    
+                    <ScrollView horizontal={true}>
+                        <View style={styles.pictures}>
+                            <Image
+                                style={{width: 350, height: 550}}
+                                source={{uri: picture}}
+                            />
+                        </View>
+                        <View style={styles.pictures}>
+                            <Image
+                                style={{width: 350, height: 550}}
+                                source={{uri: picture2}}
+                            />
+                        </View>
+                        <View style={styles.pictures}>
+                            <Image
+                                style={{width: 350, height: 550}}
+                                source={{uri: picture3}}
+                            />
+                        </View>
+                        <View style={styles.pictures}>
+                            <Image
+                                style={{width: 350, height: 550}}
+                                source={{uri: picture4}}
+                            />
+                        </View>
+                        <View style={styles.pictures}>
+                            <Image
+                                style={{width: 400, height: 590}}
+                                source={{uri: picture5}}
+                            />
+                            <View>
+                                <GenericButton button={'Skipt!'}/>
+                            </View>
+                        </View>
                     </ScrollView>
                 </View>
-                
+
             </>
-            
+
         );
     }
 
@@ -73,28 +78,13 @@ class Help1 extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-
         flexDirection: 'column',
-        borderColor: 'white',
         alignContent: 'center',
         backgroundColor: '#90A8C3',
-
-
     },
-
-    pictures:{
-        
-         marginTop: 30, 
-         marginBottom: 10,
-         marginLeft : 30,
-         
+    pictures: {
+        padding: 5,
     },
-
-    button:{
-        marginTop: 190, 
-        marginBottom: 0,
-    }
-    
 });
 
 export default Help1;
