@@ -4,7 +4,7 @@ import {Image, StyleSheet, Text, View} from 'react-native';
 import {Icon} from 'react-native-elements';
 
 //Se le pasará un icono de la base de datos, dejo este codigo como ejemplo para otros imports locales
-import logo from '../assets/bathroom_icon.png';
+import logo from '../assets/bathtub.png';
 
 const defaultLogo = Image.resolveAssetSource(logo).uri;
 
