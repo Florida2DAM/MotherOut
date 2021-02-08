@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
-import {FlatList, StyleSheet, Text, View} from 'react-native';
-import {Image} from 'react-native-elements';
-import image from '../../assets/testAvatar.png';
-import {NavBar} from "../NavBar";
-import {TaskCard} from "../TaskCard";
+import React, { Component } from 'react';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { Image } from 'react-native-elements';
+import image from '../../assets/avatar2.png';
+import { NavBar } from "../NavBar";
+import { TaskCard } from "../TaskCard";
 
 const picture = Image.resolveAssetSource(image).uri;
 const data = [
@@ -86,8 +86,8 @@ class ScreenToDo extends Component {
                 <View style={styles.contenidor}>
                     <View style={styles.header}>
                         <Image
-                            style={{width: 90, height: 90}}
-                            source={{uri: picture}}/>
+                            style={{ width: 90, height: 90 }}
+                            source={{ uri: picture }} />
                         <View>
                             <Text style={styles.textStyle}>{this.state.name}</Text>
                         </View>
@@ -101,19 +101,25 @@ class ScreenToDo extends Component {
                                                     press={() => this.completeTask(item)}/>
                                       </View>
 
-                                  }
+                            }
                         />
                         <Text style={styles.textStyle}>Completed Tasks!</Text>
                         <FlatList data={this.loadArrayDone()} keyExtractor={(item, index) => index.toString()}
-                                  renderItem={({item}) =>
-                                      <View style={styles.paddingView}>
-                                          <TaskCard text={item.taskName} icon={"check-square-o"}/>
-                                      </View>
-                                  }
+                            renderItem={({ item }) =>
+                                <View style={styles.paddingView}>
+                                    <TaskCard text={item.taskName} icon={"check-square-o"} />
+                                </View>
+                            }
                         />
                     </View>
                     <View>
-                        <NavBar/>
+                        <NavBar
+                            checked={() => this.props.navigation.navigate('ScreenToDo')}
+                            list={() => this.props.navigation.navigate('ListTask')}
+                            calendar={() => this.props.navigation.navigate('TaskAssignment')}
+                            nav={() => this.props.navigation.navigate('Statistics')}
+                            settings={() => this.props.navigation.navigate('Setting')}
+                        />
                     </View>
                 </View>
             </>

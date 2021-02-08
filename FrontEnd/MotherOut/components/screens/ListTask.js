@@ -6,16 +6,16 @@
  * @flow strict-local
  */
 
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
-import {FlatList, StyleSheet, View} from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 
-import {Image} from 'react-native-elements';
+import { Image } from 'react-native-elements';
 
 import imagen from '../../assets/listTask.png';
-import {NavBar} from '../NavBar';
-import {TaskCard} from '../TaskCard';
-import {RoundedButton} from '../RoundedButton';
+import { NavBar } from '../NavBar';
+import { TaskCard } from '../TaskCard';
+import { RoundedButton } from '../RoundedButton';
 
 const picture = Image.resolveAssetSource(imagen).uri;
 
@@ -23,9 +23,9 @@ class ListTask extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: [{taskName: 'trash', text: 'clean bathroom'},
-                {taskName: 'trash', text: 'clean room'},
-                {taskName: 'trash', text: '2 clean room'},
+            data: [{ taskName: 'trash', text: 'clean bathroom' },
+            { taskName: 'trash', text: 'clean room' },
+            { taskName: 'trash', text: '2 clean room' },
             ],
         };
     }
@@ -36,24 +36,28 @@ class ListTask extends Component {
                 <View style={styles.contenidor}>
                     <View style={styles.header}>
                         <Image
-                            style={{width: 300, height: 90}}
-                            source={{uri: picture}}
+                            style={{ width: 300, height: 90 }}
+                            source={{ uri: picture }}
                         />
                     </View>
                     <View style={styles.body}>
-
                         <FlatList data={this.state.data}
-                                  keyExtractor={(item, index) => index.toString()}
-
-                                  renderItem={({item}) => (
-                                      <View style={{padding: 5}}>
-                                          <TaskCard text={item.text} icon={item.taskName}/>
-                                      </View>)}
+                            keyExtractor={(item, index) => index.toString()}
+                            renderItem={({ item }) => (
+                                <View style={{ padding: 5 }}>
+                                    <TaskCard text={item.text} icon={item.taskName} />
+                                </View>)}
                         />
-                        <RoundedButton icon={'plus'}/>
+                        <RoundedButton icon={'plus'} />
                     </View>
                     <View>
-                        <NavBar/>
+                        <NavBar
+                            checked={() => this.props.navigation.navigate('ScreenToDo')}
+                            list={() => this.props.navigation.navigate('ListTask')}
+                            calendar={() => this.props.navigation.navigate('TaskAssignment')}
+                            nav={() => this.props.navigation.navigate('Statistics')}
+                            settings={() => this.props.navigation.navigate('Setting')}
+                        />
                     </View>
                 </View>
             </>

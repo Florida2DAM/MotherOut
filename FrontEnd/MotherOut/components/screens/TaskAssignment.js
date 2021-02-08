@@ -7,12 +7,12 @@ import {
     Image
 } from 'react-native-elements';
 import imagen from '../../assets/taskAssignment.png';
+import { GenericIconButton } from '../GenericIconButton';
+import { NavBar } from '../NavBar';
 
 const picture = Image.resolveAssetSource(imagen).uri;
 
-
 class TaskAssignment extends Component {
-
     render() {
         return (
             <>
@@ -26,22 +26,29 @@ class TaskAssignment extends Component {
                         </View>
                     </View>
                     <View style={styles.body}>
-                        <View >
-                            <GenericIconButton button="MANUAL ASSIGNMENT" icon='wrench' />
-                        </View>
-                        <View >
-                            <GenericIconButton button="RANDOM ASSIGNMENT" icon='random' />
-                        </View>
+                        <GenericIconButton
+                            button="MANUAL ASSIGNMENT"
+                            icon='wrench'
+                            press={() => this.props.navigation.navigate('ManualAssignment')}
+                        />
+                        <GenericIconButton
+                            button="RANDOM ASSIGNMENT"
+                            icon='random'
+                            press={() => this.props.navigation.navigate('AsignedTask')}
+                        />
                     </View>
-                    <View>
-                        <NavBar />
-                    </View>
+                    <NavBar
+                        checked={() => this.props.navigation.navigate('ScreenToDo')}
+                        list={() => this.props.navigation.navigate('ListTask')}
+                        calendar={() => this.props.navigation.navigate('TaskAssignment')}
+                        nav={() => this.props.navigation.navigate('Statistics')}
+                        settings={() => this.props.navigation.navigate('Setting')}
+                    />
                 </View>
             </>
         );
     }
 }
-
 
 const styles = StyleSheet.create({
     contenidor: {
@@ -68,7 +75,6 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         marginLeft: 30,
         marginRight: 10,
-
     },
     button1: {
         marginBottom: 1,

@@ -1,43 +1,16 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React, { Component } from 'react';
-
 import {
-    SafeAreaView,
-    StyleSheet,
-    ScrollView,
-    View,
-    Button,
-
-    LogBox,
+    ScrollView, StyleSheet,
+    View
 } from 'react-native';
-
 import {
-    Header,
-    LearnMoreLinks,
-    Colors,
-    DebugInstructions,
-    ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-import {
-    Image,
-    Input,
+    Image
 } from 'react-native-elements';
-
-
-import imagen from '../../assets/logo.png'
-import { GenericInput1 } from '../GenericInput1';
+import imagen from '../../assets/logo.png';
 import { GenericButton } from '../GenericButton';
+import { GenericInput1 } from '../GenericInput1';
 
 const picture = Image.resolveAssetSource(imagen).uri;
-
 
 class SingUp extends Component {
 
@@ -52,13 +25,12 @@ class SingUp extends Component {
                                 source={{ uri: picture }}
                             />
                         </View>
-                        <View>
+                        <View style={styles.inputs}>
                             <GenericInput1 placeHolder="Name" />
-
                             <GenericInput1 placeHolder="Email" />
-
                             <GenericInput1 placeHolder="Pasword" />
-
+                        </View>
+                        <View style={styles.button}>
                             <GenericButton button="Create Account" />
                         </View>
                     </ScrollView>
@@ -66,22 +38,25 @@ class SingUp extends Component {
             </>
         );
     }
-
 }
 
 const styles = StyleSheet.create({
     contenidor: {
         flex: 1,
-
-        flexDirection: 'column',
-        borderColor: 'white',
         alignContent: 'center',
+        paddingTop: 25,
         backgroundColor: '#90A8C3',
     },
     pictures: {
         alignSelf: 'center',
-      
     },
+    inputs: {
+        padding: 10,
+        paddingTop: 20,
+    },
+    button: {
+        padding: 15,
+    }
 });
 
 export default SingUp;
