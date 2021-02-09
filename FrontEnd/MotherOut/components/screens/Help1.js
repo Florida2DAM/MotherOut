@@ -7,7 +7,7 @@
  */
 
 import React, {Component} from 'react';
-
+import Swiper from 'react-native-swiper'
 import {ScrollView, StyleSheet, View} from 'react-native';
 
 import {Image} from 'react-native-elements';
@@ -30,42 +30,43 @@ class Help1 extends Component {
     render() {
         return (
             <>
+
                 <View style={styles.container}>
-                    <ScrollView horizontal={true}>
+                    <Swiper>
                         <View style={styles.pictures}>
                             <Image
-                                style={{width: 350, height: 550}}
+                                style={{width: 350, height: 470}}
                                 source={{uri: picture}}
                             />
                         </View>
                         <View style={styles.pictures}>
                             <Image
-                                style={{width: 350, height: 550}}
+                                style={{width: 350, height: 470}}
                                 source={{uri: picture2}}
                             />
                         </View>
                         <View style={styles.pictures}>
                             <Image
-                                style={{width: 350, height: 550}}
+                                style={{width: 350, height: 470}}
                                 source={{uri: picture3}}
                             />
                         </View>
                         <View style={styles.pictures}>
                             <Image
-                                style={{width: 350, height: 550}}
+                                style={{width: 350, height: 470}}
                                 source={{uri: picture4}}
                             />
                         </View>
                         <View style={styles.pictures}>
                             <Image
-                                style={{width: 400, height: 590}}
+                                style={{width: 350, height: 470}}
                                 source={{uri: picture5}}
                             />
-                            <View>
+                            <View style={{marginTop:75}}>
                                 <GenericButton button={'Skipt!'} press={() => this.props.navigation.navigate('CreateOrJoinTeam')} />
                             </View>
                         </View>
-                    </ScrollView>
+                    </Swiper>
                 </View>
 
             </>
@@ -83,7 +84,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#90A8C3',
     },
     pictures: {
-        padding: 5,
+        padding: 5
     },
 });
 
