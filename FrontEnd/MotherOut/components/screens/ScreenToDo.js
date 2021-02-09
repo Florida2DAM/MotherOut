@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {FlatList, StyleSheet, Text, View} from 'react-native';
+import {Button, FlatList, StyleSheet, Text, View} from 'react-native';
 import {Image} from 'react-native-elements';
 import image from '../../assets/avatar2.png';
 import {NavBar} from "../NavBar";
@@ -53,7 +53,7 @@ class ScreenToDo extends Component {
         this.state = {
             id: null,
             name: null,
-            user: null,
+            user: [{}],
             team: null,
             done: null,
             undone: null
@@ -61,32 +61,37 @@ class ScreenToDo extends Component {
 
     }
 
-    getUser = (id) => {
+    getData = (id) => {
         axios.get('http://52.0.146.162:80/api/Users?idUser=' + id)
             .then(response => {
                 const res = response.data;
                 this.setState({id: res.UserId});
-                this.setState({user: res});
+                this.setState({user: response.data});
                 this.setState({name: res.Name});
                 this.setState({team: res.AsignedTeam});
                 this.getTasksByUser(this.state.id, this.state.team);
+            })
+            .catch((error) => {
+                alert(error);
             });
     }
 
     getTasksByUser = (id, team) => {
-        axios.get('http://52.0.146.162:80/api/UserTasks?idUser='+id+'&idTeam='+team)
+        axios.get('http://52.0.146.162:80/api/UserTasks?idUser=' + id + '&idTeam=' + team)
             .then(response => {
-                const res = response.data;
-                alert(res);
-                res.map(item => {
-                    if(item.done){
-                        this.setState({done: item});
-                        alert(item);
-                    }else{
-                        this.setState({undone: item});
+                let res = [];
+                res = response.data;
+                res.forEach((item) => {
+
+                    if (item.Done === true) {
+                        alert(item.TaskName);
+                        this.setState({done: item.TaskName});
+                    } else {
+                        this.setState({undone: item.TaskName});
                     }
                 })
-            });
+
+            })
     }
 
     loadArrayUndone = () => {
@@ -110,19 +115,19 @@ class ScreenToDo extends Component {
     }
 
     completeTask = (item) => {
+    }
 
-
+    getId = () => {
+        alert(this.state.user.Email);
     }
 
 
     componentDidMount = () => {
-        const id = this.props.route.params.userId;
-        this.getUser(this.props.route.params.userId);
-
-
+        this.getData(this.props.route.params.userId);
     }
 
     render() {
+
         return (
             <>
                 <View style={styles.contenidor}>
@@ -136,23 +141,27 @@ class ScreenToDo extends Component {
                     </View>
                     <View style={styles.body}>
                         <Text style={styles.textStyle}>Pending Tasks</Text>
-                        <FlatList data={this.state.undone} keyExtractor={((item, index) => index.toString())}
+                        <FlatList data={this.state.done} keyExtractor={((item, index) => index.toString())}
                                   renderItem={({item}) =>
                                       <View style={styles.paddingView}>
-                                          <TaskCard text={item.taskName} icon={"square-o"}
+                                          <TaskCard text={item.TaskName} icon={"square-o"}
                                                     press={() => this.completeTask(item)}/>
                                       </View>
 
                                   }
                         />
                         <Text style={styles.textStyle}>Completed Tasks!</Text>
-                        <FlatList data={this.state.done} keyExtractor={(item, index) => index.toString()}
+                        <FlatList data={this.state.undone} keyExtractor={(item, index) => index.toString()}
                                   renderItem={({item}) =>
                                       <View style={styles.paddingView}>
-                                          <TaskCard text={item.taskName} icon={"check-square-o"}/>
+                                          <TaskCard text={item.TaskName} icon={"check-square-o"}/>
                                       </View>
                                   }
                         />
+                    </View>
+                    <View>
+                        <Button onPress={this.getId} title={"Hostias de paco"}/>
+                        <Text>{this.state.id}</Text>
                     </View>
                     <View>
                         <NavBar
