@@ -18,7 +18,7 @@ class Login extends Component {
         super(props)
         this.state = {
             email: null,
-            user: []
+            user: null,
         }
     }
 
@@ -32,7 +32,7 @@ class Login extends Component {
                 const res = response.data;
                 this.setState({ user: res });
                 this.props.navigation.navigate('ScreenToDo', {
-                    Email: this.state.user.Email,
+                    userId: this.state.user.UserId,
                 })
             })
             .catch(function (error) {
@@ -56,7 +56,7 @@ class Login extends Component {
                             <GenericInput1 placeHolder="Password" />
                         </View>
                         <View style={styles.buttons} >
-                            <GenericButton button="Log In" press={() => this.props.navigation.navigate('Help1')} />
+                            <GenericButton button="Log In" press={this.getUserbyEmail} />
                             <View style={styles.text}>
                                 <Text>Don't have a login?</Text>
                             </View>

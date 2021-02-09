@@ -81,7 +81,7 @@ class ScreenToDo extends Component {
     }
 
     componentDidMount=()=>{
-        alert(this.props.route.params.Email)
+        alert(this.props.route.params.userId)
     }
 
     render() {
