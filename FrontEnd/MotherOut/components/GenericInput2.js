@@ -11,7 +11,7 @@ export class GenericInput2 extends Component {
         return (
             <Input inputStyle={styles.personalInput} onChangeText={this.props.onChange} value={this.props.value}
                    secureTextEntry={this.props.passValue} placeholder={this.props.placeHolder}
-                   placeholderTextColor='black'/>
+                   placeholderTextColor='black' disabled={this.props.disabled}/>
         );
     }
 }
