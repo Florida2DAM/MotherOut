@@ -41,7 +41,7 @@ class Setting extends Component {
                             <GenericIconButton
                                 button="Global settings"
                                 icon='cogs'
-                                press={() => this.props.navigation.navigate('Setting')}
+                                press={() => this.props.navigation.navigate('GlobalSettings')}
                             />
                         </View>
                     </ScrollView>

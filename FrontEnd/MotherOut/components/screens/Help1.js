@@ -16,7 +16,7 @@ import imagen2 from '../../assets/help2_1.png';
 import imagen3 from '../../assets/help3_1.png';
 import imagen4 from '../../assets/help4_1.png';
 import imagen5 from '../../assets/help5_1.png';
-import GenericButton from '../GenericButton';
+import { GenericButton } from '../GenericButton';
 
 const picture = Image.resolveAssetSource(imagen).uri;
 const picture2 = Image.resolveAssetSource(imagen2).uri;
@@ -62,7 +62,7 @@ class Help1 extends Component {
                                 source={{uri: picture5}}
                             />
                             <View>
-                                <GenericButton button={'Skipt!'}/>
+                                <GenericButton button={'Skipt!'} press={() => this.props.navigation.navigate('CreateOrJoinTeam')} />
                             </View>
                         </View>
                     </ScrollView>

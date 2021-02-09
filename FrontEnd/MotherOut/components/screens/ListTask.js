@@ -48,7 +48,7 @@ class ListTask extends Component {
                                     <TaskCard text={item.text} icon={item.taskName} />
                                 </View>)}
                         />
-                        <RoundedButton icon={'plus'} />
+                        <RoundedButton icon={'plus'} press={() => this.props.navigation.navigate('NewOrEditTask')}/>
                     </View>
                     <View>
                         <NavBar

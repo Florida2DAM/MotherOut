@@ -9,6 +9,7 @@ import {
     Colors
 } from 'react-native/Libraries/NewAppScreen';
 //All screens
+import Help1 from './components/screens/Help1';
 import AddUser from './components/screens/AddUser';
 import AsignedTask from './components/screens/AsignedTasks';
 import CreateOrJoinTeam from './components/screens/CreateOrJoinTeam';
@@ -24,6 +25,7 @@ import Statistics from './components/screens/Statistics';
 import TaskAssignment from './components/screens/TaskAssignment';
 import TasksEditing from './components/screens/TasksEditing';
 import YourTeam from './components/screens/YourTeam';
+import GlobalSettings from './components/screens/GlobalSettings';
 //Help Screens
 const navigationContainer = createStackNavigator();
 
@@ -48,6 +50,8 @@ class App extends Component {
                         <navigationContainer.Screen options={{ headerShown: false }} name="TaskAssignment" component={TaskAssignment} />
                         <navigationContainer.Screen options={{ headerShown: false }} name="TasksEditing" component={TasksEditing} />
                         <navigationContainer.Screen options={{ headerShown: false }} name="YourTeam" component={YourTeam} />
+                        <navigationContainer.Screen options={{ headerShown: false }} name="Help1" component={Help1} />
+                        <navigationContainer.Screen options={{ headerShown: false }} name="GlobalSettings" component={GlobalSettings} />
                     </navigationContainer.Navigator>
                 </NavigationContainer>
             </>
