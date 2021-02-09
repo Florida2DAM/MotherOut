@@ -13,35 +13,31 @@ import { GenericInput1 } from '../GenericInput1';
 
 const picture = Image.resolveAssetSource(imagen).uri;
 
-/*const instance = axios.create({
-    baseURL: 'https://localhost:44397/api',
-    timeout: 1000,
-    headers: {'content-type': 'application/json'}
-  });*/
-
 class Login extends Component {
     constructor(props) {
         super(props)
         this.state = {
             email: null,
-            persons : null,
+            user: []
         }
     }
 
-    componentDidMount(){
-    
+    componentDidMount() {
+
     }
 
     getUserbyEmail = () => {
-        axios.get('https://localhost:44397/api/Users?email=Memem@gmail.com')
+        axios.get('http://52.0.146.162:80/api/Users?email=' + this.state.email)
             .then(response => {
-                alert("Hola" + response.data)
+                const res = response.data;
+                this.setState({ user: res });
+                this.props.navigation.navigate('ScreenToDo', {
+                    Email: this.state.user.Email,
+                })
             })
             .catch(function (error) {
-                alert("meh")
                 alert(error);
             });
-        //this.props.navigation.navigate('ScreenToDo')
     }
     render() {
         return (
