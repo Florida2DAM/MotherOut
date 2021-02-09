@@ -48,7 +48,7 @@ export class SelectedItem extends Component {
                         renderItem={({ item }) =>
                             <Pressable onPress={this.props.selectedItem.bind(this, item)}>
                                 <View style={styles.headUser}>
-                                    <Text style={styles.textStyle}>{item.name}</Text>
+                                    <Text style={styles.textStyle}>{item.Name}</Text>
                                     <Image
                                         style={styles.logo}
                                         source={{ uri: item.blop }}
