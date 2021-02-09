@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
-import { Image } from 'react-native-elements';
+import React, {Component} from 'react';
+import {FlatList, StyleSheet, Text, View} from 'react-native';
+import {Image} from 'react-native-elements';
 import image from '../../assets/avatar2.png';
-import { NavBar } from "../NavBar";
-import { TaskCard } from "../TaskCard";
+import {NavBar} from "../NavBar";
+import {TaskCard} from "../TaskCard";
+import axios from "axios";
 
 const picture = Image.resolveAssetSource(image).uri;
 const data = [
@@ -50,9 +51,42 @@ class ScreenToDo extends Component {
         super(props);
 
         this.state = {
-            name: "Animus 58",
+            id: null,
+            name: null,
+            user: null,
+            team: null,
+            done: null,
+            undone: null
         }
 
+    }
+
+    getUser = (id) => {
+        axios.get('http://52.0.146.162:80/api/Users?idUser=' + id)
+            .then(response => {
+                const res = response.data;
+                this.setState({id: res.UserId});
+                this.setState({user: res});
+                this.setState({name: res.Name});
+                this.setState({team: res.AsignedTeam});
+                this.getTasksByUser(this.state.id, this.state.team);
+            });
+    }
+
+    getTasksByUser = (id, team) => {
+        axios.get('http://52.0.146.162:80/api/UserTasks?idUser='+id+'&idTeam='+team)
+            .then(response => {
+                const res = response.data;
+                alert(res);
+                res.map(item => {
+                    if(item.done){
+                        this.setState({done: item});
+                        alert(item);
+                    }else{
+                        this.setState({undone: item});
+                    }
+                })
+            });
     }
 
     loadArrayUndone = () => {
@@ -80,8 +114,12 @@ class ScreenToDo extends Component {
 
     }
 
-    componentDidMount=()=>{
-        alert(this.props.route.params.userId)
+
+    componentDidMount = () => {
+        const id = this.props.route.params.userId;
+        this.getUser(this.props.route.params.userId);
+
+
     }
 
     render() {
@@ -90,30 +128,30 @@ class ScreenToDo extends Component {
                 <View style={styles.contenidor}>
                     <View style={styles.header}>
                         <Image
-                            style={{ width: 90, height: 90 }}
-                            source={{ uri: picture }} />
+                            style={{width: 90, height: 90}}
+                            source={{uri: picture}}/>
                         <View>
                             <Text style={styles.textStyle}>{this.state.name}</Text>
                         </View>
                     </View>
                     <View style={styles.body}>
                         <Text style={styles.textStyle}>Pending Tasks</Text>
-                        <FlatList data={this.loadArrayUndone()} keyExtractor={((item, index) => index.toString())}
+                        <FlatList data={this.state.undone} keyExtractor={((item, index) => index.toString())}
                                   renderItem={({item}) =>
                                       <View style={styles.paddingView}>
                                           <TaskCard text={item.taskName} icon={"square-o"}
                                                     press={() => this.completeTask(item)}/>
                                       </View>
 
-                            }
+                                  }
                         />
                         <Text style={styles.textStyle}>Completed Tasks!</Text>
-                        <FlatList data={this.loadArrayDone()} keyExtractor={(item, index) => index.toString()}
-                            renderItem={({ item }) =>
-                                <View style={styles.paddingView}>
-                                    <TaskCard text={item.taskName} icon={"check-square-o"} />
-                                </View>
-                            }
+                        <FlatList data={this.state.done} keyExtractor={(item, index) => index.toString()}
+                                  renderItem={({item}) =>
+                                      <View style={styles.paddingView}>
+                                          <TaskCard text={item.taskName} icon={"check-square-o"}/>
+                                      </View>
+                                  }
                         />
                     </View>
                     <View>
