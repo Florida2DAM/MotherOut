@@ -60,37 +60,34 @@ class NewOrEditTask extends Component {
         return (
             <>
                 <View style={styles.contenidor}>
-                    <ScrollView>
-                        <View style={styles.header}>
-                            <Image
-                                style={{ width: 300, height: 90 }}
-                                source={{ uri: picture }} />
-                        </View>
-                        <View style={styles.body}>
+                    <View style={styles.header}>
+                        <Image
+                            style={{ width: 300, height: 90 }}
+                            source={{ uri: picture }} />
+                    </View>
+                    <View style={styles.body}>
 
-                            <Text style={styles.textStyle}>TaskName</Text>
-                            <GenericInput2 ></GenericInput2>
-                            <Text style={styles.textStyle}>Score</Text>
-                            <GenericInput2></GenericInput2>
-                            <Text style={styles.textStyle}>Icon</Text>
+                        <Text style={styles.textStyle}>TaskName</Text>
+                        <GenericInput2 ></GenericInput2>
+                        <Text style={styles.textStyle}>Score</Text>
+                        <GenericInput2></GenericInput2>
+                        <Text style={styles.textStyle}>Icon</Text>
 
-                            <FlatList
-                                data={listUsers}
-                                keyExtractor={(item, index) => index.toString()}
-                                renderItem={({ item }) =>
-                                    <View style={styles.iconBox}>
-                                        <Pressable>
-                                            <Text style={styles.textStyle}>{item.name}</Text>
-                                        </Pressable>
-                                    </View>
-                                }
-                            />
-                            <RoundedButton icon="plus" />
-
-                        </View>
-                    </ScrollView>
+                        <FlatList
+                            data={listUsers}
+                            keyExtractor={(item, index) => index.toString()}
+                            renderItem={({ item }) =>
+                                <View style={styles.iconBox}>
+                                    <Pressable>
+                                        <Text style={styles.textStyle}>{item.name}</Text>
+                                    </Pressable>
+                                </View>
+                            }
+                        />
+                        <RoundedButton icon="plus" />
+                    </View>
                     <View>
-                    <NavBar
+                        <NavBar
                             checked={() => this.props.navigation.navigate('ScreenToDo')}
                             list={() => this.props.navigation.navigate('ListTask')}
                             calendar={() => this.props.navigation.navigate('TaskAssignment')}

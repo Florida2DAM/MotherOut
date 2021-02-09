@@ -26,7 +26,7 @@ import TaskAssignment from './components/screens/TaskAssignment';
 import TasksEditing from './components/screens/TasksEditing';
 import YourTeam from './components/screens/YourTeam';
 import GlobalSettings from './components/screens/GlobalSettings';
-//Help Screens
+
 const navigationContainer = createStackNavigator();
 
 class App extends Component {
@@ -35,10 +35,9 @@ class App extends Component {
             <>
                 <NavigationContainer>
                     <navigationContainer.Navigator>
-                    <navigationContainer.Screen options={{ headerShown: false }} name="AsignedTask" component={AsignedTask} />
                         <navigationContainer.Screen options={{ headerShown: false }} name="Login" component={Login} />
                         <navigationContainer.Screen options={{ headerShown: false }} name="AddUser" component={AddUser} />
-                      
+                        <navigationContainer.Screen options={{ headerShown: false }} name="AsignedTask" component={AsignedTask} />
                         <navigationContainer.Screen options={{ headerShown: false }} name="CreateOrJoinTeam" component={CreateOrJoinTeam} />
                         <navigationContainer.Screen options={{ headerShown: false }} name="JoinTeam" component={JoinTeam} />
                         <navigationContainer.Screen options={{ headerShown: false }} name="ListTask" component={ListTask} />
