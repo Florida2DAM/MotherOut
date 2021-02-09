@@ -32,28 +32,38 @@ class AsignedTasks extends Component {
         super(props)
         this.state = {
             task: null,
-            idTeam: null,
-            listUsers: []
+            listUsers: [],
+            taskUsers: []
         }
     }
 
-    getUser = (id) => {
+    setData = (id) => {
         //Pasar por parametro el id del usu importado
         axios.get('http://52.0.146.162:80/api/Users?idUser=' + id)
             .then(response => {
                 const res = response.data;
-                return this.setState({ idTeam: res.AsignedTeam })    
+                this.getTeamUser(res.AsignedTeam)
+                this.getTaskUserTeam(res.AsignedTeam, res.UserId)
             })
             .catch((error) => {
                 alert(error);
             });
-
     }
 
-    getTeamUser = (idTeam) => {
-        axios.get('http://52.0.146.162:80/api/Users?idTeam=' +idTeam)
+    getTeamUser = (id) => {
+        axios.get('http://52.0.146.162:80/api/Users?idTeam=' + id)
             .then(response => {
-                const listUser = response;
+                this.setState({ listUsers: response.data })
+            })
+            .catch((error) => {
+                alert(error);
+            });
+    }
+
+    getTaskUserTeam = (idTeam, idUser) => {
+        axios.get('http://52.0.146.162:80/api/UserTasks?idUser=' + idTeam + '&idTeam=' + idUser)
+            .then(response => {
+                this.setState({ taskUsers: response.data })
             })
             .catch((error) => {
                 alert(error);
@@ -61,8 +71,7 @@ class AsignedTasks extends Component {
     }
 
     componentDidMount() {
-        this.state.listUsers = this.getUser(1) //User el param aquí 
-        this.getTeamUser(this.state.idTeam)
+        this.setData(1) //User el param aquí 
     }
 
     getTask = (itemSelected) => {
@@ -85,18 +94,18 @@ class AsignedTasks extends Component {
                             renderItem={({ item }) =>
                                 <View>
                                     <View style={styles.headUser}>
-                                        <Text style={styles.textStyle}>{item.name}</Text>
+                                        <Text style={styles.textStyle}>{item.Name}</Text>
                                         <Image
                                             style={styles.logo}
                                             source={{ uri: item.blop }}
                                         />
                                     </View>
                                     <FlatList
-                                        data={taskList}
+                                        data={this.state.taskUsers}
                                         keyExtractor={(item, index) => index.toString()}
                                         renderItem={({ item }) =>
                                             <View style={styles.flatStyle}>
-                                                <TaskCardTwoIcons text={item.task}
+                                                <TaskCardTwoIcons text={item.TaskName}
                                                     icon1="trash"
                                                     icon2="edit"
                                                     iconCard={item.blop} />
