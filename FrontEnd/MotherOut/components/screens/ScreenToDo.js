@@ -40,7 +40,7 @@ class ScreenToDo extends Component {
     }
 
     getTasksByUser = (id, team) => {
-        axios.get('http://52.0.146.162:80/api/UserTasks?idUser=' + 1 + '&idTeam=' + team)
+        axios.get('http://52.0.146.162:80/api/UserTasks?idUser=' + id + '&idTeam=' + team)
             .then(response => {
                 let res;
                 let res2 = [];
@@ -59,6 +59,25 @@ class ScreenToDo extends Component {
     }
 
     completeTask = (item) => {
+        let userId = item.UserId;
+        let userTaskId = item.UserTaskId;
+        axios.put('http://52.0.146.162:80/api/Users?idUser='+userId+'&idTask='+userTaskId+'&done='+true)
+            .then(this.getData(this.state.id))
+            .catch((error) =>{
+                alert(error);
+            })
+
+    }
+
+    uncheckTaskCompleted = (item) => {
+        let userId = item.UserId;
+        let userTaskId = item.UserTaskId;
+        axios.put('http://52.0.146.162:80/api/Users?idUser='+userId+'&idTask='+userTaskId+'&done='+false)
+            .then(this.getData(this.state.id))
+            .catch((error) =>{
+                alert(error);
+            })
+
     }
 
 
@@ -99,7 +118,8 @@ class ScreenToDo extends Component {
                         <FlatList data={this.state.done} keyExtractor={(item, index) => index.toString()}
                                   renderItem={({item}) =>
                                       <View style={styles.paddingView}>
-                                          <TaskCard text={item.TaskName} icon={"check-square-o"}/>
+                                          <TaskCard text={item.TaskName} icon={"check-square-o"}
+                                          press={() => this.uncheckTaskCompleted(item)}/>
                                       </View>
                                   }
                         />
