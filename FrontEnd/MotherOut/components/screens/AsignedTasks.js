@@ -2,29 +2,11 @@ import React, { Component } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { Image } from 'react-native-elements';
 import importedPicture from '../../assets/asignedTasks.png';
-import importAvatar2 from '../../assets/avatar2.png';
-import importIcon from '../../assets/bathtub.png';
-import importAvatar from '../../assets/circle-cropped.png';
 import { NavBar } from '../NavBar';
 import { TaskCardTwoIcons } from '../TaskCardTwoIcons';
 import axios from 'axios';
 
-const avatar = Image.resolveAssetSource(importAvatar).uri
-const avatar2 = Image.resolveAssetSource(importAvatar2).uri
-const icon = Image.resolveAssetSource(importIcon).uri
 const picture = Image.resolveAssetSource(importedPicture).uri;
-
-
-const taskList = [
-    { task: "Clean Bathroom", blop: icon },
-    { task: "Clean Bathroom", blop: icon },
-    { task: "Clean Bathroom", blop: icon },
-    { task: "Clean Bathroom", blop: icon },
-];
-
-const listUsers = [
-    { name: 'Pablo', blop: avatar2 }, { name: 'Juan', blop: avatar }, { name: 'Jesus', blop: avatar }
-]
 
 class AsignedTasks extends Component {
 
@@ -32,36 +14,27 @@ class AsignedTasks extends Component {
         super(props)
         this.state = {
             task: null,
-            listUsers: [],
-            taskUsers: []
+            taskTeam: [],
         }
     }
 
-    setData = (id) => {
-        //Pasar por parametro el id del usu importado
+    componentDidMount() {
+        this.getData(2) //User el param aquí 
+    }
+
+    getData = (id) => {
         axios.get('http://52.0.146.162:80/api/Users?idUser=' + id)
             .then(response => {
                 const res = response.data;
-                this.getTeamUser(res.AsignedTeam)
-                this.getTaskUserTeam(res.AsignedTeam, res.UserId)
+                this.getTaskbyTeam(res.AsignedTeam)
             })
             .catch((error) => {
                 alert(error);
             });
     }
 
-    getTeamUser = (id) => {
-        axios.get('http://52.0.146.162:80/api/Users?idTeam=' + id)
-            .then(response => {
-                this.setState({ listUsers: response.data })
-            })
-            .catch((error) => {
-                alert(error);
-            });
-    }
-
-    getTaskUserTeam = (idTeam, idUser) => {
-        axios.get('http://52.0.146.162:80/api/UserTasks?idUser=' + idTeam + '&idTeam=' + idUser)
+    getTaskbyTeam = (idTeam) => {
+        axios.get('http://52.0.146.162:80/api/UserTasks?idTeam=' + idTeam)
             .then(response => {
                 this.setState({ taskUsers: response.data })
             })
@@ -70,12 +43,23 @@ class AsignedTasks extends Component {
             });
     }
 
-    componentDidMount() {
-        this.setData(1) //User el param aquí 
+    taskEditing = (item) => {
+        alert(item.UserTaskId)
+        this.props.navigation.navigate('TasksEditing', {
+            taskId: item.UserTaskId,
+            userId: item.UserId,
+            taskName: item.TaskName
+        })
     }
 
-    getTask = (itemSelected) => {
-        return alert(itemSelected)
+    deleteTask = (item) => {
+        axios.delete('http://52.0.146.162:80/api/UserTasks?IdTask=' + item.UserTaskId)
+            .then((error) => {
+                this.getData(2)//pasar param
+            })
+            .catch((error) => {
+                alert(error);
+            });
     }
 
     render() {
@@ -89,28 +73,18 @@ class AsignedTasks extends Component {
                     </View>
                     <View style={styles.body}>
                         <FlatList
-                            data={this.state.listUsers}
+                            data={this.state.taskUsers}
                             keyExtractor={(item, index) => index.toString()}
                             renderItem={({ item }) =>
-                                <View>
-                                    <View style={styles.headUser}>
-                                        <Text style={styles.textStyle}>{item.Name}</Text>
-                                        <Image
-                                            style={styles.logo}
-                                            source={{ uri: item.blop }}
-                                        />
-                                    </View>
-                                    <FlatList
-                                        data={this.state.taskUsers}
-                                        keyExtractor={(item, index) => index.toString()}
-                                        renderItem={({ item }) =>
-                                            <View style={styles.flatStyle}>
-                                                <TaskCardTwoIcons text={item.TaskName}
-                                                    icon1="trash"
-                                                    icon2="edit"
-                                                    iconCard={item.blop} />
-                                            </View>
-                                        }
+                                <View style={styles.flatStyle}>
+                                    <TaskCardTwoIcons
+                                        task={item.TaskName}
+                                        name={item.SelectMember}
+                                        icon1="trash"
+                                        icon2="edit"
+                                        iconCard={item.blop}
+                                        press1={() => this.deleteTask(item)}
+                                        press2={() => this.taskEditing(item)}
                                     />
                                 </View>
                             }
