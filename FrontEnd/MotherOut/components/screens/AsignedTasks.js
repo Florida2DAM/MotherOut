@@ -5,6 +5,7 @@ import importedPicture from '../../assets/asignedTasks.png';
 import { NavBar } from '../NavBar';
 import { TaskCardTwoIcons } from '../TaskCardTwoIcons';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const picture = Image.resolveAssetSource(importedPicture).uri;
 
@@ -15,22 +16,22 @@ class AsignedTasks extends Component {
         this.state = {
             task: null,
             taskTeam: [],
+            user: [],
         }
     }
 
     componentDidMount() {
-        this.getData(2) //User el param aquí 
+        this.getData().then(() => console.log(this.state.user.AsignedTeam))
+        this.getTaskbyTeam(this.state.user.AsignedTeam) //User el param aquí 
     }
 
-    getData = (id) => {
-        axios.get('http://52.0.146.162:80/api/Users?idUser=' + id)
-            .then(response => {
-                const res = response.data;
-                this.getTaskbyTeam(res.AsignedTeam)
-            })
-            .catch((error) => {
-                alert(error);
-            });
+    async getData() {
+        try {
+            const jsonValue = await AsyncStorage.getItem('logUser')
+            jsonValue != null ? this.setState({ user: JSON.parse(jsonValue) }) : null;
+        } catch (e) {
+            alert(e)
+        }
     }
 
     getTaskbyTeam = (idTeam) => {

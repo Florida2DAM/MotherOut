@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { Component } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
     ScrollView, StyleSheet,
     Text, View
@@ -26,14 +27,22 @@ class Login extends Component {
 
     }
 
+    async storeData(res) {
+        try {
+            const jsonValue = JSON.stringify(res)
+            await AsyncStorage.setItem('logUser', jsonValue)
+        } catch (e) {
+            alert(e)
+        }
+    }
+
     getUserbyEmail = () => {
         axios.get('http://52.0.146.162:80/api/Users?email=' + this.state.email)
             .then(response => {
                 const res = response.data;
                 this.setState({ user: res });
-                this.props.navigation.navigate('ScreenToDo', {
-                    userId: this.state.user.UserId,
-                })
+                this.storeData(res);
+                this.props.navigation.navigate('ScreenToDo')
             })
             .catch(function (error) {
                 alert(error);

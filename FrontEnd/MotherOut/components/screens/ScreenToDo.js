@@ -4,6 +4,7 @@ import { Image } from 'react-native-elements';
 import image from '../../assets/avatar2.png';
 import { NavBar } from "../NavBar";
 import { TaskCard } from "../TaskCard";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const picture = Image.resolveAssetSource(image).uri;
 const data = [
@@ -51,6 +52,7 @@ class ScreenToDo extends Component {
 
         this.state = {
             name: "Animus 58",
+            user: [],
         }
 
     }
@@ -80,8 +82,18 @@ class ScreenToDo extends Component {
 
     }
 
-    componentDidMount=()=>{
-        alert(this.props.route.params.userId)
+
+    async getData() {
+        try {
+            const jsonValue = await AsyncStorage.getItem('logUser')
+            jsonValue != null ? this.setState({ user: JSON.parse(jsonValue) }) : null;
+        } catch (e) {
+            alert(e)
+        }
+    }
+    componentDidMount = () => {
+        //alert(this.props.route.params.userId)
+        this.getData().then(()=>console.log(this.state.user))
     }
 
     render() {
@@ -99,11 +111,11 @@ class ScreenToDo extends Component {
                     <View style={styles.body}>
                         <Text style={styles.textStyle}>Pending Tasks</Text>
                         <FlatList data={this.loadArrayUndone()} keyExtractor={((item, index) => index.toString())}
-                                  renderItem={({item}) =>
-                                      <View style={styles.paddingView}>
-                                          <TaskCard text={item.taskName} icon={"square-o"}
-                                                    press={() => this.completeTask(item)}/>
-                                      </View>
+                            renderItem={({ item }) =>
+                                <View style={styles.paddingView}>
+                                    <TaskCard text={item.taskName} icon={"square-o"}
+                                        press={() => this.completeTask(item)} />
+                                </View>
 
                             }
                         />
