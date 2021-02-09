@@ -152,9 +152,24 @@ namespace MotherOut_BackEnd.Models
         {
             User user = new User();
             bool check = checkIdUser(idUser);
-            if (check == true)
+            if (check)
             {
                 user = context.Users.Where(s => s.UserId == idUser).FirstOrDefault();
+            }
+            else
+            {
+                user = null;
+            }
+            return user;
+        }
+
+        internal User getUserByEmail(string email)
+        {
+            User user = new User();
+            bool check = checkEmail(email);
+            if (!check)
+            {
+                user = context.Users.Where(s => s.Email == email).FirstOrDefault();
             }
             else
             {

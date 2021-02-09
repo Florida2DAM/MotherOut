@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { Component } from 'react';
 import {
     ScrollView, StyleSheet,
@@ -13,6 +14,31 @@ import { GenericInput1 } from '../GenericInput1';
 const picture = Image.resolveAssetSource(imagen).uri;
 
 class Login extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            email: null,
+            user: []
+        }
+    }
+
+    componentDidMount() {
+
+    }
+
+    getUserbyEmail = () => {
+        axios.get('http://52.0.146.162:80/api/Users?email=' + this.state.email)
+            .then(response => {
+                const res = response.data;
+                this.setState({ user: res });
+                this.props.navigation.navigate('ScreenToDo', {
+                    Email: this.state.user.Email,
+                })
+            })
+            .catch(function (error) {
+                alert(error);
+            });
+    }
     render() {
         return (
             <>
@@ -25,7 +51,8 @@ class Login extends Component {
                             />
                         </View>
                         <View style={styles.inputs}>
-                            <GenericInput1 placeHolder="Login" />
+                            <GenericInput1 placeHolder="Email" value={this.state.email}
+                                onChange={(item) => this.setState({ email: item })} />
                             <GenericInput1 placeHolder="Password" />
                         </View>
                         <View style={styles.buttons} >
