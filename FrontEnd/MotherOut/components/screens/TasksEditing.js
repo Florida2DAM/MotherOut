@@ -22,6 +22,11 @@ class TasksEditing extends Component {
         }
     }
 
+    componentDidMount = () => {
+        alert(this.props.route.params.user);
+    }
+
+
     getName = (item) => {
         return this.setState({
             name: item.name

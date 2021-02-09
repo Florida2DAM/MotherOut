@@ -11,6 +11,10 @@ const picture = Image.resolveAssetSource(imagen).uri;
 
 class JoinTeam extends Component {
 
+    componentDidMount = () => {
+        alert(this.props.route.params.user);
+    }
+
     render() {
         return (
             <>

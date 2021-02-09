@@ -34,6 +34,9 @@ class AsignedTasks extends Component {
         }
     }
 
+    componentDidMount = () => {
+        alert(this.props.route.params.user);
+    }
 
     getTask = (itemSelected) => {
         return alert(itemSelected)

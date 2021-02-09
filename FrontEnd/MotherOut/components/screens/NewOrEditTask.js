@@ -56,6 +56,10 @@ class NewOrEditTask extends Component {
         })
     }
 
+    componentDidMount = () => {
+        alert(this.props.route.params.user);
+    }
+
     render() {
         return (
             <>

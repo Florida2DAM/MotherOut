@@ -30,6 +30,9 @@ class ManualAssignment extends Component {
             name: item.name
         })
     }
+    componentDidMount = () => {
+        alert(this.props.route.params.user);
+    }
 
     render() {
         return (
