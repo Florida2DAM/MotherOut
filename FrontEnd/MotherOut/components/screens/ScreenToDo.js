@@ -7,43 +7,6 @@ import {TaskCard} from "../TaskCard";
 import axios from "axios";
 
 const picture = Image.resolveAssetSource(image).uri;
-const data = [
-    {
-        taskName: 'Clean Bathroom', done: false
-    },
-    {
-        taskName: 'Clean Room', done: true
-    },
-    {
-        taskName: 'Clean Bathroom', done: false
-    },
-    {
-        taskName: 'Clean Bathroom', done: false
-    },
-    {
-        taskName: 'Clean Room', done: true
-    },
-    {
-        taskName: 'Clean Room', done: true
-    },
-    {
-        taskName: 'Clean Bathroom', done: true
-    },
-    {
-        taskName: 'Clean Bathroom', done: true
-    }, {
-        taskName: 'Clean Bathroom', done: true
-    },
-    {
-        taskName: 'Clean Room', done: false
-    },
-    {
-        taskName: 'Clean Room', done: false
-    },
-    {
-        taskName: 'Clean Room', done: false
-    },
-];
 
 class ScreenToDo extends Component {
 
@@ -53,10 +16,10 @@ class ScreenToDo extends Component {
         this.state = {
             id: null,
             name: null,
-            user: [{}],
+            user: [],
             team: null,
-            done: null,
-            undone: null
+            done: [],
+            undone: []
         }
 
     }
@@ -77,45 +40,27 @@ class ScreenToDo extends Component {
     }
 
     getTasksByUser = (id, team) => {
-        axios.get('http://52.0.146.162:80/api/UserTasks?idUser=' + id + '&idTeam=' + team)
+        axios.get('http://52.0.146.162:80/api/UserTasks?idUser=' + 1 + '&idTeam=' + team)
             .then(response => {
-                let res = [];
+                let res;
+                let res2 = [];
+                let res3 = []
                 res = response.data;
                 res.forEach((item) => {
-
-                    if (item.Done === true) {
-                        alert(item.TaskName);
-                        this.setState({done: item.TaskName});
+                    if (item.Done) {
+                        res2.push(item);
                     } else {
-                        this.setState({undone: item.TaskName});
+                        res3.push(item);
                     }
-                })
-
+                });
+                this.setState({done: res2});
+                this.setState({undone: res3});
             })
-    }
-
-    loadArrayUndone = () => {
-        let element = [];
-        data.map(item => {
-            if (item.done) {
-                element.push(item);
-            }
-        });
-        return element;
-    }
-
-    loadArrayDone = () => {
-        let element = [];
-        data.map(item => {
-            if (!item.done) {
-                element.push(item);
-            }
-        });
-        return element;
     }
 
     completeTask = (item) => {
     }
+
 
     getId = () => {
         alert(this.state.user.Email);
@@ -141,7 +86,7 @@ class ScreenToDo extends Component {
                     </View>
                     <View style={styles.body}>
                         <Text style={styles.textStyle}>Pending Tasks</Text>
-                        <FlatList data={this.state.done} keyExtractor={((item, index) => index.toString())}
+                        <FlatList data={this.state.undone} keyExtractor={((item, index) => index.toString())}
                                   renderItem={({item}) =>
                                       <View style={styles.paddingView}>
                                           <TaskCard text={item.TaskName} icon={"square-o"}
@@ -151,17 +96,13 @@ class ScreenToDo extends Component {
                                   }
                         />
                         <Text style={styles.textStyle}>Completed Tasks!</Text>
-                        <FlatList data={this.state.undone} keyExtractor={(item, index) => index.toString()}
+                        <FlatList data={this.state.done} keyExtractor={(item, index) => index.toString()}
                                   renderItem={({item}) =>
                                       <View style={styles.paddingView}>
                                           <TaskCard text={item.TaskName} icon={"check-square-o"}/>
                                       </View>
                                   }
                         />
-                    </View>
-                    <View>
-                        <Button onPress={this.getId} title={"Hostias de paco"}/>
-                        <Text>{this.state.id}</Text>
                     </View>
                     <View>
                         <NavBar
