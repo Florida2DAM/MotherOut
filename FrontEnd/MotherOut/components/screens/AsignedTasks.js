@@ -22,7 +22,11 @@ class AsignedTasks extends Component {
     }
 
     componentDidMount() {
-        this.getData().then(() => console.log(this.state.user))
+        this.getData().then(
+            () => {
+                console.log(this.state.user);
+                this.getTaskbyTeam(this.state.user.AsignedTeam);
+            })
     }
 
     async getData() {
@@ -32,7 +36,6 @@ class AsignedTasks extends Component {
         } catch (e) {
             alert(e)
         }
-        this.getTaskbyTeam(this.state.user.AsignedTeam)
     }
 
     getTaskbyTeam = (idTeam) => {

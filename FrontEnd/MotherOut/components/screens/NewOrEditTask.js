@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import {
     FlatList,
     Pressable, ScrollView, StyleSheet,
-
     Text, View
 } from 'react-native';
 import { Image } from 'react-native-elements';
@@ -14,13 +13,12 @@ import importedPicture from '../../assets/newOrEditTask.png';
 import { GenericInput2 } from '../GenericInput2';
 import { NavBar } from '../NavBar';
 import { RoundedButton } from '../RoundedButton';
+import axios from 'axios';
 
 const avatar = Image.resolveAssetSource(importAvatar).uri
 const avatar2 = Image.resolveAssetSource(importAvatar2).uri
 const icon = Image.resolveAssetSource(importIcon).uri
 const picture = Image.resolveAssetSource(importedPicture).uri;
-
-
 
 const listUsers = [
     { name: 'Pablo', blop: avatar2 }, { name: 'Juan', blop: avatar }, { name: 'Jesus', blop: avatar },
@@ -33,29 +31,23 @@ class NewOrEditTask extends Component {
         super(props)
         this.state = {
             name: null,
+            listIcons: []
         }
     }
 
-    _menu = null;
-
-    setMenuRef = ref => {
-        this._menu = ref;
-    };
-
-    hideMenu = () => {
-        this._menu.hide();
-    };
-
-    showMenu = () => {
-        this._menu.show();
-    };
-
-    getName = (item) => {
-        return this.setState({
-            name: item.name
-        })
+    componentDidMount() {
+        this.getIcons();
     }
 
+    getIcons = (idTeam) => {
+        axios.get('http://52.0.146.162:80/api/Icons')
+            .then(response => {
+                this.setState({ listIcons: response.data })
+            })
+            .catch((error) => {
+                alert(error);
+            });
+    }
     render() {
         return (
             <>
@@ -74,16 +66,19 @@ class NewOrEditTask extends Component {
                         <Text style={styles.textStyle}>Icon</Text>
 
                         <FlatList
-                            data={listUsers}
+                            data={this.state.listIcons}
                             keyExtractor={(item, index) => index.toString()}
                             renderItem={({ item }) =>
                                 <View style={styles.iconBox}>
                                     <Pressable>
-                                        <Text style={styles.textStyle}>{item.name}</Text>
+                                        <Image
+                                            style={{ width: 200, height: 90 }}
+                                            source={alert({ uri: item.IconImage })} />
                                     </Pressable>
                                 </View>
                             }
                         />
+
                         <RoundedButton icon="plus" />
                     </View>
                     <View>
