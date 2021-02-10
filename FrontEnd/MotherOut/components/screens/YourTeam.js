@@ -97,6 +97,9 @@ class YourTeam extends Component {
             }
         })
     };
+    saidHelllo = (item) => {
+        alert("hola long press"+item.Name);
+    };
 
     render() {
         return (
@@ -118,7 +121,7 @@ class YourTeam extends Component {
                         </View>
                         <View>
                             <GenericInput3 placeHolder={this.state.nameTeam} value={this.state.newNameTeam}
-                                           onChange={(item) => this.setState({newNameTeam: item})}/>
+                                           onChange={(item) => this.setState({newNameTeam: item.name})}/>
                         </View>
                         <View>
                             <Text style={styles.text}>Members</Text>
@@ -128,7 +131,7 @@ class YourTeam extends Component {
                                       keyExtractor={(item, index) => index.toString()}
                                       renderItem={({item}) =>
                                           <View style={styles.userBox}>
-                                              <Pressable>
+                                              <Pressable onLongPress={()=>{this.saidHelllo(item)}}>
                                                   <Text style={styles.textStyle}>{item.Name}</Text>
                                               </Pressable>
                                           </View>}
@@ -159,7 +162,6 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         backgroundColor: '#90A8C3',
-        borderWidth: 2,
     },
     header: {
         marginTop: 2,
@@ -169,12 +171,14 @@ const styles = StyleSheet.create({
     body: {
         marginTop: 2,
         justifyContent: 'space-evenly',
-        padding: 15,
+        padding: 10,
         flex: 10,
     },
     text: {
         fontWeight: 'bold',
         fontSize: 18,
+        fontFamily: "Roboto",
+        padding: 10,
     },
     garbage: {
         flexDirection: 'row',
