@@ -1,48 +1,12 @@
-import React, { Component } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
-import { Image } from 'react-native-elements';
+import React, {Component} from 'react';
+import {Button, FlatList, StyleSheet, Text, View} from 'react-native';
+import {Image} from 'react-native-elements';
 import image from '../../assets/avatar2.png';
-import { NavBar } from "../NavBar";
-import { TaskCard } from "../TaskCard";
+import {NavBar} from "../NavBar";
+import {TaskCard} from "../TaskCard";
+import axios from "axios";
 
 const picture = Image.resolveAssetSource(image).uri;
-const data = [
-    {
-        taskName: 'Clean Bathroom', done: false
-    },
-    {
-        taskName: 'Clean Room', done: true
-    },
-    {
-        taskName: 'Clean Bathroom', done: false
-    },
-    {
-        taskName: 'Clean Bathroom', done: false
-    },
-    {
-        taskName: 'Clean Room', done: true
-    },
-    {
-        taskName: 'Clean Room', done: true
-    },
-    {
-        taskName: 'Clean Bathroom', done: true
-    },
-    {
-        taskName: 'Clean Bathroom', done: true
-    }, {
-        taskName: 'Clean Bathroom', done: true
-    },
-    {
-        taskName: 'Clean Room', done: false
-    },
-    {
-        taskName: 'Clean Room', done: false
-    },
-    {
-        taskName: 'Clean Room', done: false
-    },
-];
 
 class ScreenToDo extends Component {
 
@@ -50,79 +14,123 @@ class ScreenToDo extends Component {
         super(props);
 
         this.state = {
-            name: "Animus 58",
+            id: null,
+            name: null,
+            user: [],
+            team: null,
+            done: [],
+            undone: []
         }
 
     }
 
-    loadArrayUndone = () => {
-        let element = [];
-        data.map(item => {
-            if (item.done) {
-                element.push(item);
-            }
-        });
-        return element;
+    getData = (id) => {
+        axios.get('http://52.0.146.162:80/api/Users?idUser=' + id)
+            .then(response => {
+                const res = response.data;
+                this.setState({id: res.UserId});
+                this.setState({user: response.data});
+                this.setState({name: res.Name});
+                this.setState({team: res.AsignedTeam});
+                this.getTasksByUser(this.state.id, this.state.team);
+            })
+            .catch((error) => {
+                alert(error);
+            });
     }
 
-    loadArrayDone = () => {
-        let element = [];
-        data.map(item => {
-            if (!item.done) {
-                element.push(item);
-            }
-        });
-        return element;
+    getTasksByUser = (id, team) => {
+        axios.get('http://52.0.146.162:80/api/UserTasks?idUser=' + id + '&idTeam=' + team)
+            .then(response => {
+                let res;
+                let res2 = [];
+                let res3 = []
+                res = response.data;
+                res.forEach((item) => {
+                    if (item.Done) {
+                        res2.push(item);
+                    } else {
+                        res3.push(item);
+                    }
+                });
+                this.setState({done: res2});
+                this.setState({undone: res3});
+            })
     }
 
     completeTask = (item) => {
-
+        let userId = item.UserId;
+        let userTaskId = item.UserTaskId;
+        axios.put('http://52.0.146.162:80/api/Users?idUser='+userId+'&idTask='+userTaskId+'&done='+true)
+            .then(this.getData(this.state.id))
+            .catch((error) =>{
+                alert(error);
+            })
 
     }
 
-    componentDidMount=()=>{
-        alert(this.props.route.params.userId)
+    uncheckTaskCompleted = (item) => {
+        let userId = item.UserId;
+        let userTaskId = item.UserTaskId;
+        axios.put('http://52.0.146.162:80/api/Users?idUser='+userId+'&idTask='+userTaskId+'&done='+false)
+            .then(this.getData(this.state.id))
+            .catch((error) =>{
+                alert(error);
+            })
+
+    }
+
+
+    getId = () => {
+        alert(this.state.user.Email);
+    }
+
+
+    componentDidMount = () => {
+        this.getData(this.props.route.params.userId);
     }
 
     render() {
+
         return (
             <>
                 <View style={styles.contenidor}>
                     <View style={styles.header}>
                         <Image
-                            style={{ width: 90, height: 90 }}
-                            source={{ uri: picture }} />
+                            style={{width: 90, height: 90}}
+                            source={{uri: picture}}/>
                         <View>
                             <Text style={styles.textStyle}>{this.state.name}</Text>
                         </View>
                     </View>
                     <View style={styles.body}>
                         <Text style={styles.textStyle}>Pending Tasks</Text>
-                        <FlatList data={this.loadArrayUndone()} keyExtractor={((item, index) => index.toString())}
+                        <FlatList data={this.state.undone} keyExtractor={((item, index) => index.toString())}
                                   renderItem={({item}) =>
                                       <View style={styles.paddingView}>
-                                          <TaskCard text={item.taskName} icon={"square-o"}
+                                          <TaskCard text={item.TaskName} icon={"square-o"}
                                                     press={() => this.completeTask(item)}/>
                                       </View>
 
-                            }
+                                  }
                         />
                         <Text style={styles.textStyle}>Completed Tasks!</Text>
-                        <FlatList data={this.loadArrayDone()} keyExtractor={(item, index) => index.toString()}
-                            renderItem={({ item }) =>
-                                <View style={styles.paddingView}>
-                                    <TaskCard text={item.taskName} icon={"check-square-o"} />
-                                </View>
-                            }
+                        <FlatList data={this.state.done} keyExtractor={(item, index) => index.toString()}
+                                  renderItem={({item}) =>
+                                      <View style={styles.paddingView}>
+                                          <TaskCard text={item.TaskName} icon={"check-square-o"}
+                                          press={() => this.uncheckTaskCompleted(item)}/>
+                                      </View>
+                                  }
                         />
                     </View>
                     <View>
                         <NavBar
-                            checked={() => this.props.navigation.navigate('ScreenToDo')}
-                            list={() => this.props.navigation.navigate('ListTask')}
-                            calendar={() => this.props.navigation.navigate('TaskAssignment')}
-                            nav={() => this.props.navigation.navigate('Statistics')}
-                            settings={() => this.props.navigation.navigate('Setting')}
+                            checked={() => this.props.navigation.navigate('ScreenToDo', {user: this.state.user})}
+                            list={() => this.props.navigation.navigate('ListTask', {user: this.state.user})}
+                            calendar={() => this.props.navigation.navigate('TaskAssignment', {user: this.state.user})}
+                            nav={() => this.props.navigation.navigate('Statistics', {user: this.state.user})}
+                            settings={() => this.props.navigation.navigate('Setting', {user: this.state.user})}
                         />
                     </View>
                 </View>

@@ -11,11 +11,16 @@ const picture = Image.resolveAssetSource(imagen).uri;
 const listUsers = [{ name: 'Pablo' }, { name: 'Juan' }, { name: 'Jesus' }, { name: 'Jordi' }, { name: 'paco' }];
 
 class YourTeam extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
             name: null,
         };
+    }
+
+    componentDidMount = () => {
+        alert(this.props.route.params.user);
     }
 
     render() {

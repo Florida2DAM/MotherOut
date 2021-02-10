@@ -27,6 +27,10 @@ const picture5 = Image.resolveAssetSource(imagen5).uri;
 
 class Help1 extends Component {
 
+    componentDidMount = () => {
+        alert(this.props.route.params.user);
+    }
+
     render() {
         return (
             <>
