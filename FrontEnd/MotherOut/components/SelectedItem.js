@@ -35,13 +35,13 @@ export class SelectedItem extends Component {
         return (
             <>
                 <Menu ref={this.setMenuRef}
-                      button={
-                          <Pressable onPress={this.showMenu}>
-                              <View style={styles.nameBox}>
-                                  <Text style={styles.nameStyle}>{this.props.value}</Text>
-                              </View>
-                          </Pressable>
-                      }>
+                    button={
+                        <Pressable onPress={this.showMenu}>
+                            <View style={styles.nameBox}>
+                                <Text style={styles.nameStyle}>{this.props.value}</Text>
+                            </View>
+                        </Pressable>
+                    }>
                     <FlatList
                         data={this.props.list}
                         keyExtractor={(item, index) => index.toString()}

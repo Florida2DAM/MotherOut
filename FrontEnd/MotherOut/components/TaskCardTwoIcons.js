@@ -10,22 +10,22 @@ import {
     Icon,
 } from "react-native-elements"
 
-//Se le pasará un icono de la base de datos, dejo este codigo como ejemplo para otros imports locales
-//import logo from '../assets/house_bed_icon-icons.com_74373.png'
-//const defaultLogo = Image.resolveAssetSource(logo).uri;
-
 export class TaskCardTwoIcons extends Component {
-    
     render() {
         return (
             <>
                 <View style={styles.cardTaskbox}>
-
-                    <Image
-                        style={styles.logo}
-                        source={{ uri: this.props.iconCard }}
-                    />
-                    <Text style={styles.textStyle}>{this.props.text}</Text>
+                    <View>
+                        <Image
+                            style={styles.logo}
+                            source={{ uri: this.props.iconCard }}
+                        />
+                    </View>
+                    <View style={styles.cardInfo}>
+                        <Text style={styles.textStyle}>{this.props.task}</Text>
+                        <Text style={styles.textStyle}> Asigned to </Text>
+                        <Text style={styles.textStyle}>{this.props.name}</Text>
+                    </View>
                     <View style={styles.icons}>
                         <View style={styles.icon1}>
                             <Icon
@@ -48,7 +48,6 @@ export class TaskCardTwoIcons extends Component {
             </>
         );
     }
-
 }
 
 const styles = StyleSheet.create({
@@ -69,7 +68,12 @@ const styles = StyleSheet.create({
         shadowRadius: 16.00,
         elevation: 24,
     },
+    cardInfo: {
+        flexDirection: 'column',
+        justifyContent: "space-evenly",
+    },
     textStyle: {
+        alignSelf: 'center',
         padding: 10,
         fontSize: 25,
         fontFamily: "Roboto",
@@ -81,7 +85,6 @@ const styles = StyleSheet.create({
         height: 48,
     },
     icons: {
-        flexDirection: "row",
         justifyContent: 'space-around',
     },
     icon1: {
@@ -90,5 +93,4 @@ const styles = StyleSheet.create({
     icon2: {
         padding: 7,
     }
-
 });

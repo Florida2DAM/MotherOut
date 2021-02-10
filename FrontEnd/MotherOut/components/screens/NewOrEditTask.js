@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import {
     FlatList,
     Pressable, ScrollView, StyleSheet,
-
     Text, View
 } from 'react-native';
 import { Image } from 'react-native-elements';
@@ -14,13 +13,12 @@ import importedPicture from '../../assets/newOrEditTask.png';
 import { GenericInput2 } from '../GenericInput2';
 import { NavBar } from '../NavBar';
 import { RoundedButton } from '../RoundedButton';
+import axios from 'axios';
 
 const avatar = Image.resolveAssetSource(importAvatar).uri
 const avatar2 = Image.resolveAssetSource(importAvatar2).uri
 const icon = Image.resolveAssetSource(importIcon).uri
 const picture = Image.resolveAssetSource(importedPicture).uri;
-
-
 
 const listUsers = [
     { name: 'Pablo', blop: avatar2 }, { name: 'Juan', blop: avatar }, { name: 'Jesus', blop: avatar },
@@ -33,68 +31,58 @@ class NewOrEditTask extends Component {
         super(props)
         this.state = {
             name: null,
+            listIcons: []
         }
     }
 
-    _menu = null;
-
-    setMenuRef = ref => {
-        this._menu = ref;
-    };
-
-    hideMenu = () => {
-        this._menu.hide();
-    };
-
-    showMenu = () => {
-        this._menu.show();
-    };
-
-    getName = (item) => {
-        return this.setState({
-            name: item.name
-        })
+    componentDidMount() {
+        this.getIcons();
     }
 
-    componentDidMount = () => {
-        alert(this.props.route.params.user);
+    getIcons = (idTeam) => {
+        axios.get('http://52.0.146.162:80/api/Icons')
+            .then(response => {
+                this.setState({ listIcons: response.data })
+            })
+            .catch((error) => {
+                alert(error);
+            });
     }
-
     render() {
         return (
             <>
                 <View style={styles.contenidor}>
-                    <ScrollView>
-                        <View style={styles.header}>
-                            <Image
-                                style={{ width: 300, height: 90 }}
-                                source={{ uri: picture }} />
-                        </View>
-                        <View style={styles.body}>
+                    <View style={styles.header}>
+                        <Image
+                            style={{ width: 300, height: 90 }}
+                            source={{ uri: picture }} />
+                    </View>
+                    <View style={styles.body}>
 
-                            <Text style={styles.textStyle}>TaskName</Text>
-                            <GenericInput2 ></GenericInput2>
-                            <Text style={styles.textStyle}>Score</Text>
-                            <GenericInput2></GenericInput2>
-                            <Text style={styles.textStyle}>Icon</Text>
+                        <Text style={styles.textStyle}>TaskName</Text>
+                        <GenericInput2 ></GenericInput2>
+                        <Text style={styles.textStyle}>Score</Text>
+                        <GenericInput2></GenericInput2>
+                        <Text style={styles.textStyle}>Icon</Text>
 
-                            <FlatList
-                                data={listUsers}
-                                keyExtractor={(item, index) => index.toString()}
-                                renderItem={({ item }) =>
-                                    <View style={styles.iconBox}>
-                                        <Pressable>
-                                            <Text style={styles.textStyle}>{item.name}</Text>
-                                        </Pressable>
-                                    </View>
-                                }
-                            />
-                            <RoundedButton icon="plus" />
+                        <FlatList
+                            data={this.state.listIcons}
+                            keyExtractor={(item, index) => index.toString()}
+                            renderItem={({ item }) =>
+                                <View style={styles.iconBox}>
+                                    <Pressable>
+                                        <Image
+                                            style={{ width: 200, height: 90 }}
+                                            source={alert({ uri: item.IconImage })} />
+                                    </Pressable>
+                                </View>
+                            }
+                        />
 
-                        </View>
-                    </ScrollView>
+                        <RoundedButton icon="plus" />
+                    </View>
                     <View>
-                    <NavBar
+                        <NavBar
                             checked={() => this.props.navigation.navigate('ScreenToDo')}
                             list={() => this.props.navigation.navigate('ListTask')}
                             calendar={() => this.props.navigation.navigate('TaskAssignment')}

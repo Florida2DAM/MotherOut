@@ -26,7 +26,7 @@ import TaskAssignment from './components/screens/TaskAssignment';
 import TasksEditing from './components/screens/TasksEditing';
 import YourTeam from './components/screens/YourTeam';
 import GlobalSettings from './components/screens/GlobalSettings';
-//Help Screens
+
 const navigationContainer = createStackNavigator();
 
 class App extends Component {
