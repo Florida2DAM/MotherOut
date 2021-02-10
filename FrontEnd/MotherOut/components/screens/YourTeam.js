@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {FlatList, Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {FlatList, Pressable, StyleSheet, Text, View} from 'react-native';
 import {Image} from 'react-native-elements';
 import imagen from '../../assets/yourTeam.jpg';
 import {GenericInput3} from '../GenericInput3';
@@ -8,7 +8,6 @@ import {RoundedButton} from '../RoundedButton';
 import {RoundedButton2} from '../RoundedButton2';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import item from 'react-native-calendars/src/calendar-list/item';
 
 const picture = Image.resolveAssetSource(imagen).uri;
 
@@ -22,7 +21,6 @@ class YourTeam extends Component {
             teamData: [],
             nameTeam: null,
             newNameTeam: null,
-            hola: 'hola',
         };
     }
 
@@ -82,8 +80,22 @@ class YourTeam extends Component {
             else{
                 alert("not change your name team");
             }
-        })
+        });
 
+    };
+
+    createTeam = () => {
+        let newTeam={
+            TeamName:this.state.newNameTeam,
+        }
+        axios.post('http://52.0.146.162:80/api/Teams?&idUser='+this.state.user.UserId,newTeam).then(response=>{
+            if(response.data===true){
+                alert("you have a new team");
+            }
+            else{
+                alert("Don´t have new team");
+            }
+        })
     };
 
     render() {
@@ -124,7 +136,7 @@ class YourTeam extends Component {
                         </View>
                     </View>
                     <View>
-                        <RoundedButton icon="plus"/>
+                        <RoundedButton icon="plus" press={this.createTeam}/>
                     </View>
 
                     <View>
