@@ -59,7 +59,7 @@ class AsignedTasks extends Component {
     deleteTask = (item) => {
         axios.delete('http://52.0.146.162:80/api/UserTasks?IdTask=' + item.UserTaskId)
             .then((error) => {
-                this.getData()
+                this.getTaskbyTeam(this.state.user.AsignedTeam)
             })
             .catch((error) => {
                 alert(error);
@@ -110,8 +110,6 @@ class AsignedTasks extends Component {
 }
 
 const styles = StyleSheet.create({
-
-
     contenidor: {
         flex: 1,
         flexDirection: 'column',
