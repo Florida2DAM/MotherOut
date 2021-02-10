@@ -27,6 +27,7 @@ class TasksEditing extends Component {
     componentDidMount() {
 
         this.loadData();
+        
     }
 
     loadData(){
@@ -58,16 +59,10 @@ class TasksEditing extends Component {
 
     }
 
-    updateTask(){
-        const datenow=this.state.date;
-       alert(datenow);
-       //alert("la fecha es: "+this.state.date+"el nombre es: "+this.state.name);
-    }
-
     getName = (item) => {
-        return this.setState({
+        this.setState({
             name: item.Name,
-        });
+        },()=>{console.log(this.state.name)})
     };
 
     render() {
@@ -79,7 +74,7 @@ class TasksEditing extends Component {
                             style={{width: 290, height: 90}}
                             source={{uri: picture}}/>
                     </View>
-                    <ScrollView>
+
                         <View style={styles.body}>
                             <Text style={styles.textStyle}>Task name</Text>
                             <GenericInput2 disabled={true} placeHolder={this.state.nameTask} passValue={false}/>
@@ -89,7 +84,7 @@ class TasksEditing extends Component {
                             <InputData value={this.state.date}
                                        press={(item) => this.setState({date: item.day + '-' + item.month + '-' + item.year})}/>
                         </View>
-                    </ScrollView>
+  
                     <View>
                         <RoundedButton icon='check' press={this.updateTask}/>
                     </View>
