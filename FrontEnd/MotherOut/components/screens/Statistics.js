@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
-import {FlatList, StyleSheet, Text, View} from 'react-native';
+import {FlatList, StyleSheet, View} from 'react-native';
 import {Image} from 'react-native-elements';
 import imagen from '../../assets/statistics.png';
 import {NavBar} from '../NavBar';
 import {StatisticCard} from '../StatisticCard';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const picture = Image.resolveAssetSource(imagen).uri;
 
@@ -15,15 +16,26 @@ class Statistics extends Component {
             idTeam: null,
             teamData: [],
             teamUserData: [],
+            user: [],
         };
     }
 
     componentDidMount() {
-        //recuperar los valores que me mandar desde otra pagina.
-        //const idUser = this.props.route.params.userId;
-        const idUser = 4;
-        this.getIdTeam(idUser);
+        this.getData().then(
+            () => {
+                console.log(this.state.user);
+                this.getUserByTeam(this.state.user.AsignedTeam);
+            })
 
+    }
+
+    async getData() {
+        try {
+            const jsonValue = await AsyncStorage.getItem('logUser')
+            jsonValue != null ? this.setState({ user: JSON.parse(jsonValue) }) : null;
+        } catch (e) {
+            alert(e)
+        }
     }
 
     getUserByTeam(idTeam) {
@@ -34,16 +46,6 @@ class Statistics extends Component {
                 alert(error);
             });
     };
-
-    getIdTeam(idUser) {
-        axios.get('http://52.0.146.162:80/api/Users?idUser=' + idUser).then(response => {
-            this.setState({idTeam: response.data.AsignedTeam});
-            this.getUserByTeam(this.state.idTeam);
-        })
-            .catch(function (error) {
-                alert(error);
-            });
-    }
 
     render() {
         return (
