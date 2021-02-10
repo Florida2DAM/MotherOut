@@ -6,8 +6,11 @@ import { GenericInput3 } from '../GenericInput3';
 import { NavBar } from '../NavBar';
 import { RoundedButton } from '../RoundedButton';
 import { RoundedButton2 } from '../RoundedButton2';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 
 const picture = Image.resolveAssetSource(imagen).uri;
+
 const listUsers = [{ name: 'Pablo' }, { name: 'Juan' }, { name: 'Jesus' }, { name: 'Jordi' }, { name: 'paco' }];
 
 class YourTeam extends Component {
@@ -16,18 +19,41 @@ class YourTeam extends Component {
         super(props);
         this.state = {
             name: null,
+            user:[],
+            teamData:[],
         };
     }
 
     componentDidMount = () => {
-        alert(this.props.route.params.user);
+       // alert(this.props.route.params.user);
+        this.getData().then(
+            () => {
+                console.log(this.state.user);
+                this.getUserByTeam(this.state.user.AsignedTeam);
+            });
     }
+    async getData() {
+        try {
+            const jsonValue = await AsyncStorage.getItem('logUser')
+            jsonValue != null ? this.setState({ user: JSON.parse(jsonValue) }) : null;
+        } catch (e) {
+            alert(e)
+        }
+    }
+
+    getUserByTeam(idTeam) {
+        axios.get('http://52.0.146.162:80/api/Users?idTeam=' + idTeam).then(response => {
+            this.setState({teamData: response.data});
+        })
+            .catch(function (error) {
+                alert(error);
+            });
+    };
 
     render() {
         return (
             <>
                 <View style={styles.contenidor}>
-                    <ScrollView>
                         <View style={styles.header}>
                             <Image
                                 style={{ width: 300, height: 90 }}
@@ -43,12 +69,12 @@ class YourTeam extends Component {
                                 <Text style={styles.text}>Members</Text>
                             </View>
                             <View style={{ marginTop: 18 }}>
-                                <FlatList data={listUsers}
+                                <FlatList data={this.state.teamData}
                                     keyExtractor={(item, index) => index.toString()}
                                     renderItem={({ item }) =>
                                         <View style={styles.userBox}>
                                             <Pressable>
-                                                <Text style={styles.textStyle}>{item.name}</Text>
+                                                <Text style={styles.textStyle}>{item.Name}</Text>
                                             </Pressable>
                                         </View>}
                                 />
@@ -57,7 +83,6 @@ class YourTeam extends Component {
                         <View>
                             <RoundedButton icon="plus" />
                         </View>
-                    </ScrollView>
                     <View>
                         <NavBar
                             checked={() => this.props.navigation.navigate('ScreenToDo')}
