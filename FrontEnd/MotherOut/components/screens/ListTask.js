@@ -49,6 +49,14 @@ class ListTask extends Component {
             })
     }
 
+    deleteTask = (item) => {
+        axios.delete('http://52.0.146.162:80/api/UserTasks?IdTask=' + item.UserTaskId)
+            .then(this.getListTask(this.state.user.AsignedTeam))
+            .catch((error) => {
+                alert(error);
+            });
+    }
+
 
     render() {
         return (
@@ -65,7 +73,7 @@ class ListTask extends Component {
                                   keyExtractor={(item, index) => index.toString()}
                                   renderItem={({item}) => (
                                       <View style={{padding: 5}}>
-                                          <TaskCard text={item.TaskName} icon={"trash"}/>
+                                          <TaskCard text={item.TaskName} icon={"trash"} press={() => this.deleteTask(item)}/>
                                       </View>)}
                         />
                         <RoundedButton icon={'plus'} press={() => this.props.navigation.navigate('NewOrEditTask')}/>

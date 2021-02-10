@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { Button, FlatList, StyleSheet, Text, View } from 'react-native';
-import { Image } from 'react-native-elements';
+import React, {Component} from 'react';
+import {Button, FlatList, StyleSheet, Text, View} from 'react-native';
+import {Image} from 'react-native-elements';
 import image from '../../assets/avatar2.png';
-import { NavBar } from "../NavBar";
-import { TaskCard } from "../TaskCard";
+import {NavBar} from "../NavBar";
+import {TaskCard} from "../TaskCard";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from "axios";
 
@@ -36,8 +36,8 @@ class ScreenToDo extends Component {
                         res3.push(item);
                     }
                 });
-                this.setState({ done: res2 });
-                this.setState({ undone: res3 });
+                this.setState({done: res2});
+                this.setState({undone: res3});
             })
     }
 
@@ -72,13 +72,18 @@ class ScreenToDo extends Component {
 
 
     componentDidMount = () => {
-        this.getData().then(()=> this.getTasksByUser(this.state.user.UserId, this.state.user.AsignedTeam));
+        this.getData().then(() => this.getTasksByUser(this.state.user.UserId, this.state.user.AsignedTeam));
     }
+
+    /*componentDidUpdate = () => {
+        this.getData().then(() => this.getTasksByUser(this.state.user.UserId, this.state.user.AsignedTeam));
+
+    }*/
 
     async getData() {
         try {
             const jsonValue = await AsyncStorage.getItem('logUser')
-            jsonValue != null ? this.setState({ user: JSON.parse(jsonValue) }) : null;
+            jsonValue != null ? this.setState({user: JSON.parse(jsonValue)}) : null;
         } catch (e) {
             alert(e)
         }
@@ -92,8 +97,8 @@ class ScreenToDo extends Component {
                 <View style={styles.contenidor}>
                     <View style={styles.header}>
                         <Image
-                            style={{ width: 90, height: 90 }}
-                            source={{ uri: picture }} />
+                            style={{width: 90, height: 90}}
+                            source={{uri: picture}}/>
                         <View>
                             <Text style={styles.textStyle}>{this.state.user.Name}</Text>
                         </View>
@@ -101,31 +106,31 @@ class ScreenToDo extends Component {
                     <View style={styles.body}>
                         <Text style={styles.textStyle}>Pending Tasks</Text>
                         <FlatList data={this.state.undone} keyExtractor={((item, index) => index.toString())}
-                            renderItem={({ item }) =>
-                                <View style={styles.paddingView}>
-                                    <TaskCard text={item.TaskName} icon={"square-o"}
-                                        press={() => this.completeTask(item)} />
-                                </View>
+                                  renderItem={({item}) =>
+                                      <View style={styles.paddingView}>
+                                          <TaskCard text={item.TaskName} icon={"square-o"}
+                                                    press={() => this.completeTask(item)}/>
+                                      </View>
 
-                            }
+                                  }
                         />
                         <Text style={styles.textStyle}>Completed Tasks!</Text>
                         <FlatList data={this.state.done} keyExtractor={(item, index) => index.toString()}
-                            renderItem={({ item }) =>
-                                <View style={styles.paddingView}>
-                                    <TaskCard text={item.TaskName} icon={"check-square-o"}
-                                        press={() => this.uncheckTaskCompleted(item)} />
-                                </View>
-                            }
+                                  renderItem={({item}) =>
+                                      <View style={styles.paddingView}>
+                                          <TaskCard text={item.TaskName} icon={"check-square-o"}
+                                                    press={() => this.uncheckTaskCompleted(item)}/>
+                                      </View>
+                                  }
                         />
                     </View>
                     <View>
                         <NavBar
-                            checked={() => this.props.navigation.navigate('ScreenToDo', { user: this.state.user })}
-                            list={() => this.props.navigation.navigate('ListTask', { user: this.state.user })}
-                            calendar={() => this.props.navigation.navigate('TaskAssignment', { user: this.state.user })}
-                            nav={() => this.props.navigation.navigate('Statistics', { user: this.state.user })}
-                            settings={() => this.props.navigation.navigate('Setting', { user: this.state.user })}
+                            checked={() => this.props.navigation.navigate('ScreenToDo', {user: this.state.user})}
+                            list={() => this.props.navigation.navigate('ListTask', {user: this.state.user})}
+                            calendar={() => this.props.navigation.navigate('TaskAssignment', {user: this.state.user})}
+                            nav={() => this.props.navigation.navigate('Statistics', {user: this.state.user})}
+                            settings={() => this.props.navigation.navigate('Setting', {user: this.state.user})}
                         />
                     </View>
                 </View>
