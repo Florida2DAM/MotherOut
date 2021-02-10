@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Input} from 'react-native-elements';
 import {StyleSheet} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 export class GenericInput3 extends Component {
     constructor(props) {
