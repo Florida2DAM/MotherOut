@@ -5,6 +5,7 @@ import image from '../../assets/avatar2.png';
 import { NavBar } from "../NavBar";
 import { TaskCard } from "../TaskCard";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from "axios";
 
 const picture = Image.resolveAssetSource(image).uri;
 
@@ -14,29 +15,11 @@ class ScreenToDo extends Component {
         super(props);
 
         this.state = {
-            id: null,
-            name: null,
             user: [],
-            team: null,
             done: [],
             undone: []
         }
 
-    }
-
-    getData = (id) => {
-        axios.get('http://52.0.146.162:80/api/Users?idUser=' + id)
-            .then(response => {
-                const res = response.data;
-                this.setState({ id: res.UserId });
-                this.setState({ user: response.data });
-                this.setState({ name: res.Name });
-                this.setState({ team: res.AsignedTeam });
-                this.getTasksByUser(this.state.id, this.state.team);
-            })
-            .catch((error) => {
-                alert(error);
-            });
     }
 
     getTasksByUser = (id, team) => {
@@ -61,8 +44,9 @@ class ScreenToDo extends Component {
     completeTask = (item) => {
         let userId = item.UserId;
         let userTaskId = item.UserTaskId;
+        let userIdTeam = item.TeamId;
         axios.put('http://52.0.146.162:80/api/Users?idUser=' + userId + '&idTask=' + userTaskId + '&done=' + true)
-            .then(this.getData(this.state.id))
+            .then(this.getTasksByUser(userId, userIdTeam))
             .catch((error) => {
                 alert(error);
             })
@@ -72,8 +56,9 @@ class ScreenToDo extends Component {
     uncheckTaskCompleted = (item) => {
         let userId = item.UserId;
         let userTaskId = item.UserTaskId;
+        let userIdTeam = item.TeamId;
         axios.put('http://52.0.146.162:80/api/Users?idUser=' + userId + '&idTask=' + userTaskId + '&done=' + false)
-            .then(this.getData(this.state.id))
+            .then(this.getTasksByUser(userId, userIdTeam))
             .catch((error) => {
                 alert(error);
             })
@@ -87,9 +72,10 @@ class ScreenToDo extends Component {
 
 
     componentDidMount = () => {
-        this.getData(this.props.route.params.userId);
+        this.getData().then(()=> this.getTasksByUser(this.state.user.UserId, this.state.user.AsignedTeam));
     }
-    /*async getData() {
+
+    async getData() {
         try {
             const jsonValue = await AsyncStorage.getItem('logUser')
             jsonValue != null ? this.setState({ user: JSON.parse(jsonValue) }) : null;
@@ -97,8 +83,6 @@ class ScreenToDo extends Component {
             alert(e)
         }
     }
-    componentDidMount = () => {
-        this.getData().then(()=>console.log(this.state.user))*/
 
 
     render() {
@@ -111,7 +95,7 @@ class ScreenToDo extends Component {
                             style={{ width: 90, height: 90 }}
                             source={{ uri: picture }} />
                         <View>
-                            <Text style={styles.textStyle}>{this.state.name}</Text>
+                            <Text style={styles.textStyle}>{this.state.user.Name}</Text>
                         </View>
                     </View>
                     <View style={styles.body}>
