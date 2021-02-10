@@ -1,14 +1,14 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 import React, { Component } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { Image, Input } from 'react-native-elements';
+import { StyleSheet, Text, View } from 'react-native';
+import { Image } from 'react-native-elements';
 import imagen from '../../assets/tasksEditing.png';
 import { GenericInput2 } from '../GenericInput2';
 import { InputData } from '../InputData';
 import { NavBar } from '../NavBar';
 import { RoundedButton } from '../RoundedButton';
 import { SelectedItem } from '../SelectedItem';
-import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const picture = Image.resolveAssetSource(imagen).uri;
 
@@ -77,8 +77,8 @@ class TasksEditing extends Component {
     };
 
     updateTask = () => {
-        axios.put('http://52.0.146.162:80/api/UserTasks?idUserTask=' + 15 + '&fecha=' + "2021-05-05" + '&idUser=' + 1)
-            .then(() => {alert("Lanzada peticion") })
+        axios.put('http://52.0.146.162:80/api/UserTasks?idUserTask=' + this.state.idTask + '&fecha=' + this.state.date + '&idUser=' + this.state.selectedIdUser)
+            .then(() => { alert("Lanzada peticion") })
             .catch(function (error) {
                 alert(error);
             });
@@ -93,7 +93,6 @@ class TasksEditing extends Component {
                             style={{ width: 290, height: 90 }}
                             source={{ uri: picture }} />
                     </View>
-
                     <View style={styles.body}>
                         <Text style={styles.textStyle}>Task name</Text>
                         <GenericInput2 disabled={true} placeHolder={this.state.nameTask} passValue={false} />
@@ -101,7 +100,7 @@ class TasksEditing extends Component {
                         <SelectedItem list={this.state.teamData} value={this.state.name} selectedItem={this.getName} />
                         <Text style={styles.textStyle}>Select day</Text>
                         <InputData value={this.state.date}
-                            press={(item) => this.setState({ date: item.dateString})} />
+                            press={(item) => this.setState({ date: item.dateString })} />
                     </View>
 
                     <View>
