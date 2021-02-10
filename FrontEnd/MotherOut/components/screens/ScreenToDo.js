@@ -92,7 +92,6 @@ class ScreenToDo extends Component {
         }
     }
     componentDidMount = () => {
-        //alert(this.props.route.params.userId)
         this.getData().then(()=>console.log(this.state.user))
     }
 

@@ -17,12 +17,12 @@ class AsignedTasks extends Component {
             task: null,
             taskTeam: [],
             user: [],
+            asignedTeam: null,
         }
     }
 
     componentDidMount() {
-        this.getData().then(() => console.log(this.state.user.AsignedTeam))
-        this.getTaskbyTeam(this.state.user.AsignedTeam) //User el param aquí 
+        this.getData().then(() => console.log(this.state.user))
     }
 
     async getData() {
@@ -32,6 +32,7 @@ class AsignedTasks extends Component {
         } catch (e) {
             alert(e)
         }
+        this.getTaskbyTeam(this.state.user.AsignedTeam)
     }
 
     getTaskbyTeam = (idTeam) => {
@@ -45,7 +46,6 @@ class AsignedTasks extends Component {
     }
 
     taskEditing = (item) => {
-        alert(item.UserTaskId)
         this.props.navigation.navigate('TasksEditing', {
             taskId: item.UserTaskId,
             userId: item.UserId,
@@ -56,7 +56,7 @@ class AsignedTasks extends Component {
     deleteTask = (item) => {
         axios.delete('http://52.0.146.162:80/api/UserTasks?IdTask=' + item.UserTaskId)
             .then((error) => {
-                this.getData(2)//pasar param
+                this.getData()
             })
             .catch((error) => {
                 alert(error);
