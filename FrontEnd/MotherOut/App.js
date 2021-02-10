@@ -26,6 +26,7 @@ import TaskAssignment from './components/screens/TaskAssignment';
 import TasksEditing from './components/screens/TasksEditing';
 import YourTeam from './components/screens/YourTeam';
 import GlobalSettings from './components/screens/GlobalSettings';
+import UserEdit from "./components/screens/UserEdit";
 
 const navigationContainer = createStackNavigator();
 
@@ -51,6 +52,7 @@ class App extends Component {
                         <navigationContainer.Screen options={{ headerShown: false }} name="TasksEditing" component={TasksEditing} />
                         <navigationContainer.Screen options={{ headerShown: false }} name="YourTeam" component={YourTeam} />
                         <navigationContainer.Screen options={{ headerShown: false }} name="Help1" component={Help1} />
+                        <navigationContainer.Screen options={{ headerShown: false }} name="UserEdit" component={UserEdit} />
                         <navigationContainer.Screen options={{ headerShown: false }} name="GlobalSettings" component={GlobalSettings} />
                     </navigationContainer.Navigator>
                 </NavigationContainer>
