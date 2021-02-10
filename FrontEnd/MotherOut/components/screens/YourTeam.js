@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import { FlatList, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { Image } from 'react-native-elements';
+import React, {Component} from 'react';
+import {FlatList, Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {Image} from 'react-native-elements';
 import imagen from '../../assets/yourTeam.jpg';
-import { GenericInput3 } from '../GenericInput3';
-import { NavBar } from '../NavBar';
-import { RoundedButton } from '../RoundedButton';
-import { RoundedButton2 } from '../RoundedButton2';
+import {GenericInput3} from '../GenericInput3';
+import {NavBar} from '../NavBar';
+import {RoundedButton} from '../RoundedButton';
+import {RoundedButton2} from '../RoundedButton2';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
 const picture = Image.resolveAssetSource(imagen).uri;
 
-const listUsers = [{ name: 'Pablo' }, { name: 'Juan' }, { name: 'Jesus' }, { name: 'Jordi' }, { name: 'paco' }];
+const listUsers = [{name: 'Pablo'}, {name: 'Juan'}, {name: 'Jesus'}, {name: 'Jordi'}, {name: 'paco'}];
 
 class YourTeam extends Component {
 
@@ -19,83 +19,99 @@ class YourTeam extends Component {
         super(props);
         this.state = {
             name: null,
-            user:[],
-            teamData:[],
+            user: [],
+            teamData: [],
+            nameTeam:null,
         };
     }
 
     componentDidMount = () => {
-       // alert(this.props.route.params.user);
+        // alert(this.props.route.params.user);
         this.getData().then(
             () => {
                 console.log(this.state.user);
                 this.getUserByTeam(this.state.user.AsignedTeam);
+                this.getTeamName(this.state.user.AsignedTeam);
             });
-    }
+    };
+
     async getData() {
         try {
-            const jsonValue = await AsyncStorage.getItem('logUser')
-            jsonValue != null ? this.setState({ user: JSON.parse(jsonValue) }) : null;
+            const jsonValue = await AsyncStorage.getItem('logUser');
+            jsonValue != null ? this.setState({user: JSON.parse(jsonValue)}) : null;
         } catch (e) {
-            alert(e)
+            alert(e);
         }
     }
 
     getUserByTeam(idTeam) {
         axios.get('http://52.0.146.162:80/api/Users?idTeam=' + idTeam).then(response => {
+            this.setState({nameTeam: response.data});
+            alert(this.state.nameTeam);
+        })
+            .catch(function (error) {
+                alert(error);
+            });
+    }
+
+    getTeamName(idTeam) {
+        axios.get('http://52.0.146.162:80/api/Team?idTeam=' + idTeam).then(response => {
             this.setState({teamData: response.data});
         })
             .catch(function (error) {
                 alert(error);
             });
-    };
-
-    render() {
-        return (
-            <>
-                <View style={styles.contenidor}>
-                        <View style={styles.header}>
-                            <Image
-                                style={{ width: 300, height: 90 }}
-                                source={{ uri: picture }} />
-                        </View>
-                        <View style={styles.body}>
-                            <View style={styles.garbage}>
-                                <Text style={styles.text}>Group name</Text>
-                                <RoundedButton2 icon={'trash'} />
-                            </View>
-                            <GenericInput3 placeHolder="Task name" />
-                            <View>
-                                <Text style={styles.text}>Members</Text>
-                            </View>
-                            <View style={{ marginTop: 18 }}>
-                                <FlatList data={this.state.teamData}
-                                    keyExtractor={(item, index) => index.toString()}
-                                    renderItem={({ item }) =>
-                                        <View style={styles.userBox}>
-                                            <Pressable>
-                                                <Text style={styles.textStyle}>{item.Name}</Text>
-                                            </Pressable>
-                                        </View>}
-                                />
-                            </View>
-                        </View>
-                        <View>
-                            <RoundedButton icon="plus" />
-                        </View>
-                    <View>
-                        <NavBar
-                            checked={() => this.props.navigation.navigate('ScreenToDo')}
-                            list={() => this.props.navigation.navigate('ListTask')}
-                            calendar={() => this.props.navigation.navigate('TaskAssignment')}
-                            nav={() => this.props.navigation.navigate('Statistics')}
-                            settings={() => this.props.navigation.navigate('Setting')}
-                        />
-                    </View>
-                </View>
-            </>
-        );
     }
+
+
+render() {
+    return (
+        <>
+            <View style={styles.contenidor}>
+                <ScrollView>
+                    <View style={styles.header}>
+                        <Image
+                            style={{ width: 300, height: 90 }}
+                            source={{ uri: picture }} />
+                    </View>
+                    <View style={styles.body}>
+                        <View style={styles.garbage}>
+                            <Text style={styles.text}>Group name</Text>
+                            <RoundedButton2 icon={'trash'} />
+                        </View>
+                        <GenericInput3 placeHolder="Task name" />
+                        <View>
+                            <Text style={styles.text}>Members</Text>
+                        </View>
+                        <View style={{ marginTop: 18 }}>
+                            <FlatList data={this.state.nameTeam}
+                                      keyExtractor={(item, index) => index.toString()}
+                                      renderItem={({ item }) =>
+                                          <View style={styles.userBox}>
+                                              <Pressable>
+                                                  <Text style={styles.textStyle}>{item.Name}</Text>
+                                              </Pressable>
+                                          </View>}
+                            />
+                        </View>
+                    </View>
+                    <View>
+                        <RoundedButton icon="plus" />
+                    </View>
+                </ScrollView>
+                <View>
+                    <NavBar
+                        checked={() => this.props.navigation.navigate('ScreenToDo')}
+                        list={() => this.props.navigation.navigate('ListTask')}
+                        calendar={() => this.props.navigation.navigate('TaskAssignment')}
+                        nav={() => this.props.navigation.navigate('Statistics')}
+                        settings={() => this.props.navigation.navigate('Setting')}
+                    />
+                </View>
+            </View>
+        </>
+    );
+}
 }
 
 const styles = StyleSheet.create({
@@ -127,13 +143,13 @@ const styles = StyleSheet.create({
     },
     userBox: {
         backgroundColor: '#D7B9D5',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     textStyle: {
         padding: 10,
         fontSize: 25,
-        fontFamily: "Roboto",
-        fontWeight: "bold"
+        fontFamily: 'Roboto',
+        fontWeight: 'bold',
     },
 });
 export default YourTeam;
