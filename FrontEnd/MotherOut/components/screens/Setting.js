@@ -10,14 +10,45 @@ import {
 import imagen from '../../assets/setting.png';
 import { GenericIconButton } from '../GenericIconButton';
 import { NavBar } from '../NavBar';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const picture = Image.resolveAssetSource(imagen).uri;
 
 class Setting extends Component {
 
-    componentDidMount = () => {
-        alert(this.props.route.params.user);
+    constructor(props) {
+        super(props)
+        this.state={
+            user:[],
+        }
     }
+
+    componentDidMount = () => {
+        //alert(this.props.route.params.user);
+        this.getData().then(
+            () => {
+                console.log(this.state.user);
+                // this.getTaskbyTeam(this.state.user.AsignedTeam);
+            })
+    }
+
+    async getData() {
+        try {
+            const jsonValue = await AsyncStorage.getItem('logUser')
+            jsonValue != null ? this.setState({ user: JSON.parse(jsonValue) }) : null;
+        } catch (e) {
+            alert(e)
+        }
+    }
+
+    checkMaster = () => {
+        if (this.state.user.UserMaster===true){
+            this.props.navigation.navigate('YourTeam');
+        }
+        else{
+            alert("you aren`t user master");
+        }
+    };
 
     render() {
         return (
@@ -36,7 +67,7 @@ class Setting extends Component {
                             <GenericIconButton
                                 button="Create Team"
                                 icon='users'
-                                press={() => this.props.navigation.navigate('YourTeam')}
+                                press={() => this.checkMaster() }
                             />
                             <GenericIconButton
                                 button="Join Team"
