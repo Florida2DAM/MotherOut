@@ -11,8 +11,6 @@ import axios from 'axios';
 
 const picture = Image.resolveAssetSource(imagen).uri;
 
-const listUsers = [{name: 'Pablo'}, {name: 'Juan'}, {name: 'Jesus'}, {name: 'Jordi'}, {name: 'paco'}];
-
 class YourTeam extends Component {
 
     constructor(props) {
@@ -21,7 +19,8 @@ class YourTeam extends Component {
             name: null,
             user: [],
             teamData: [],
-            nameTeam:null,
+            nameTeam: null,
+            hola:'hola',
         };
     }
 
@@ -46,6 +45,15 @@ class YourTeam extends Component {
 
     getUserByTeam(idTeam) {
         axios.get('http://52.0.146.162:80/api/Users?idTeam=' + idTeam).then(response => {
+            this.setState({teamData: response.data});
+        })
+            .catch(function (error) {
+                alert(error);
+            });
+    }
+
+    getTeamName(idTeam) {
+        axios.get('http://52.0.146.162:80/api/Teams?idTeam=' + idTeam).then(response => {
             this.setState({nameTeam: response.data});
             alert(this.state.nameTeam);
         })
@@ -54,64 +62,55 @@ class YourTeam extends Component {
             });
     }
 
-    getTeamName(idTeam) {
-        axios.get('http://52.0.146.162:80/api/Team?idTeam=' + idTeam).then(response => {
-            this.setState({teamData: response.data});
-        })
-            .catch(function (error) {
-                alert(error);
-            });
-    }
 
-
-render() {
-    return (
-        <>
-            <View style={styles.contenidor}>
-                <ScrollView>
-                    <View style={styles.header}>
-                        <Image
-                            style={{ width: 300, height: 90 }}
-                            source={{ uri: picture }} />
-                    </View>
-                    <View style={styles.body}>
-                        <View style={styles.garbage}>
-                            <Text style={styles.text}>Group name</Text>
-                            <RoundedButton2 icon={'trash'} />
+    render() {
+        return (
+            <>
+                <View style={styles.contenidor}>
+                    <ScrollView>
+                        <View style={styles.header}>
+                            <Image
+                                style={{width: 300, height: 90}}
+                                source={{uri: picture}}/>
                         </View>
-                        <GenericInput3 placeHolder="Task name" />
+                        <View style={styles.body}>
+                            <View style={styles.garbage}>
+                                <Text style={styles.text}>Group name</Text>
+                                <RoundedButton2 icon={'trash'}/>
+                            </View>
+                            <GenericInput3 placeHolder={this.state.nameTeam}/>
+                            <View>
+                                <Text style={styles.text}>Members</Text>
+                            </View>
+                            <View style={{marginTop: 18}}>
+                                <FlatList data={this.state.teamData}
+                                          keyExtractor={(item, index) => index.toString()}
+                                          renderItem={({item}) =>
+                                              <View style={styles.userBox}>
+                                                  <Pressable>
+                                                      <Text style={styles.textStyle}>{item.Name}</Text>
+                                                  </Pressable>
+                                              </View>}
+                                />
+                            </View>
+                        </View>
                         <View>
-                            <Text style={styles.text}>Members</Text>
+                            <RoundedButton icon="plus"/>
                         </View>
-                        <View style={{ marginTop: 18 }}>
-                            <FlatList data={this.state.nameTeam}
-                                      keyExtractor={(item, index) => index.toString()}
-                                      renderItem={({ item }) =>
-                                          <View style={styles.userBox}>
-                                              <Pressable>
-                                                  <Text style={styles.textStyle}>{item.Name}</Text>
-                                              </Pressable>
-                                          </View>}
-                            />
-                        </View>
-                    </View>
+                    </ScrollView>
                     <View>
-                        <RoundedButton icon="plus" />
+                        <NavBar
+                            checked={() => this.props.navigation.navigate('ScreenToDo')}
+                            list={() => this.props.navigation.navigate('ListTask')}
+                            calendar={() => this.props.navigation.navigate('TaskAssignment')}
+                            nav={() => this.props.navigation.navigate('Statistics')}
+                            settings={() => this.props.navigation.navigate('Setting')}
+                        />
                     </View>
-                </ScrollView>
-                <View>
-                    <NavBar
-                        checked={() => this.props.navigation.navigate('ScreenToDo')}
-                        list={() => this.props.navigation.navigate('ListTask')}
-                        calendar={() => this.props.navigation.navigate('TaskAssignment')}
-                        nav={() => this.props.navigation.navigate('Statistics')}
-                        settings={() => this.props.navigation.navigate('Setting')}
-                    />
                 </View>
-            </View>
-        </>
-    );
-}
+            </>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
