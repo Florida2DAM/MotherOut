@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
     ScrollView, StyleSheet,
@@ -9,8 +9,8 @@ import {
     Image
 } from 'react-native-elements';
 import imagen from '../../assets/logo.png';
-import { GenericButton } from '../GenericButton';
-import { GenericInput1 } from '../GenericInput1';
+import {GenericButton} from '../GenericButton';
+import {GenericInput1} from '../GenericInput1';
 
 const picture = Image.resolveAssetSource(imagen).uri;
 
@@ -40,14 +40,19 @@ class Login extends Component {
         axios.get('http://52.0.146.162:80/api/Users?email=' + this.state.email)
             .then(response => {
                 const res = response.data;
-                this.setState({ user: res });
+                this.setState({user: res});
                 this.storeData(res);
-                this.props.navigation.navigate('ScreenToDo')
+                if (!this.state.user.Help && this.state.user.AsignedTeam !== 0) {
+                    this.props.navigation.navigate('ScreenToDo');
+                } else {
+                    this.props.navigation.navigate('Help1');
+                }
             })
             .catch(function (error) {
                 alert(error);
             });
     }
+
     render() {
         return (
             <>
@@ -55,21 +60,21 @@ class Login extends Component {
                     <ScrollView>
                         <View style={styles.pictures}>
                             <Image
-                                style={{ width: 310, height: 270 }}
-                                source={{ uri: picture }}
+                                style={{width: 310, height: 270}}
+                                source={{uri: picture}}
                             />
                         </View>
                         <View style={styles.inputs}>
                             <GenericInput1 placeHolder="Email" value={this.state.email}
-                                onChange={(item) => this.setState({ email: item })} />
-                            <GenericInput1 placeHolder="Password" />
+                                           onChange={(item) => this.setState({email: item})}/>
+                            <GenericInput1 placeHolder="Password"/>
                         </View>
-                        <View style={styles.buttons} >
-                            <GenericButton button="Log In" press={this.getUserbyEmail} />
+                        <View style={styles.buttons}>
+                            <GenericButton button="Log In" press={this.getUserbyEmail}/>
                             <View style={styles.text}>
                                 <Text>Don't have a login?</Text>
                             </View>
-                            <GenericButton button="Sing Up" press={() => this.props.navigation.navigate('SingUp')} />
+                            <GenericButton button="Sing Up" press={() => this.props.navigation.navigate('SingUp')}/>
                         </View>
                     </ScrollView>
                 </View>

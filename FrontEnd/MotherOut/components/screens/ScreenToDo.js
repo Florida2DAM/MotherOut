@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, FlatList, StyleSheet, Text, View} from 'react-native';
+import {FlatList, StyleSheet, Text, View} from 'react-native';
 import {Image} from 'react-native-elements';
 import image from '../../assets/avatar2.png';
 import {NavBar} from "../NavBar";
@@ -64,12 +64,6 @@ class ScreenToDo extends Component {
             })
 
     }
-
-
-    getId = () => {
-        alert(this.state.user.Email);
-    }
-
 
     componentDidMount = () => {
         this.getData().then(() => this.getTasksByUser(this.state.user.UserId, this.state.user.AsignedTeam));
