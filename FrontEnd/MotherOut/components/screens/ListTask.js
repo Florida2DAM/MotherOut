@@ -18,16 +18,12 @@ class ListTask extends Component {
         super(props);
         this.state = {
             user: null,
-            userId: null,
             listTasks: [],
         };
     }
 
     componentDidMount = () => {
-        this.setState({user: this.props.route.params.user}, () =>{
-            console.log(this.state.user);
-            this.getListTask(this.state.user.AsignedTeam);
-        });
+        this.getData().then(()=> this.getListTask(this.state.user.AsignedTeam));
 
     }
 
