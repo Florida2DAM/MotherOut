@@ -43,14 +43,14 @@ class TasksEditing extends Component {
         }
     }
 
-    loadData() {
+    loadData = () => {
         this.setState({ idTask: this.props.route.params.taskId })
         this.setState({ nameTask: this.props.route.params.taskName })
         this.setState({ idUSer: this.props.route.params.userId })
         this.getIdTeam(this.state.user.UserId);
     }
 
-    getIdTeam(idUser) {
+    getIdTeam = (idUser) => {
         axios.get('http://52.0.146.162:80/api/Users?idUser=' + idUser).then(response => {
             this.setState({ idTeam: response.data.AsignedTeam });
             this.getUsersByTeam(this.state.idTeam);
@@ -60,7 +60,7 @@ class TasksEditing extends Component {
             });
     }
 
-    getUsersByTeam(idTeam) {
+    getUsersByTeam = (idTeam) => {
         axios.get('http://52.0.146.162:80/api/Users?idTeam=' + idTeam).then(response => {
             this.setState({ teamData: response.data });
         })

@@ -56,7 +56,7 @@ class ManualAssignment extends Component {
             });
     }
 
-    getUsersByTeam(idTeam) {
+    getUsersByTeam = (idTeam) => {
         axios.get('http://52.0.146.162:80/api/Users?idTeam=' + idTeam).then(response => {
             this.setState({ listUsers: response.data });
         })
