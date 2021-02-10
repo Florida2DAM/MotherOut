@@ -8,9 +8,10 @@ import {
 } from 'react-native-elements';
 import imagen from '../../assets/logo.png';
 import {GenericButton} from '../GenericButton';
-import {GenericInput1} from '../GenericInput1';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
+import {NavBar} from "../NavBar";
+import {GenericInput2} from "../GenericInput2";
 
 const picture = Image.resolveAssetSource(imagen).uri;
 
@@ -24,6 +25,7 @@ class UserEdit extends Component {
             name: null,
             email: null,
             password: null,
+            ppww: null,
         }
     }
 
@@ -55,24 +57,37 @@ class UserEdit extends Component {
         axios.get('http://52.0.146.162:80/api/Users?email=' + this.state.user.Email)
             .then(response => {
                 const res = response.data;
-                this.setState({userSetting: res});
-                this.storeData(res).then(r => console.log(r) );
+                this.setState({user: res});
+                this.storeData(res).then(r => console.log(r));
+
             })
     }
 
     updateUser = () => {
-        const name = this.state.name;
-        const email = this.state.email;
-        const password = this.state.password;
+        let name = this.state.name;
+        let email = this.state.email;
+        let password = this.state.password;
 
-        if (name !== null && email !== null && password !== null) {
-            axios.put('http://52.0.146.162:80/api/Users?idUser='+this.state.user.UserId+"&email="+email+"name="+name+"&password="+password)
-                .then(response =>{
+        if (name === null) {
+            name = this.state.user.UserId;
+        }
+
+        if (email === null) {
+            email = this.state.user.Email;
+        }
+
+        if (password === null) {
+            password = this.state.user.Password;
+        }
+
+        if (name === this.state.user.Name && email === this.state.user.Email && password === this.state.user.Password) {
+            alert("No hace falta que actualicemos nada, porque está todo igual");
+        } else {
+            axios.put('http://52.0.146.162:80/api/Users?idUser='+this.state.user.UserId+'&email='+email+'&name='+name+'&password='+password)
+                .then(response => {
                     alert(response.data);
                     this.getActualUser();
                 })
-        }else{
-
         }
     }
 
@@ -88,17 +103,30 @@ class UserEdit extends Component {
                             />
                         </View>
                         <View style={styles.inputs}>
-                            <GenericInput1 placeHolder="Name"/>
-                            <GenericInput1 placeHolder="Email"/>
-                            <GenericInput1 placeHolder="Pasword"/>
+                            <GenericInput2 placeHolder={this.state.user.Name} value={this.state.name}
+                                           onChange={(item) => this.setState({name: item})}/>
+                            <GenericInput2 placeHolder={this.state.user.Email} value={this.state.email}
+                                           onChange={(item) => this.setState({email: item})}/>
+                            <GenericInput2 placeHolder="*********" passValue={true} value={this.state.password}
+                                           onChange={(item) => this.setState({password: item})}/>
                         </View>
                         <View style={styles.button}>
                             <GenericButton button="Save" press={this.updateUser}/>
                         </View>
                     </ScrollView>
+                    <View>
+                        <NavBar
+                            checked={() => this.props.navigation.navigate('ScreenToDo')}
+                            list={() => this.props.navigation.navigate('ListTask')}
+                            calendar={() => this.props.navigation.navigate('TaskAssignment')}
+                            nav={() => this.props.navigation.navigate('Statistics')}
+                            settings={() => this.props.navigation.navigate('Setting')}
+                        />
+                    </View>
                 </View>
             </>
-        );
+        )
+            ;
     }
 }
 
