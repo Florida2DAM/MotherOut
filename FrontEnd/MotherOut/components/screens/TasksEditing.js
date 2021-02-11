@@ -1,14 +1,14 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { Image } from 'react-native-elements';
+import React, {Component} from 'react';
+import {StyleSheet, Text, View} from 'react-native';
+import {Image} from 'react-native-elements';
 import imagen from '../../assets/tasksEditing.png';
-import { GenericInput2 } from '../GenericInput2';
-import { InputData } from '../InputData';
-import { NavBar } from '../NavBar';
-import { RoundedButton } from '../RoundedButton';
-import { SelectedItem } from '../SelectedItem';
+import {GenericInput2} from '../GenericInput2';
+import {InputData} from '../InputData';
+import {NavBar} from '../NavBar';
+import {RoundedButton} from '../RoundedButton';
+import {SelectedItem} from '../SelectedItem';
 
 const picture = Image.resolveAssetSource(imagen).uri;
 
@@ -31,58 +31,62 @@ class TasksEditing extends Component {
     componentDidMount() {
         this.getData().then(() => {
             this.loadData();
-        })
+        });
     }
 
     async getData() {
         try {
-            const jsonValue = await AsyncStorage.getItem('logUser')
-            jsonValue != null ? this.setState({ user: JSON.parse(jsonValue) }) : null;
+            const jsonValue = await AsyncStorage.getItem('logUser');
+            jsonValue != null ? this.setState({user: JSON.parse(jsonValue)}) : null;
         } catch (e) {
-            alert(e)
+            alert(e);
         }
     }
 
     loadData = () => {
-        this.setState({ idTask: this.props.route.params.taskId })
-        this.setState({ nameTask: this.props.route.params.taskName })
-        this.setState({ idUSer: this.props.route.params.userId })
+        this.setState({idTask: this.props.route.params.taskId});
+        this.setState({nameTask: this.props.route.params.taskName});
+        this.setState({idUSer: this.props.route.params.userId});
         this.getIdTeam(this.state.user.UserId);
-    }
+    };
 
-    getIdTeam = (idUser) => {
+    getIdTeam = async (idUser) => {
         axios.get('http://52.0.146.162:80/api/Users?idUser=' + idUser).then(response => {
-            this.setState({ idTeam: response.data.AsignedTeam });
+            this.setState({idTeam: response.data.AsignedTeam});
             this.getUsersByTeam(this.state.idTeam);
         })
             .catch(function (error) {
                 alert(error);
             });
-    }
+    };
 
-    getUsersByTeam = (idTeam) => {
+    getUsersByTeam = async (idTeam) => {
         axios.get('http://52.0.146.162:80/api/Users?idTeam=' + idTeam).then(response => {
-            this.setState({ teamData: response.data });
+            this.setState({teamData: response.data});
         })
             .catch(function (error) {
                 alert(error);
             });
-    }
+    };
 
     getName = (item) => {
         this.setState({
             name: item.Name,
-            selectedIdUser: item.UserId
-        }, () => { console.log(this.state.name), console.log(this.state.date) })
+            selectedIdUser: item.UserId,
+        }, () => {
+            console.log(this.state.name), console.log(this.state.date);
+        });
     };
 
-    updateTask = () => {
+    updateTask = async () => {
         axios.put('http://52.0.146.162:80/api/UserTasks?idUserTask=' + this.state.idTask + '&fecha=' + this.state.date + '&idUser=' + this.state.selectedIdUser)
-            .then(() => { alert("Lanzada peticion") })
+            .then(() => {
+                alert('Lanzada peticion');
+            })
             .catch(function (error) {
                 alert(error);
             });
-    }
+    };
 
     render() {
         return (
@@ -90,21 +94,21 @@ class TasksEditing extends Component {
                 <View style={styles.contenidor}>
                     <View style={styles.header}>
                         <Image
-                            style={{ width: 290, height: 90 }}
-                            source={{ uri: picture }} />
+                            style={{width: 290, height: 90}}
+                            source={{uri: picture}}/>
                     </View>
                     <View style={styles.body}>
                         <Text style={styles.textStyle}>Task name</Text>
-                        <GenericInput2 disabled={true} placeHolder={this.state.nameTask} passValue={false} />
+                        <GenericInput2 disabled={true} placeHolder={this.state.nameTask} passValue={false}/>
                         <Text style={styles.textStyle}>Selected member</Text>
-                        <SelectedItem list={this.state.teamData} value={this.state.name} selectedItem={this.getName} />
+                        <SelectedItem list={this.state.teamData} value={this.state.name} selectedItem={this.getName}/>
                         <Text style={styles.textStyle}>Select day</Text>
                         <InputData value={this.state.date}
-                            press={(item) => this.setState({ date: item.dateString })} />
+                                   press={(item) => this.setState({date: item.dateString})}/>
                     </View>
 
                     <View>
-                        <RoundedButton icon='check' press={this.updateTask} />
+                        <RoundedButton icon='check' press={this.updateTask}/>
                     </View>
                     <View>
                         <NavBar

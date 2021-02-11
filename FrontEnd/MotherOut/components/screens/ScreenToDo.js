@@ -22,7 +22,7 @@ class ScreenToDo extends Component {
 
     }
 
-    getTasksByUser = (id, team) => {
+    getTasksByUser = async (id, team) => {
         axios.get('http://52.0.146.162:80/api/UserTasks?idUser=' + id + '&idTeam=' + team)
             .then(response => {
                 let res;
@@ -41,7 +41,7 @@ class ScreenToDo extends Component {
             })
     }
 
-    completeTask = (item) => {
+    completeTask = async (item) => {
         let userId = item.UserId;
         let userTaskId = item.UserTaskId;
         let userIdTeam = item.TeamId;
@@ -53,7 +53,7 @@ class ScreenToDo extends Component {
 
     }
 
-    uncheckTaskCompleted = (item) => {
+    uncheckTaskCompleted = async (item) => {
         let userId = item.UserId;
         let userTaskId = item.UserTaskId;
         let userIdTeam = item.TeamId;

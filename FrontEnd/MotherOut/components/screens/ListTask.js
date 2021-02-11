@@ -1,15 +1,15 @@
 import React, {Component} from 'react';
 
-import { FlatList, StyleSheet, View } from 'react-native';
+import {FlatList, StyleSheet, View} from 'react-native';
 
-import { Image } from 'react-native-elements';
+import {Image} from 'react-native-elements';
 
 import imagen from '../../assets/listTask.png';
 import {NavBar} from '../NavBar';
 import {TaskCard} from '../TaskCard';
 import {RoundedButton} from '../RoundedButton';
-import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const picture = Image.resolveAssetSource(imagen).uri;
 
@@ -23,20 +23,20 @@ class ListTask extends Component {
     }
 
     componentDidMount = () => {
-        this.getData().then(()=> this.getListTask(this.state.user.AsignedTeam));
+        this.getData().then(() => this.getListTask(this.state.user.AsignedTeam));
 
-    }
+    };
 
     async getData() {
         try {
-            const jsonValue = await AsyncStorage.getItem('logUser')
-            jsonValue != null ? this.setState({ user: JSON.parse(jsonValue) }) : null;
+            const jsonValue = await AsyncStorage.getItem('logUser');
+            jsonValue != null ? this.setState({user: JSON.parse(jsonValue)}) : null;
         } catch (e) {
-            alert(e)
+            alert(e);
         }
     }
 
-    getListTask = (id) => {
+    getListTask = async (id) => {
         axios.get('http://52.0.146.162:80/api/UserTasks?idTeam=' + id)
             .then(response => {
                 let res;
@@ -45,17 +45,17 @@ class ListTask extends Component {
                 res.forEach((item) => {
                     res2.push(item);
                 });
-                this.setState({ listTasks: res2 });
-            })
-    }
+                this.setState({listTasks: res2});
+            });
+    };
 
-    deleteTask = (item) => {
+    deleteTask = async (item) => {
         axios.delete('http://52.0.146.162:80/api/UserTasks?IdTask=' + item.UserTaskId)
             .then(this.getListTask(this.state.user.AsignedTeam))
             .catch((error) => {
                 alert(error);
             });
-    }
+    };
 
 
     render() {
@@ -64,8 +64,8 @@ class ListTask extends Component {
                 <View style={styles.contenidor}>
                     <View style={styles.header}>
                         <Image
-                            style={{ width: 300, height: 90 }}
-                            source={{ uri: picture }}
+                            style={{width: 300, height: 90}}
+                            source={{uri: picture}}
                         />
                     </View>
                     <View style={styles.body}>
@@ -73,10 +73,11 @@ class ListTask extends Component {
                                   keyExtractor={(item, index) => index.toString()}
                                   renderItem={({item}) => (
                                       <View style={{padding: 5}}>
-                                          <TaskCard text={item.TaskName} icon={"trash"} press={() => this.deleteTask(item)}/>
+                                          <TaskCard text={item.TaskName} icon={'trash'}
+                                                    press={() => this.deleteTask(item)}/>
                                       </View>)}
                         />
-                        <RoundedButton icon={'plus'} press={() => this.props.navigation.navigate('NewOrEditTask')} />
+                        <RoundedButton icon={'plus'} press={() => this.props.navigation.navigate('NewOrEditTask')}/>
 
                     </View>
                     <View>

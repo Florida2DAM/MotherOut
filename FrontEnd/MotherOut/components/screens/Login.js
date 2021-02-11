@@ -3,10 +3,10 @@ import React, {Component} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
     ScrollView, StyleSheet,
-    Text, View
+    Text, View,
 } from 'react-native';
 import {
-    Image
+    Image,
 } from 'react-native-elements';
 import imagen from '../../assets/logo.png';
 import {GenericButton} from '../GenericButton';
@@ -16,11 +16,11 @@ const picture = Image.resolveAssetSource(imagen).uri;
 
 class Login extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             email: null,
             user: null,
-        }
+        };
     }
 
     componentDidMount() {
@@ -29,14 +29,14 @@ class Login extends Component {
 
     async storeData(res) {
         try {
-            const jsonValue = JSON.stringify(res)
-            await AsyncStorage.setItem('logUser', jsonValue)
+            const jsonValue = JSON.stringify(res);
+            await AsyncStorage.setItem('logUser', jsonValue);
         } catch (e) {
-            alert(e)
+            alert(e);
         }
     }
 
-    getUserbyEmail = () => {
+    getUserbyEmail = async () => {
         axios.get('http://52.0.146.162:80/api/Users?email=' + this.state.email)
             .then(response => {
                 const res = response.data;
@@ -51,7 +51,7 @@ class Login extends Component {
             .catch(function (error) {
                 alert(error);
             });
-    }
+    };
 
     render() {
         return (
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     text: {
         alignSelf: 'center',
         paddingTop: 20,
-    }
+    },
 });
 
 export default Login;

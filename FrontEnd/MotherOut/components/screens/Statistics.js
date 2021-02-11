@@ -25,20 +25,20 @@ class Statistics extends Component {
             () => {
                 console.log(this.state.user);
                 this.getUserByTeam(this.state.user.AsignedTeam);
-            })
+            });
 
     }
 
     async getData() {
         try {
-            const jsonValue = await AsyncStorage.getItem('logUser')
-            jsonValue != null ? this.setState({ user: JSON.parse(jsonValue) }) : null;
+            const jsonValue = await AsyncStorage.getItem('logUser');
+            jsonValue != null ? this.setState({user: JSON.parse(jsonValue)}) : null;
         } catch (e) {
-            alert(e)
+            alert(e);
         }
     }
 
-    getUserByTeam(idTeam) {
+    getUserByTeam = async (idTeam) => {
         axios.get('http://52.0.146.162:80/api/Users?idTeam=' + idTeam).then(response => {
             this.setState({teamData: response.data});
         })

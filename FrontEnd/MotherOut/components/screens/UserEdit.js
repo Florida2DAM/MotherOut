@@ -53,7 +53,7 @@ class UserEdit extends Component {
         }
     }
 
-    getActualUser = () => {
+    getActualUser = async() => {
         axios.get('http://52.0.146.162:80/api/Users?email=' + this.state.user.Email)
             .then(response => {
                 const res = response.data;
@@ -63,7 +63,7 @@ class UserEdit extends Component {
             })
     }
 
-    updateUser = () => {
+    updateUser =async () => {
         let name = this.state.name;
         let email = this.state.email;
         let password = this.state.password;

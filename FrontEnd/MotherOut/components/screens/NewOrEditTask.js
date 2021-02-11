@@ -46,7 +46,7 @@ class NewOrEditTask extends Component {
         }
     }
 
-    insertTask = () => {
+    insertTask = async() => {
         let task = {
             TeamId: this.state.user.AsignedTeam,
             TaskScore: this.state.taskScore,
@@ -62,7 +62,7 @@ class NewOrEditTask extends Component {
             });
     }
 
-    getIcons = (idTeam) => {
+    getIcons =async (idTeam) => {
         axios.get('http://52.0.146.162:80/api/Icons')
             .then(response => {
                 this.setState({ listIcons: response.data })
