@@ -97,8 +97,17 @@ class YourTeam extends Component {
             }
         })
     };
-    saidHelllo = (item) => {
-        alert("hola long press"+item.Name);
+    deletedTeamUser = (item) => {
+        axios.put('http://52.0.146.162:80/api/Users?idUser='+item.UserId).then(response=>{
+            if (response.data===true){
+                alert("the fucking "+item.Name+" is history");
+            }
+            else{
+                alert("No deleted user");
+            }
+            this.getUserByTeam(item.AsignedTeam);
+        })
+
     };
 
     render() {
@@ -131,7 +140,7 @@ class YourTeam extends Component {
                                       keyExtractor={(item, index) => index.toString()}
                                       renderItem={({item}) =>
                                           <View style={styles.userBox}>
-                                              <Pressable onLongPress={()=>{this.saidHelllo(item)}}>
+                                              <Pressable onLongPress={()=>{this.deletedTeamUser(item)}}>
                                                   <Text style={styles.textStyle}>{item.Name}</Text>
                                               </Pressable>
                                           </View>}
