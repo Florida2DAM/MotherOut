@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import React, { Component } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import {ScrollView, StyleSheet, Text, ToastAndroid, View} from 'react-native';
 import { Image } from 'react-native-elements';
 import image from '../../assets/manualAssignment.png';
 import { InputData } from '../InputData';
@@ -42,26 +42,26 @@ class ManualAssignment extends Component {
             const jsonValue = await AsyncStorage.getItem('logUser')
             jsonValue != null ? this.setState({ user: JSON.parse(jsonValue) }) : null;
         } catch (e) {
-            alert(e)
+            ToastAndroid.showWithGravityAndOffset(e, ToastAndroid.LONG,ToastAndroid.TOP,25,50);
         }
     }
 
-    getTaskbyTeam = (idTeam) => {
+    getTaskbyTeam = async (idTeam) => {
         axios.get('http://52.0.146.162:80/api/UserTasks?idTeam=' + idTeam)
             .then(response => {
                 this.setState({ listTasks: response.data })
             })
             .catch((error) => {
-                alert(error);
+                ToastAndroid.showWithGravityAndOffset(error, ToastAndroid.LONG,ToastAndroid.TOP,25,50);
             });
     }
 
-    getUsersByTeam = (idTeam) => {
+    getUsersByTeam = async (idTeam) => {
         axios.get('http://52.0.146.162:80/api/Users?idTeam=' + idTeam).then(response => {
             this.setState({ listUsers: response.data });
         })
             .catch(function (error) {
-                alert(error);
+                ToastAndroid.showWithGravityAndOffset(error, ToastAndroid.LONG,ToastAndroid.TOP,25,50);
             });
     }
 
@@ -79,12 +79,11 @@ class ManualAssignment extends Component {
         }, () => { console.log(this.state.task) })
     };
 
-    updateTask = () => {
-        alert(this.state.selectedIdTask)
+    updateTask = async () => {
         axios.put('http://52.0.146.162:80/api/UserTasks?idUserTask=' + this.state.selectedIdTask + '&fecha=' + this.state.date + '&idUser=' + this.state.selectedIdUser)
-            .then(() => { alert("Lanzada peticion") })
+            .then(() => { ToastAndroid.showWithGravityAndOffset("Lanzada peticion", ToastAndroid.LONG,ToastAndroid.TOP,25,50) })
             .catch(function (error) {
-                alert(error);
+                ToastAndroid.showWithGravityAndOffset(error, ToastAndroid.LONG,ToastAndroid.TOP,25,50);
             });
     }
 
