@@ -89,7 +89,7 @@ class Help1 extends Component {
                             />
                             <View style={{marginTop: 75}}>
                                 <GenericButton button={'Skipt!'}
-                                               press={() => this.props.navigation.navigate('CreateOrJoinTeam')}/>
+                                               press={this.checkExistenceOfTeam}/>
                             </View>
                         </View>
                     </Swiper>
