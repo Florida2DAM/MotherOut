@@ -37,7 +37,7 @@ class Help1 extends Component {
             const jsonValue = await AsyncStorage.getItem('logUser')
             jsonValue != null ? this.setState({user: JSON.parse(jsonValue)}) : null;
         } catch (e) {
-            ToastAndroid.showWithGravityAndOffset(error, ToastAndroid.LONG,
+            ToastAndroid.showWithGravityAndOffset(e, ToastAndroid.LONG,
                 ToastAndroid.TOP,
                 25,
                 50);
