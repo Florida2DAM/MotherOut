@@ -74,11 +74,6 @@ class Setting extends Component {
                                 press={() => this.checkMaster() }
                             />
                             <GenericIconButton
-                                button="Join Team"
-                                icon='user'
-                                press={() => this.props.navigation.navigate('JoinTeam')}
-                            />
-                            <GenericIconButton
                                 button="Global settings"
                                 icon='cogs'
                                 press={() => this.props.navigation.navigate('GlobalSettings')}

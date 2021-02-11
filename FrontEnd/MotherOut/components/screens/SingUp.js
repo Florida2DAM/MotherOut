@@ -49,11 +49,11 @@ class SingUp extends Component {
             Help: true
         }
 
-        if (this.state.name != ''  || this.state.email != '' || this.state.password != '') {
+        if (this.state.name !== null && this.state.email !== null && this.state.password !== null) {
             if (this.state.checked) {
                 axios.post('http://52.0.146.162:80/api/Users', user)
                     .then(() => {
-                        this.storeData(user);
+                        this.getUserbyEmail(this.state.email);
                         alert("Peticion enviada")
                     })
                     .catch((error) => {
@@ -66,6 +66,18 @@ class SingUp extends Component {
         } else {
             alert("Campos vacios")
         }
+    }
+
+    getUserbyEmail = (email) => {
+        axios.get('http://52.0.146.162:80/api/Users?email=' + email)
+            .then(response => {
+                const res = response.data;
+                this.setState({ user: res });
+                this.storeData(res);
+            })
+            .catch(function (error) {
+                alert(error);
+            });
     }
 
     render() {
