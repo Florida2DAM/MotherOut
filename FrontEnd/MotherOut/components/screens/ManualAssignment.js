@@ -81,7 +81,7 @@ class ManualAssignment extends Component {
 
     updateTask = async () => {
         axios.put('http://52.0.146.162:80/api/UserTasks?idUserTask=' + this.state.selectedIdTask + '&fecha=' + this.state.date + '&idUser=' + this.state.selectedIdUser)
-            .then(() => { ToastAndroid.showWithGravityAndOffset("Lanzada peticion", ToastAndroid.LONG,ToastAndroid.TOP,25,50) })
+            .then(() => { ToastAndroid.showWithGravityAndOffset("another pig has the task", ToastAndroid.LONG,ToastAndroid.TOP,25,50) })
             .catch(function (error) {
                 ToastAndroid.showWithGravityAndOffset(error, ToastAndroid.LONG,ToastAndroid.TOP,25,50);
             });
