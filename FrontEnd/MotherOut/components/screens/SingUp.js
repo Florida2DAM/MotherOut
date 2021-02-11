@@ -11,7 +11,7 @@ import { GenericButton } from '../GenericButton';
 import { GenericInput1 } from '../GenericInput1';
 import { CheckBox } from 'react-native-elements'
 import axios from 'axios';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const picture = Image.resolveAssetSource(imagen).uri;
 
 class SingUp extends Component {
@@ -25,11 +25,20 @@ class SingUp extends Component {
             password: null,
         }
     }
+
+    async storeData(res) {
+        try {
+            const jsonValue = JSON.stringify(res)
+            await AsyncStorage.setItem('logUser', jsonValue)
+        } catch (e) {
+            alert(e)
+        }
+    }
     //no me queda claro
-    componentWillUnmount(){
-        this.setState({name:null})
-        this.setState({email:null})
-        this.setState({password:null})
+    componentWillUnmount() {
+        this.setState({ name: null })
+        this.setState({ email: null })
+        this.setState({ password: null })
     }
 
     addUser = () => {
@@ -40,10 +49,11 @@ class SingUp extends Component {
             Help: true
         }
 
-        if (this.state.name != '' && this.state.email != null && this.state.password != null) {
+        if (this.state.name != ''  || this.state.email != '' || this.state.password != '') {
             if (this.state.checked) {
                 axios.post('http://52.0.146.162:80/api/Users', user)
                     .then(() => {
+                        this.storeData(user);
                         alert("Peticion enviada")
                     })
                     .catch((error) => {
