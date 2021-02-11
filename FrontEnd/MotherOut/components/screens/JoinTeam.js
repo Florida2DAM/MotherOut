@@ -18,8 +18,10 @@ class JoinTeam extends Component {
         this.state = {
             idTeam: null,
             user: null,
+            navBar: null,
         };
     }
+
     componentDidMount = () => {
         this.getData().then(() => { console.log(this.state.user) })
     }
@@ -41,6 +43,21 @@ class JoinTeam extends Component {
             });
     }
 
+    renderNavBar = () => {
+        if (this.state.user.UserMaster) {
+            this.setState({
+                navBar:
+                    <NavBar
+                        checked={() => this.props.navigation.navigate('ScreenToDo')}
+                        list={() => this.props.navigation.navigate('ListTask')}
+                        calendar={() => this.props.navigation.navigate('TaskAssignment')}
+                        nav={() => this.props.navigation.navigate('Statistics')}
+                        settings={() => this.props.navigation.navigate('Setting')}
+                    />
+            })
+        }
+    }
+
     render() {
         return (
             <>
@@ -55,13 +72,7 @@ class JoinTeam extends Component {
                         <GenericButton button="Join Team" press={this.asignTeamToUser} />
                     </View>
                     <View>
-                        <NavBar
-                            checked={() => this.props.navigation.navigate('ScreenToDo')}
-                            list={() => this.props.navigation.navigate('ListTask')}
-                            calendar={() => this.props.navigation.navigate('TaskAssignment')}
-                            nav={() => this.props.navigation.navigate('Statistics')}
-                            settings={() => this.props.navigation.navigate('Setting')}
-                        />
+                        {this.state.navBar}
                     </View>
                 </View>
             </>

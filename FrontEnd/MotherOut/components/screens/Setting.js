@@ -77,14 +77,9 @@ class Setting extends Component {
                         </View>
                         <View style={styles.body}>
                             <GenericIconButton
-                                button="Create Team"
+                                button="Your Team"
                                 icon='users'
                                 press={() => this.checkMaster()}
-                            />
-                            <GenericIconButton
-                                button="Join Team"
-                                icon='user'
-                                press={() => this.props.navigation.navigate('JoinTeam')}
                             />
                             <GenericIconButton
                                 button="Global settings"
