@@ -46,7 +46,7 @@ class GlobalSettings extends Component {
         if (this.state.userSetting.Help) {
             axios.put('http://52.0.146.162:80/api/Users?idUser=' + this.state.userSetting.UserId + '&help=' + false)
                 .then(() => {
-                    ToastAndroid.showWithGravityAndOffset("The aid has been discharged. Little piggy.", ToastAndroid.LONG,
+                    ToastAndroid.showWithGravityAndOffset("Well, you don't need our help any more. God, I'm so glad I don't have to work any more...", ToastAndroid.LONG,
                         ToastAndroid.TOP,
                         25,
                         50);
@@ -61,10 +61,11 @@ class GlobalSettings extends Component {
         } else {
             axios.put('http://52.0.146.162:80/api/Users?idUser=' + this.state.userSetting.UserId + '&help=' + true)
                 .then(() => {
-                    ToastAndroid.showWithGravityAndOffset("Well, you don't need our help any more. God, I'm so glad I don't have to work any more...", ToastAndroid.LONG,
+                    ToastAndroid.showWithGravityAndOffset("The aid has been discharged. Little piggy.", ToastAndroid.LONG,
                         ToastAndroid.TOP,
                         25,
                         50);
+
                     this.getActualUser();
                 })
                 .catch((error) => {
