@@ -9,13 +9,15 @@ import {
 import {
     Icon,
 } from "react-native-elements"
+const  importIcon = 'https://imgur.com/XxFhTjv.png'
+
 
 export class TaskCardTwoIcons extends Component {
     render() {
         return (
             <>
                 <View style={styles.cardTaskbox}>
-                    <View>
+                    <View style={styles.image}>
                         <Image
                             style={styles.logo}
                             source={{ uri: this.props.iconCard }}
@@ -23,7 +25,10 @@ export class TaskCardTwoIcons extends Component {
                     </View>
                     <View style={styles.cardInfo}>
                         <Text style={styles.textStyle}>{this.props.task}</Text>
-                        <Text style={styles.textStyle}> Asigned to </Text>
+                        <Image
+                            style={styles.asignedIcon}
+                            source={{ uri: importIcon}}
+                        />
                         <Text style={styles.textStyle}>{this.props.name}</Text>
                     </View>
                     <View style={styles.icons}>
@@ -69,6 +74,7 @@ const styles = StyleSheet.create({
         elevation: 24,
     },
     cardInfo: {
+        paddingTop:5,
         flexDirection: 'column',
         justifyContent: "space-evenly",
     },
@@ -79,18 +85,34 @@ const styles = StyleSheet.create({
         fontFamily: "Roboto",
         fontWeight: "bold"
     },
+    textStyleAsigned:{
+        alignSelf: 'center',
+        padding: 10,
+        fontSize: 20,
+        fontFamily: "Roboto",
+        fontWeight: "bold"
+    },
     logo: {
+        marginTop:10,
         marginLeft: 10,
-        width: 56,
-        height: 48,
+        width: 75,
+        height: 75,
     },
     icons: {
-        justifyContent: 'space-around',
+        justifyContent: 'space-evenly',
     },
     icon1: {
         padding: 5,
     },
     icon2: {
-        padding: 7,
+        padding: 5,
+    },
+    image:{
+        justifyContent:'center'
+    },
+    asignedIcon:{
+        alignSelf: 'center',
+        width: 26,
+        height: 28,
     }
 });
