@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {
-    StyleSheet,
+    StyleSheet, ToastAndroid,
     View,
 } from 'react-native';
 import {
@@ -35,7 +35,8 @@ class TaskAssignment extends Component {
             const jsonValue = await AsyncStorage.getItem('logUser');
             jsonValue != null ? this.setState({user: JSON.parse(jsonValue)}) : null;
         } catch (e) {
-            alert(e);
+            ToastAndroid.show(e);
+
         }
     };
     randomTask = async () => {
