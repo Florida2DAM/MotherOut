@@ -6,6 +6,7 @@ import {NavBar} from "../NavBar";
 import {TaskCard} from "../TaskCard";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from "axios";
+import {ReloadedButton} from "../ReloadedButton";
 
 const picture = Image.resolveAssetSource(image).uri;
 
@@ -17,7 +18,8 @@ class ScreenToDo extends Component {
         this.state = {
             user: [],
             done: [],
-            undone: []
+            undone: [],
+            listTask: [],
         }
 
     }
@@ -27,18 +29,22 @@ class ScreenToDo extends Component {
             .then(response => {
                 let res;
                 let res2 = [];
-                let res3 = []
+                let res3 = [];
+                let re4 = [];
                 res = response.data;
                 res.forEach((item) => {
                     if (item.Done) {
                         res2.push(item);
+                        re4.push(item);
                     } else {
                         res3.push(item);
+                        re4.push(item);
                     }
                 });
                 this.setState({done: res2});
                 this.setState({undone: res3});
-            })
+                this.setState({listTask: re4});
+            });
     }
 
     completeTask = (item) => {
@@ -49,8 +55,7 @@ class ScreenToDo extends Component {
             .then(this.getTasksByUser(userId, userIdTeam))
             .catch((error) => {
                 alert(error);
-            })
-
+            });
     }
 
     uncheckTaskCompleted = (item) => {
@@ -65,27 +70,23 @@ class ScreenToDo extends Component {
 
     }
 
+
     componentDidMount = () => {
         this.getData().then(() => this.getTasksByUser(this.state.user.UserId, this.state.user.AsignedTeam));
     }
 
-    /*componentDidUpdate = () => {
-        this.getData().then(() => this.getTasksByUser(this.state.user.UserId, this.state.user.AsignedTeam));
-
-    }*/
 
     async getData() {
         try {
             const jsonValue = await AsyncStorage.getItem('logUser')
             jsonValue != null ? this.setState({user: JSON.parse(jsonValue)}) : null;
         } catch (e) {
-            alert(e)
+            alert(e);
         }
     }
 
 
     render() {
-
         return (
             <>
                 <View style={styles.contenidor}>
@@ -93,7 +94,7 @@ class ScreenToDo extends Component {
                         <Image
                             style={{width: 90, height: 90}}
                             source={{uri: picture}}/>
-                        <View>
+                        <View style={styles.rowView}>
                             <Text style={styles.textStyle}>{this.state.user.Name}</Text>
                         </View>
                     </View>
@@ -117,6 +118,10 @@ class ScreenToDo extends Component {
                                       </View>
                                   }
                         />
+                    </View>
+                    <View>
+                        <ReloadedButton
+                            press={() => this.getTasksByUser(this.state.user.UserId, this.state.user.AsignedTeam)}/>
                     </View>
                     <View>
                         <NavBar
@@ -165,7 +170,7 @@ const styles = StyleSheet.create({
     },
     paddingView: {
         padding: 5,
-    }
+    },
 });
 
 export default ScreenToDo;

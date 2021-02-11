@@ -10,6 +10,7 @@ import {TaskCard} from '../TaskCard';
 import {RoundedButton} from '../RoundedButton';
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import {ReloadedButton} from "../ReloadedButton";
 
 const picture = Image.resolveAssetSource(imagen).uri;
 
@@ -76,8 +77,12 @@ class ListTask extends Component {
                                           <TaskCard text={item.TaskName} icon={"trash"} press={() => this.deleteTask(item)}/>
                                       </View>)}
                         />
-                        <RoundedButton icon={'plus'} press={() => this.props.navigation.navigate('NewOrEditTask')} />
 
+                    </View>
+                    <View style={styles.buttonsView}>
+                        <ReloadedButton
+                            press={() => this.getListTask(this.state.user.AsignedTeam)}/>
+                        <RoundedButton icon={'plus'} press={() => this.props.navigation.navigate('NewOrEditTask')} />
                     </View>
                     <View>
                         <NavBar
@@ -112,6 +117,10 @@ const styles = StyleSheet.create({
         padding: 15,
         flex: 10,
     },
+    buttonsView: {
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    }
 
 });
 
