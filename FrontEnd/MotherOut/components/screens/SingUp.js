@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {
     ScrollView, StyleSheet,
-    View, Text, Linking,
+    View, Text, Linking, ToastAndroid
 } from 'react-native';
 import {
     Image,
@@ -9,7 +9,7 @@ import {
 import imagen from '../../assets/logo.png';
 import {GenericButton} from '../GenericButton';
 import {GenericInput1} from '../GenericInput1';
-import {CheckBox} from 'react-native-elements';
+import {CheckBox} from 'react-native-elements'
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -32,15 +32,18 @@ class SingUp extends Component {
             const jsonValue = JSON.stringify(res);
             await AsyncStorage.setItem('logUser', jsonValue);
         } catch (e) {
-            alert(e);
+            ToastAndroid.showWithGravityAndOffset(e, ToastAndroid.LONG,
+                ToastAndroid.TOP,
+                25,
+                50);
         }
     }
 
     //no me queda claro
     componentWillUnmount() {
-        this.setState({name: null});
-        this.setState({email: null});
-        this.setState({password: null});
+        this.setState({name: null})
+        this.setState({email: null})
+        this.setState({password: null})
     }
 
     addUser = async () => {
@@ -56,17 +59,26 @@ class SingUp extends Component {
                 axios.post('http://52.0.146.162:80/api/Users', user)
                     .then(() => {
                         this.storeData(user);
-                        alert('Peticion enviada');
+                        ToastAndroid.showWithGravityAndOffset("It has been successfully registered. You will now be able to join a herd pigs.", ToastAndroid.LONG,
+                            ToastAndroid.TOP,
+                            25,
+                            50)
                     })
                     .catch((error) => {
                         alert(error);
                     });
                 this.props.navigation.navigate('Help1');
             } else {
-                alert('Acepta los términos para poder vender tus datos');
+                ToastAndroid.showWithGravityAndOffset("You must agree to the terms in order to sell them, little piggy.", ToastAndroid.LONG,
+                    ToastAndroid.TOP,
+                    25,
+                    50);
             }
         } else {
-            alert('Campos vacios');
+            ToastAndroid.showWithGravityAndOffset("There are empty fields, piggy. You must fill them all in.", ToastAndroid.LONG,
+                ToastAndroid.TOP,
+                25,
+                50);
         }
     };
 

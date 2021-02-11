@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
     ScrollView,
-    StyleSheet,
+    StyleSheet, ToastAndroid,
     View
 } from 'react-native';
 import {Image} from 'react-native-elements';
 import imagen from '../../assets/setting.png';
-import { GenericIconButton } from '../GenericIconButton';
-import { NavBar } from '../NavBar';
+import {GenericIconButton} from '../GenericIconButton';
+import {NavBar} from '../NavBar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const picture = Image.resolveAssetSource(imagen).uri;
@@ -32,25 +32,33 @@ class Setting extends Component {
             const jsonValue = await AsyncStorage.getItem('logUser')
             jsonValue != null ? this.setState({user: JSON.parse(jsonValue)}) : null;
         } catch (e) {
-            alert(e)
+            ToastAndroid.showWithGravityAndOffset(e, ToastAndroid.LONG,
+                ToastAndroid.TOP,
+                25,
+                50);
         }
     }
 
     async getData() {
         try {
             const jsonValue = await AsyncStorage.getItem('logUser')
-            jsonValue != null ? this.setState({ user: JSON.parse(jsonValue) }) : null;
+            jsonValue != null ? this.setState({user: JSON.parse(jsonValue)}) : null;
         } catch (e) {
-            alert(e)
+            ToastAndroid.showWithGravityAndOffset(e, ToastAndroid.LONG,
+                ToastAndroid.TOP,
+                25,
+                50);
         }
     }
 
     checkMaster = () => {
-        if (this.state.user.UserMaster===true){
+        if (this.state.user.UserMaster === true) {
             this.props.navigation.navigate('YourTeam');
-        }
-        else{
-            alert("you aren`t user master");
+        } else {
+            ToastAndroid.showWithGravityAndOffset("You are not a master user and therefore cannot navigate to the YourTeam.", ToastAndroid.LONG,
+                ToastAndroid.TOP,
+                25,
+                50);
         }
     };
 
@@ -62,8 +70,8 @@ class Setting extends Component {
                         <View style={styles.header}>
                             <View style={styles.pictures}>
                                 <Image
-                                    style={{ width: 300, height: 90 }}
-                                    source={{ uri: picture }}
+                                    style={{width: 300, height: 90}}
+                                    source={{uri: picture}}
                                 />
                             </View>
                         </View>
@@ -71,7 +79,7 @@ class Setting extends Component {
                             <GenericIconButton
                                 button="Create Team"
                                 icon='users'
-                                press={() => this.checkMaster() }
+                                press={() => this.checkMaster()}
                             />
                             <GenericIconButton
                                 button="Join Team"

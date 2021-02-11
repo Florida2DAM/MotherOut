@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, ToastAndroid, View} from 'react-native';
 import {Image} from 'react-native-elements';
 import image from '../../assets/GSettings.png';
 import {NavBar} from '../NavBar';
@@ -34,21 +34,37 @@ class GlobalSettings extends Component {
                 const res = response.data;
                 this.setState({userSetting: res});
                 this.loadHelp();
-            });
-    };
+            }).catch((error) => {
+            ToastAndroid.showWithGravityAndOffset(error, ToastAndroid.LONG,
+                ToastAndroid.TOP,
+                25,
+                50);
+        })
+    }
 
     enabledOrDisabledHelp = async () => {
         if (this.state.userSetting.Help) {
             axios.put('http://52.0.146.162:80/api/Users?idUser=' + this.state.userSetting.UserId + '&help=' + false)
                 .then(() => {
+                    ToastAndroid.showWithGravityAndOffset("Well, you don't need our help any more. God, I'm so glad I don't have to work any more...", ToastAndroid.LONG,
+                        ToastAndroid.TOP,
+                        25,
+                        50);
                     this.getActualUser();
                 })
                 .catch((error) => {
-                    alert(error);
+                    ToastAndroid.showWithGravityAndOffset(error, ToastAndroid.LONG,
+                        ToastAndroid.TOP,
+                        25,
+                        50);
                 });
         } else {
             axios.put('http://52.0.146.162:80/api/Users?idUser=' + this.state.userSetting.UserId + '&help=' + true)
                 .then(() => {
+                    ToastAndroid.showWithGravityAndOffset("The aid has been discharged. Little piggy.", ToastAndroid.LONG,
+                        ToastAndroid.TOP,
+                        25,
+                        50);
 
                     this.getActualUser();
                 })
@@ -64,7 +80,10 @@ class GlobalSettings extends Component {
             const jsonValue = await AsyncStorage.getItem('logUser');
             jsonValue != null ? this.setState({user: JSON.parse(jsonValue)}) : null;
         } catch (e) {
-            alert(e);
+            ToastAndroid.showWithGravityAndOffset(e, ToastAndroid.LONG,
+                ToastAndroid.TOP,
+                25,
+                50);
         }
     }
 

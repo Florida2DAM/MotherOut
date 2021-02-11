@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Swiper from 'react-native-swiper'
-import {ScrollView, StyleSheet, View} from 'react-native';
+import {ScrollView, StyleSheet, ToastAndroid, View} from 'react-native';
 import {Image} from 'react-native-elements';
 import imagen from '../../assets/help1_1.png';
 import imagen2 from '../../assets/help2_1.png';
@@ -37,7 +37,10 @@ class Help1 extends Component {
             const jsonValue = await AsyncStorage.getItem('logUser')
             jsonValue != null ? this.setState({user: JSON.parse(jsonValue)}) : null;
         } catch (e) {
-            alert(e)
+            ToastAndroid.showWithGravityAndOffset(e, ToastAndroid.LONG,
+                ToastAndroid.TOP,
+                25,
+                50);
         }
     }
 
@@ -84,8 +87,9 @@ class Help1 extends Component {
                                 style={{width: 350, height: 470}}
                                 source={{uri: picture5}}
                             />
-                            <View style={{marginTop:75}}>
-                                <GenericButton button={'Skipt!'} press={() => this.props.navigation.navigate('CreateOrJoinTeam')} />
+                            <View style={{marginTop: 75}}>
+                                <GenericButton button={'Skipt!'}
+                                               press={this.checkExistenceOfTeam}/>
                             </View>
                         </View>
                     </Swiper>

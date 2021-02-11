@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import {FlatList, StyleSheet, View} from 'react-native';
+import {FlatList, StyleSheet, ToastAndroid, View} from 'react-native';
 
 import {Image} from 'react-native-elements';
 
@@ -8,8 +8,9 @@ import imagen from '../../assets/listTask.png';
 import {NavBar} from '../NavBar';
 import {TaskCard} from '../TaskCard';
 import {RoundedButton} from '../RoundedButton';
-import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import {ReloadedButton} from "../ReloadedButton";
 
 const picture = Image.resolveAssetSource(imagen).uri;
 
@@ -29,10 +30,13 @@ class ListTask extends Component {
 
     async getData() {
         try {
-            const jsonValue = await AsyncStorage.getItem('logUser');
+            const jsonValue = await AsyncStorage.getItem('logUser')
             jsonValue != null ? this.setState({user: JSON.parse(jsonValue)}) : null;
         } catch (e) {
-            alert(e);
+            ToastAndroid.showWithGravityAndOffset(e, ToastAndroid.LONG,
+                ToastAndroid.TOP,
+                25,
+                50);
         }
     }
 
@@ -46,14 +50,25 @@ class ListTask extends Component {
                     res2.push(item);
                 });
                 this.setState({listTasks: res2});
-            });
-    };
+            }).catch((error)=>{
+            ToastAndroid.showWithGravityAndOffset(error, ToastAndroid.LONG,
+                ToastAndroid.TOP,
+                25,
+                50);
+        })
+    }
 
     deleteTask = async (item) => {
         axios.delete('http://52.0.146.162:80/api/UserTasks?IdTask=' + item.UserTaskId)
-            .then(this.getListTask(this.state.user.AsignedTeam))
+            .then(this.getListTask(this.state.user.AsignedTeam), ToastAndroid.showWithGravityAndOffset("The tasks named: " + item.TaskName + " has been deleted. As long as they don't have to work, anything, little pig. ", ToastAndroid.LONG,
+                ToastAndroid.TOP,
+                25,
+                50))
             .catch((error) => {
-                alert(error);
+                ToastAndroid.showWithGravityAndOffset(error, ToastAndroid.LONG,
+                    ToastAndroid.TOP,
+                    25,
+                    50);
             });
     };
 
@@ -73,12 +88,16 @@ class ListTask extends Component {
                                   keyExtractor={(item, index) => index.toString()}
                                   renderItem={({item}) => (
                                       <View style={{padding: 5}}>
-                                          <TaskCard text={item.TaskName} icon={'trash'}
+                                          <TaskCard text={item.TaskName} icon={"trash"}
                                                     press={() => this.deleteTask(item)}/>
                                       </View>)}
                         />
-                        <RoundedButton icon={'plus'} press={() => this.props.navigation.navigate('NewOrEditTask')}/>
 
+                    </View>
+                    <View style={styles.buttonsView}>
+                        <ReloadedButton
+                            press={() => this.getListTask(this.state.user.AsignedTeam)}/>
+                        <RoundedButton icon={'plus'} press={() => this.props.navigation.navigate('NewOrEditTask')}/>
                     </View>
                     <View>
                         <NavBar
@@ -113,6 +132,10 @@ const styles = StyleSheet.create({
         padding: 15,
         flex: 10,
     },
+    buttonsView: {
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    }
 
 });
 
