@@ -1,22 +1,55 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
     StyleSheet,
-    View
+    View,
 } from 'react-native';
 import {
-    Image
+    Image,
 } from 'react-native-elements';
 import imagen from '../../assets/taskAssignment.png';
-import { GenericIconButton } from '../GenericIconButton';
-import { NavBar } from '../NavBar';
+import {GenericIconButton} from '../GenericIconButton';
+import {NavBar} from '../NavBar';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 
 const picture = Image.resolveAssetSource(imagen).uri;
 
 class TaskAssignment extends Component {
 
-    componentDidMount = () => {
-       // alert(this.props.route.params.user);
+    constructor(props) {
+        super(props);
+        this.state = {
+            user: [],
+        };
     }
+
+    componentDidMount = () => {
+        // alert(this.props.route.params.user);
+        this.getData().then(
+            () => {
+                console.log(this.state.user);
+            });
+    };
+    getData = async () => {
+        try {
+            const jsonValue = await AsyncStorage.getItem('logUser');
+            jsonValue != null ? this.setState({user: JSON.parse(jsonValue)}) : null;
+        } catch (e) {
+            alert(e);
+        }
+    };
+    randomTask = async () => {
+        alert(this.state.user.AsignedTeam);
+        axios.put('http://52.0.146.162:80/api/UserTasks?idTeam='+this.state.user.AsignedTeam).then(response =>{
+            if (response.data){
+                alert("random asignemet true");
+            }
+            else {
+                alert("Not random asignement");
+            }
+        })
+        this.props.navigation.navigate('AsignedTask');
+    };
 
     render() {
         return (
@@ -25,8 +58,8 @@ class TaskAssignment extends Component {
                     <View style={styles.header}>
                         <View style={styles.pictures}>
                             <Image
-                                style={{ width: 300, height: 90 }}
-                                source={{ uri: picture }}
+                                style={{width: 300, height: 90}}
+                                source={{uri: picture}}
                             />
                         </View>
                     </View>
@@ -39,7 +72,7 @@ class TaskAssignment extends Component {
                         <GenericIconButton
                             button="RANDOM ASSIGNMENT"
                             icon='random'
-                            press={() => this.props.navigation.navigate('AsignedTask')}
+                            press={() => this.randomTask}
                         />
                     </View>
                     <NavBar
@@ -90,7 +123,7 @@ const styles = StyleSheet.create({
     pictures: {
         alignSelf: 'center',
         padding: 5,
-    }
+    },
 });
 
 export default TaskAssignment;
