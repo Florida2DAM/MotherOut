@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import {StyleSheet, ToastAndroid, View} from 'react-native';
 import { Image } from 'react-native-elements';
 import imagen from '../../assets/joinTeam.png';
 import { GenericInput2 } from '../GenericInput2';
@@ -29,15 +29,15 @@ class JoinTeam extends Component {
             const jsonValue = await AsyncStorage.getItem('logUser')
             jsonValue != null ? this.setState({ user: JSON.parse(jsonValue) }) : null;
         } catch (e) {
-            alert(e)
+            ToastAndroid.showWithGravityAndOffset(e, ToastAndroid.LONG,ToastAndroid.TOP,25,50);
         }
     }
 
-    asignTeamToUser = () => {
+    asignTeamToUser = async () => {
         axios.put('http://52.0.146.162:80/api/Teams?idTeam=' + this.state.idTeam + '&idUser=' + this.state.user.UserId)
-            .then(() => { alert("Lanzada peticion") })
+            .then(() => {   ToastAndroid.showWithGravityAndOffset("you´re part of a pig team", ToastAndroid.LONG,ToastAndroid.TOP,25,50) })
             .catch(function (error) {
-                alert(error);
+                ToastAndroid.showWithGravityAndOffset(error, ToastAndroid.LONG,ToastAndroid.TOP,25,50);
             });
     }
 

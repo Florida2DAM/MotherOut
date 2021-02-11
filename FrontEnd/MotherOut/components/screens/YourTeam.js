@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {FlatList, Pressable, StyleSheet, Text, View} from 'react-native';
+import {FlatList, Pressable, StyleSheet,ToastAndroid, Text, View} from 'react-native';
 import {Image} from 'react-native-elements';
 import imagen from '../../assets/yourTeam.jpg';
 import {GenericInput3} from '../GenericInput3';
@@ -39,35 +39,35 @@ class YourTeam extends Component {
             const jsonValue = await AsyncStorage.getItem('logUser');
             jsonValue != null ? this.setState({user: JSON.parse(jsonValue)}) : null;
         } catch (e) {
-            alert(e);
+            ToastAndroid.showWithGravityAndOffset(e, ToastAndroid.LONG,ToastAndroid.TOP,25,50);
         }
     };
 
-    getUserByTeam = (idTeam) => {
+    getUserByTeam = async (idTeam) => {
         axios.get('http://52.0.146.162:80/api/Users?idTeam=' + idTeam).then(response => {
             this.setState({teamData: response.data});
         })
             .catch(function (error) {
-                alert(error);
+                ToastAndroid.showWithGravityAndOffset(error, ToastAndroid.LONG,ToastAndroid.TOP,25,50);
             });
     };
 
-    getTeamName = (idTeam) => {
+    getTeamName = async (idTeam) => {
         axios.get('http://52.0.146.162:80/api/Teams?idTeam=' + idTeam).then(response => {
             this.setState({nameTeam: response.data});
         })
             .catch(function (error) {
-                alert(error);
+                ToastAndroid.showWithGravityAndOffset(error, ToastAndroid.LONG,ToastAndroid.TOP,25,50);
             });
     };
 
-    deleteTeam = () => {
+    deleteTeam = async () => {
         axios.delete('http://52.0.146.162:80/api/Teams?idTeam='+this.state.user.AsignedTeam).then(response=>{
             if(response.data===true){
-                alert("your team is history");
+                ToastAndroid.showWithGravityAndOffset("your team is history", ToastAndroid.LONG,ToastAndroid.TOP,25,50);
             }
             else {
-                alert("not delete the team");
+                ToastAndroid.showWithGravityAndOffset("not delete the team", ToastAndroid.LONG,ToastAndroid.TOP,25,50);
             }
         });
     };
