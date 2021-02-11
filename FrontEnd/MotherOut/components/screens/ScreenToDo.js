@@ -87,7 +87,7 @@ class ScreenToDo extends Component {
 
 
     componentDidMount = () => {
-        this.getData(this.props.route.params.userId);
+        // this.getData(this.props.route.params.userId);
     }
     /*async getData() {
         try {
@@ -137,11 +137,11 @@ class ScreenToDo extends Component {
                     </View>
                     <View>
                         <NavBar
-                            checked={() => this.props.navigation.navigate('ScreenToDo', { user: this.state.user })}
-                            list={() => this.props.navigation.navigate('ListTask', { user: this.state.user })}
-                            calendar={() => this.props.navigation.navigate('TaskAssignment', { user: this.state.user })}
-                            nav={() => this.props.navigation.navigate('Statistics', { user: this.state.user })}
-                            settings={() => this.props.navigation.navigate('Setting', { user: this.state.user })}
+                            checked={() => this.props.navigation.navigate('ScreenToDo')}
+                            list={() => this.props.navigation.navigate('ListTask')}
+                            calendar={() => this.props.navigation.navigate('TaskAssignment')}
+                            nav={() => this.props.navigation.navigate('Statistics')}
+                            settings={() => this.props.navigation.navigate('Setting')}
                         />
                     </View>
                 </View>

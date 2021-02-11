@@ -15,7 +15,7 @@ const picture = Image.resolveAssetSource(imagen).uri;
 class TaskAssignment extends Component {
 
     componentDidMount = () => {
-        alert(this.props.route.params.user);
+       // alert(this.props.route.params.user);
     }
 
     render() {

@@ -15,6 +15,7 @@ import { NavBar } from '../NavBar';
 import { RoundedButton } from '../RoundedButton';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+let Image_Http_URL ={ uri: 'https://i.ibb.co/SVvdmW2/bathtub.png'};
 
 const picture = Image.resolveAssetSource(importedPicture).uri;
 
@@ -95,8 +96,8 @@ class NewOrEditTask extends Component {
                                 <View style={styles.iconBox}>
                                     <Pressable>
                                         <Image
-                                            style={{ width: 200, height: 90 }}
-                                            source={{ uri: item.IconImage }} />
+                                            style={{ width: 90, height: 90 }}
+                                            source={Image_Http_URL} />
                                     </Pressable>
                                 </View>
                             }

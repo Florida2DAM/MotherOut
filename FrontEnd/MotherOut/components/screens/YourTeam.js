@@ -20,7 +20,7 @@ class YourTeam extends Component {
     }
 
     componentDidMount = () => {
-        alert(this.props.route.params.user);
+        //alert(this.props.route.params.user);
     }
 
     render() {

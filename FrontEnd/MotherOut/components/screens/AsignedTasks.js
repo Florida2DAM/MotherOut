@@ -6,7 +6,6 @@ import { NavBar } from '../NavBar';
 import { TaskCardTwoIcons } from '../TaskCardTwoIcons';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 const picture = Image.resolveAssetSource(importedPicture).uri;
 
 class AsignedTasks extends Component {
@@ -86,7 +85,7 @@ class AsignedTasks extends Component {
                                         name={item.SelectMember}
                                         icon1="trash"
                                         icon2="edit"
-                                        iconCard={item.blop}
+                                        iconCard={'https://i.ibb.co/SVvdmW2/bathtub.png'}
                                         press1={() => this.deleteTask(item)}
                                         press2={() => this.taskEditing(item)}
                                     />
