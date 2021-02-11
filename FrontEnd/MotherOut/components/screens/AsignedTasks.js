@@ -6,7 +6,6 @@ import { NavBar } from '../NavBar';
 import { TaskCardTwoIcons } from '../TaskCardTwoIcons';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 const picture = Image.resolveAssetSource(importedPicture).uri;
 
 class AsignedTasks extends Component {
@@ -59,7 +58,7 @@ class AsignedTasks extends Component {
     deleteTask = (item) => {
         axios.delete('http://52.0.146.162:80/api/UserTasks?IdTask=' + item.UserTaskId)
             .then((error) => {
-                this.getData()
+                this.getTaskbyTeam(this.state.user.AsignedTeam)
             })
             .catch((error) => {
                 alert(error);
@@ -86,7 +85,7 @@ class AsignedTasks extends Component {
                                         name={item.SelectMember}
                                         icon1="trash"
                                         icon2="edit"
-                                        iconCard={item.blop}
+                                        iconCard={'https://i.ibb.co/SVvdmW2/bathtub.png'}
                                         press1={() => this.deleteTask(item)}
                                         press2={() => this.taskEditing(item)}
                                     />
@@ -110,8 +109,6 @@ class AsignedTasks extends Component {
 }
 
 const styles = StyleSheet.create({
-
-
     contenidor: {
         flex: 1,
         flexDirection: 'column',

@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 
-import {FlatList, StyleSheet, View} from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 
-import {Image} from 'react-native-elements';
+import { Image } from 'react-native-elements';
 
 import imagen from '../../assets/listTask.png';
 import {NavBar} from '../NavBar';
@@ -37,7 +37,7 @@ class ListTask extends Component {
     }
 
     getListTask = (id) => {
-        axios.get('http://52.0.146.162:80/api/UserTasks?idTeam='+id)
+        axios.get('http://52.0.146.162:80/api/UserTasks?idTeam=' + id)
             .then(response => {
                 let res;
                 let res2 = [];
@@ -45,7 +45,7 @@ class ListTask extends Component {
                 res.forEach((item) => {
                     res2.push(item);
                 });
-                this.setState({listTasks: res2});
+                this.setState({ listTasks: res2 });
             })
     }
 
@@ -64,8 +64,8 @@ class ListTask extends Component {
                 <View style={styles.contenidor}>
                     <View style={styles.header}>
                         <Image
-                            style={{width: 300, height: 90}}
-                            source={{uri: picture}}
+                            style={{ width: 300, height: 90 }}
+                            source={{ uri: picture }}
                         />
                     </View>
                     <View style={styles.body}>
@@ -76,7 +76,7 @@ class ListTask extends Component {
                                           <TaskCard text={item.TaskName} icon={"trash"} press={() => this.deleteTask(item)}/>
                                       </View>)}
                         />
-                        <RoundedButton icon={'plus'} press={() => this.props.navigation.navigate('NewOrEditTask')}/>
+                        <RoundedButton icon={'plus'} press={() => this.props.navigation.navigate('NewOrEditTask')} />
 
                     </View>
                     <View>

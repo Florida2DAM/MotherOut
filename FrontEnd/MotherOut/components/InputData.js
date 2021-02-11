@@ -6,7 +6,6 @@ import {
 import { Calendar, LocaleConfig } from 'react-native-calendars';
 import Menu from 'react-native-material-menu';
 
-
 LocaleConfig.locales['Es'] = {
     monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
         'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],

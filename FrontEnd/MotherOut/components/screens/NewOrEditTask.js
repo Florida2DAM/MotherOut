@@ -14,29 +14,52 @@ import { GenericInput2 } from '../GenericInput2';
 import { NavBar } from '../NavBar';
 import { RoundedButton } from '../RoundedButton';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+let Image_Http_URL ={ uri: 'https://i.ibb.co/SVvdmW2/bathtub.png'};
 
-const avatar = Image.resolveAssetSource(importAvatar).uri
-const avatar2 = Image.resolveAssetSource(importAvatar2).uri
-const icon = Image.resolveAssetSource(importIcon).uri
 const picture = Image.resolveAssetSource(importedPicture).uri;
 
-const listUsers = [
-    { name: 'Pablo', blop: avatar2 }, { name: 'Juan', blop: avatar }, { name: 'Jesus', blop: avatar },
-    { name: 'Pablo', blop: avatar2 }, { name: 'Juan', blop: avatar }, { name: 'Jesus', blop: avatar },
-    { name: 'Pablo', blop: avatar2 }, { name: 'Juan', blop: avatar }, { name: 'Jesus', blop: avatar },
-]
 
 class NewOrEditTask extends Component {
     constructor(props) {
         super(props)
         this.state = {
             name: null,
-            listIcons: []
+            taskScore: null,
+            taskName: null,
+            listIcons: [],
+            user: [],
         }
     }
 
     componentDidMount() {
+        this.getData();
         this.getIcons();
+    }
+
+    async getData() {
+        try {
+            const jsonValue = await AsyncStorage.getItem('logUser')
+            jsonValue != null ? this.setState({ user: JSON.parse(jsonValue) }) : null;
+        } catch (e) {
+            alert(e)
+        }
+    }
+
+    insertTask = () => {
+        let task = {
+            TeamId: this.state.user.AsignedTeam,
+            TaskScore: this.state.taskScore,
+            TaskName: this.state.taskName
+        }
+
+        axios.post('http://52.0.146.162:80/api/UserTasks', task)
+            .then(() => {
+                alert("Peticion enviada")
+            })
+            .catch((error) => {
+                alert(error);
+            });
     }
 
     getIcons = (idTeam) => {
@@ -48,6 +71,7 @@ class NewOrEditTask extends Component {
                 alert(error);
             });
     }
+
     render() {
         return (
             <>
@@ -60,9 +84,9 @@ class NewOrEditTask extends Component {
                     <View style={styles.body}>
 
                         <Text style={styles.textStyle}>TaskName</Text>
-                        <GenericInput2 ></GenericInput2>
+                        <GenericInput2 value={this.state.taskName} onChange={(item) => this.setState({ taskName: item })} />
                         <Text style={styles.textStyle}>Score</Text>
-                        <GenericInput2></GenericInput2>
+                        <GenericInput2 value={this.state.taskScore} onChange={(item) => this.setState({ taskScore: item })} />
                         <Text style={styles.textStyle}>Icon</Text>
 
                         <FlatList
@@ -72,14 +96,14 @@ class NewOrEditTask extends Component {
                                 <View style={styles.iconBox}>
                                     <Pressable>
                                         <Image
-                                            style={{ width: 200, height: 90 }}
-                                            source={alert({ uri: item.IconImage })} />
+                                            style={{ width: 90, height: 90 }}
+                                            source={Image_Http_URL} />
                                     </Pressable>
                                 </View>
                             }
                         />
 
-                        <RoundedButton icon="plus" />
+                        <RoundedButton icon="plus" press={this.insertTask} />
                     </View>
                     <View>
                         <NavBar
