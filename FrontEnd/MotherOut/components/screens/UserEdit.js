@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {
-    ScrollView, StyleSheet,
+    ScrollView, StyleSheet, ToastAndroid,
     View
 } from 'react-native';
 import {
@@ -40,7 +40,10 @@ class UserEdit extends Component {
             const jsonValue = JSON.stringify(res)
             await AsyncStorage.setItem('logUser', jsonValue)
         } catch (e) {
-            alert(e)
+            ToastAndroid.showWithGravityAndOffset(e, ToastAndroid.LONG,
+                ToastAndroid.TOP,
+                25,
+                50);
         }
     }
 
@@ -49,7 +52,10 @@ class UserEdit extends Component {
             const jsonValue = await AsyncStorage.getItem('logUser')
             jsonValue != null ? this.setState({user: JSON.parse(jsonValue)}) : null;
         } catch (e) {
-            alert(e)
+            ToastAndroid.showWithGravityAndOffset(e, ToastAndroid.LONG,
+                ToastAndroid.TOP,
+                25,
+                50);
         }
     }
 
@@ -60,7 +66,12 @@ class UserEdit extends Component {
                 this.setState({user: res});
                 this.storeData(res).then(r => console.log(r));
 
-            })
+            }).catch((error) => {
+            ToastAndroid.showWithGravityAndOffset(error, ToastAndroid.LONG,
+                ToastAndroid.TOP,
+                25,
+                50);
+        })
     }
 
     updateUser = () => {
@@ -81,12 +92,21 @@ class UserEdit extends Component {
         }
 
         if (name === this.state.user.Name && email === this.state.user.Email && password === this.state.user.Password) {
-            alert("No hace falta que actualicemos nada, porque está todo igual");
+            ToastAndroid.showWithGravityAndOffset("No fields have been updated, therefore no change has taken place.", ToastAndroid.LONG,
+                ToastAndroid.TOP,
+                25,
+                50);
         } else {
-            axios.put('http://52.0.146.162:80/api/Users?idUser='+this.state.user.UserId+'&email='+email+'&name='+name+'&password='+password)
-                .then(response => {
-                    alert(response.data);
-                    this.getActualUser();
+            axios.put('http://52.0.146.162:80/api/Users?idUser=' + this.state.user.UserId + '&email=' + email + '&name=' + name + '&password=' + password)
+                .then(ToastAndroid.showWithGravityAndOffset("The user has been successfully updated.", ToastAndroid.LONG,
+                    ToastAndroid.TOP,
+                    25,
+                    50), this.getActualUser())
+                .catch((error) => {
+                    ToastAndroid.showWithGravityAndOffset(error, ToastAndroid.LONG,
+                        ToastAndroid.TOP,
+                        25,
+                        50);
                 })
         }
     }

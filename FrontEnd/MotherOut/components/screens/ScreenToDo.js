@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {FlatList, StyleSheet, Text, View} from 'react-native';
+import {FlatList, StyleSheet, Text, ToastAndroid, View} from 'react-native';
 import {Image} from 'react-native-elements';
 import image from '../../assets/avatar2.png';
 import {NavBar} from "../NavBar";
@@ -44,7 +44,13 @@ class ScreenToDo extends Component {
                 this.setState({done: res2});
                 this.setState({undone: res3});
                 this.setState({listTask: re4});
-            });
+            }).catch((error) => {
+            ToastAndroid.showWithGravityAndOffset(error, ToastAndroid.LONG,
+                ToastAndroid.TOP,
+                25,
+                50);
+
+        });
     }
 
     completeTask = (item) => {
@@ -52,9 +58,15 @@ class ScreenToDo extends Component {
         let userTaskId = item.UserTaskId;
         let userIdTeam = item.TeamId;
         axios.put('http://52.0.146.162:80/api/Users?idUser=' + userId + '&idTask=' + userTaskId + '&done=' + true)
-            .then(this.getTasksByUser(userId, userIdTeam))
+            .then(this.getTasksByUser(userId, userIdTeam), ToastAndroid.showWithGravityAndOffset("The tasks named: " + item.TaskName + " it's done! Congratulations little piggy.", ToastAndroid.LONG,
+                ToastAndroid.TOP,
+                25,
+                50))
             .catch((error) => {
-                alert(error);
+                ToastAndroid.showWithGravityAndOffset(error, ToastAndroid.LONG,
+                    ToastAndroid.TOP,
+                    25,
+                    50);
             });
     }
 
@@ -63,11 +75,16 @@ class ScreenToDo extends Component {
         let userTaskId = item.UserTaskId;
         let userIdTeam = item.TeamId;
         axios.put('http://52.0.146.162:80/api/Users?idUser=' + userId + '&idTask=' + userTaskId + '&done=' + false)
-            .then(this.getTasksByUser(userId, userIdTeam))
+            .then(this.getTasksByUser(userId, userIdTeam), ToastAndroid.showWithGravityAndOffset("The tasks named: " + item.TaskName + " it's undone! Come on little piggy, do something.", ToastAndroid.LONG,
+                ToastAndroid.TOP,
+                25,
+                50))
             .catch((error) => {
-                alert(error);
+                ToastAndroid.showWithGravityAndOffset(error, ToastAndroid.LONG,
+                    ToastAndroid.TOP,
+                    25,
+                    50);
             })
-
     }
 
 
@@ -81,10 +98,12 @@ class ScreenToDo extends Component {
             const jsonValue = await AsyncStorage.getItem('logUser')
             jsonValue != null ? this.setState({user: JSON.parse(jsonValue)}) : null;
         } catch (e) {
-            alert(e);
+            ToastAndroid.showWithGravityAndOffset(error, ToastAndroid.LONG,
+                ToastAndroid.TOP,
+                25,
+                50);
         }
     }
-
 
     render() {
         return (
