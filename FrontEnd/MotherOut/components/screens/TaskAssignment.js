@@ -39,15 +39,7 @@ class TaskAssignment extends Component {
         }
     };
     randomTask = async () => {
-        alert(this.state.user.AsignedTeam);
-        axios.put('http://52.0.146.162:80/api/UserTasks?idTeam='+this.state.user.AsignedTeam).then(response =>{
-            if (response.data){
-                alert("random asignemet true");
-            }
-            else {
-                alert("Not random asignement");
-            }
-        })
+        axios.put('http://52.0.146.162:80/api/UserTasks?idTeam='+this.state.user.AsignedTeam);
         this.props.navigation.navigate('AsignedTask');
     };
 
@@ -72,7 +64,7 @@ class TaskAssignment extends Component {
                         <GenericIconButton
                             button="RANDOM ASSIGNMENT"
                             icon='random'
-                            press={() => this.randomTask}
+                            press={() => this.randomTask()}
                         />
                     </View>
                     <NavBar
