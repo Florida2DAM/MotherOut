@@ -4,6 +4,8 @@ import {Image} from 'react-native-elements';
 import image from '../../assets/GSettings.png';
 import {NavBar} from "../NavBar";
 import {GenericIconButton} from "../GenericIconButton";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from "axios";
 
 const picture = Image.resolveAssetSource(image).uri;
 
@@ -12,23 +14,64 @@ class GlobalSettings extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            icon: 'toggle-on',
-            change: true,
+            icon: null,
+            user: null,
+            userSetting: null,
         }
     }
 
-    enabledOrDisabledHelp = () => {
-        if (this.state.change) {
-            this.setState({change: false});
+    loadHelp = () => {
+        if (!this.state.userSetting.Help) {
             this.setState({icon: 'toggle-off'});
         } else {
-            this.setState({change: true});
             this.setState({icon: 'toggle-on'});
         }
     }
 
+    getActualUser = () => {
+        axios.get('http://52.0.146.162:80/api/Users?email=' + this.state.user.Email)
+            .then(response =>{
+                const res = response.data;
+                this.setState({userSetting: res});
+                this.loadHelp();
+            })
+    }
+
+    enabledOrDisabledHelp = () => {
+        if (this.state.userSetting.Help) {
+            axios.put('http://52.0.146.162:80/api/Users?idUser=' + this.state.userSetting.UserId + '&help=' + false)
+                .then(() => {
+                    this.getActualUser();
+                })
+                .catch((error) => {
+                    alert(error);
+                });
+        } else {
+            axios.put('http://52.0.146.162:80/api/Users?idUser=' + this.state.userSetting.UserId + '&help=' + true)
+                .then(() => {
+
+                    this.getActualUser();
+                })
+                .catch((error) => {
+                    alert(error);
+                });
+        }
+
+    }
+
+    async getData() {
+        try {
+            const jsonValue = await AsyncStorage.getItem('logUser')
+            jsonValue != null ? this.setState({user: JSON.parse(jsonValue)}) : null;
+        } catch (e) {
+            alert(e)
+        }
+    }
+
     componentDidMount = () => {
-        alert(this.props.route.params.user);
+        this.getData().then(() => {
+            this.getActualUser();
+        });
     }
 
     render() {

@@ -4,9 +4,7 @@ import {
     StyleSheet,
     View
 } from 'react-native';
-import {
-    Image
-} from 'react-native-elements';
+import {Image} from 'react-native-elements';
 import imagen from '../../assets/setting.png';
 import { GenericIconButton } from '../GenericIconButton';
 import { NavBar } from '../NavBar';
@@ -17,19 +15,25 @@ const picture = Image.resolveAssetSource(imagen).uri;
 class Setting extends Component {
 
     constructor(props) {
-        super(props)
-        this.state={
-            user:[],
+        super(props);
+
+        this.state = {
+            user: [],
         }
+
     }
 
     componentDidMount = () => {
-        //alert(this.props.route.params.user);
-        this.getData().then(
-            () => {
-                console.log(this.state.user);
-                // this.getTaskbyTeam(this.state.user.AsignedTeam);
-            })
+        this.getData().then(() => console.log(this.state.user));
+    }
+
+    async getData() {
+        try {
+            const jsonValue = await AsyncStorage.getItem('logUser')
+            jsonValue != null ? this.setState({user: JSON.parse(jsonValue)}) : null;
+        } catch (e) {
+            alert(e)
+        }
     }
 
     async getData() {
@@ -78,6 +82,11 @@ class Setting extends Component {
                                 button="Global settings"
                                 icon='cogs'
                                 press={() => this.props.navigation.navigate('GlobalSettings')}
+                            />
+                            <GenericIconButton
+                                button="User edit"
+                                icon='edit'
+                                press={() => this.props.navigation.navigate('UserEdit')}
                             />
                         </View>
                     </ScrollView>

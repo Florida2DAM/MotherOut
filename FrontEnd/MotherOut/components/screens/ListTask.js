@@ -1,11 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React, {Component} from 'react';
 
 import {FlatList, StyleSheet, View} from 'react-native';
@@ -16,8 +8,8 @@ import imagen from '../../assets/listTask.png';
 import {NavBar} from '../NavBar';
 import {TaskCard} from '../TaskCard';
 import {RoundedButton} from '../RoundedButton';
-import {GenericButton} from "../GenericButton";
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const picture = Image.resolveAssetSource(imagen).uri;
 
@@ -26,17 +18,22 @@ class ListTask extends Component {
         super(props);
         this.state = {
             user: null,
-            userId: null,
             listTasks: [],
         };
     }
 
     componentDidMount = () => {
-        this.setState({user: this.props.route.params.user}, () =>{
-            console.log(this.state.user);
-            this.getListTask(this.state.user.AsignedTeam);
-        });
+        this.getData().then(()=> this.getListTask(this.state.user.AsignedTeam));
 
+    }
+
+    async getData() {
+        try {
+            const jsonValue = await AsyncStorage.getItem('logUser')
+            jsonValue != null ? this.setState({ user: JSON.parse(jsonValue) }) : null;
+        } catch (e) {
+            alert(e)
+        }
     }
 
     getListTask = (id) => {
@@ -50,6 +47,14 @@ class ListTask extends Component {
                 });
                 this.setState({listTasks: res2});
             })
+    }
+
+    deleteTask = (item) => {
+        axios.delete('http://52.0.146.162:80/api/UserTasks?IdTask=' + item.UserTaskId)
+            .then(this.getListTask(this.state.user.AsignedTeam))
+            .catch((error) => {
+                alert(error);
+            });
     }
 
 
@@ -68,7 +73,7 @@ class ListTask extends Component {
                                   keyExtractor={(item, index) => index.toString()}
                                   renderItem={({item}) => (
                                       <View style={{padding: 5}}>
-                                          <TaskCard text={item.TaskName} icon={"trash"}/>
+                                          <TaskCard text={item.TaskName} icon={"trash"} press={() => this.deleteTask(item)}/>
                                       </View>)}
                         />
                         <RoundedButton icon={'plus'} press={() => this.props.navigation.navigate('NewOrEditTask')}/>
