@@ -21,7 +21,7 @@ class JoinTeam extends Component {
             navBar: null,
         };
     }
-    
+
     componentDidMount = () => {
         this.getData().then(() => { console.log(this.state.user) })
     }
