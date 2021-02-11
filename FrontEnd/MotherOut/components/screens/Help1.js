@@ -1,9 +1,6 @@
 import React, {Component} from 'react';
-<<<<<<< HEAD
 import AsyncStorage from '@react-native-async-storage/async-storage';
-=======
 import Swiper from 'react-native-swiper'
->>>>>>> MotherOut_FrontEnd_JUAN_Test
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {Image} from 'react-native-elements';
 import imagen from '../../assets/help1_1.png';
@@ -87,14 +84,8 @@ class Help1 extends Component {
                                 style={{width: 350, height: 470}}
                                 source={{uri: picture5}}
                             />
-<<<<<<< HEAD
-                            <View>
-                                <GenericButton button={'Skipt!'}
-                                               press={this.checkExistenceOfTeam}/>
-=======
                             <View style={{marginTop:75}}>
                                 <GenericButton button={'Skipt!'} press={() => this.props.navigation.navigate('CreateOrJoinTeam')} />
->>>>>>> MotherOut_FrontEnd_JUAN_Test
                             </View>
                         </View>
                     </Swiper>
