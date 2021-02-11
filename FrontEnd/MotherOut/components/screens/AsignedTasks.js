@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import {FlatList, StyleSheet, Text, ToastAndroid, View} from 'react-native';
 import { Image } from 'react-native-elements';
 import importedPicture from '../../assets/asignedTasks.png';
 import { NavBar } from '../NavBar';
@@ -33,17 +33,17 @@ class AsignedTasks extends Component {
             const jsonValue = await AsyncStorage.getItem('logUser')
             jsonValue != null ? this.setState({ user: JSON.parse(jsonValue) }) : null;
         } catch (e) {
-            alert(e)
+            ToastAndroid.showWithGravityAndOffset(e, ToastAndroid.LONG,ToastAndroid.TOP,25,50);
         }
     }
 
-    getTaskbyTeam = (idTeam) => {
+    getTaskbyTeam = async (idTeam) => {
         axios.get('http://52.0.146.162:80/api/UserTasks?idTeam=' + idTeam)
             .then(response => {
                 this.setState({ taskUsers: response.data })
             })
             .catch((error) => {
-                alert(error);
+                ToastAndroid.showWithGravityAndOffset(error, ToastAndroid.LONG,ToastAndroid.TOP,25,50);
             });
     }
 
@@ -55,13 +55,13 @@ class AsignedTasks extends Component {
         })
     }
 
-    deleteTask = (item) => {
+    deleteTask = async (item) => {
         axios.delete('http://52.0.146.162:80/api/UserTasks?IdTask=' + item.UserTaskId)
             .then((error) => {
                 this.getTaskbyTeam(this.state.user.AsignedTeam)
             })
             .catch((error) => {
-                alert(error);
+                ToastAndroid.showWithGravityAndOffset(error, ToastAndroid.LONG,ToastAndroid.TOP,25,50);
             });
     }
 
