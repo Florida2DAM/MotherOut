@@ -23,6 +23,7 @@ class YourTeam extends Component {
             newNameTeam: null,
             roundedButton: null,
             flatList: null,
+            navBar: null,
         };
     }
 
@@ -34,6 +35,7 @@ class YourTeam extends Component {
                 this.getTeamName(this.state.user.AsignedTeam);
                 this.renderRoundButton();
             });
+
     };
 
     getData = async () => {
@@ -45,10 +47,11 @@ class YourTeam extends Component {
         }
     };
 
-    getUserByTeam = (idTeam) => {
+    getUserByTeam = async (idTeam) => {
         axios.get('http://52.0.146.162:80/api/Users?idTeam=' + idTeam).then(response => {
             this.setState({ teamData: response.data });
             this.renderFlatList();
+            this.renderNavBar();
         })
             .catch(function (error) {
                 alert(error);
@@ -110,7 +113,6 @@ class YourTeam extends Component {
             }
             this.getUserByTeam(item.AsignedTeam);
         })
-
     };
 
     renderRoundButton = () => {
@@ -118,6 +120,21 @@ class YourTeam extends Component {
             this.setState({
                 roundedButton:
                     <RoundedButton icon="plus" press={this.createTeam} />
+            })
+        }
+    }
+
+    renderNavBar = () => {
+        if (this.state.user.UserMaster) {
+            this.setState({
+                navBar:
+                    <NavBar
+                        checked={() => this.props.navigation.navigate('ScreenToDo')}
+                        list={() => this.props.navigation.navigate('ListTask')}
+                        calendar={() => this.props.navigation.navigate('TaskAssignment')}
+                        nav={() => this.props.navigation.navigate('Statistics')}
+                        settings={() => this.props.navigation.navigate('Setting')}
+                    />
             })
         }
     }
@@ -148,7 +165,7 @@ class YourTeam extends Component {
                 <View style={styles.contenidor}>
                     <View style={styles.header}>
                         <Image
-                            style={{ width: 300, height: 90 }}
+                            style={{ width: 310, height: 90 }}
                             source={{ uri: picture }} />
                     </View>
                     <View style={styles.body}>
@@ -163,15 +180,11 @@ class YourTeam extends Component {
                             onChange={(item) => this.setState({ newNameTeam: item })} />
                         {this.state.flatList}
                     </View>
-                    {this.state.roundedButton}
+                    <View style={styles.button}>
+                        {this.state.roundedButton}
+                    </View>
                     <View>
-                        <NavBar
-                            checked={() => this.props.navigation.navigate('ScreenToDo')}
-                            list={() => this.props.navigation.navigate('ListTask')}
-                            calendar={() => this.props.navigation.navigate('TaskAssignment')}
-                            nav={() => this.props.navigation.navigate('Statistics')}
-                            settings={() => this.props.navigation.navigate('Setting')}
-                        />
+                        {this.state.navBar}
                     </View>
                 </View>
             </>
@@ -191,7 +204,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     body: {
-        marginTop: 2,
+        marginTop: 10,
         justifyContent: 'space-evenly',
         padding: 10,
         flex: 10,
@@ -204,7 +217,7 @@ const styles = StyleSheet.create({
     },
     garbage: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'space-evenly',
         alignItems: 'center',
     },
     userBox: {
@@ -217,8 +230,11 @@ const styles = StyleSheet.create({
         fontFamily: 'Roboto',
         fontWeight: 'bold',
     },
-    icons:{
-        flexDirection:'row',
+    icons: {
+        flexDirection: 'row',
+    },
+    button: {
+        paddingBottom: 200
     }
 });
 export default YourTeam;

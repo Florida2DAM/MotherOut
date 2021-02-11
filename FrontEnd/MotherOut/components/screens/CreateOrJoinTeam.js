@@ -1,15 +1,32 @@
-import React, {Component} from 'react';
-import {StyleSheet, View} from 'react-native';
-import {Image} from 'react-native-elements';
+import React, { Component } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { Image } from 'react-native-elements';
 import image from '../../assets/CreateOrJoinTeam.png';
-import {GenericIconButton} from '../GenericIconButton';
-import {NavBar} from '../NavBar';
+import { GenericIconButton } from '../GenericIconButton';
+import { NavBar } from '../NavBar';
 
 const picture = Image.resolveAssetSource(image).uri;
 
 class CreateOrJoinTeam extends Component {
-
-    componentDidMount = () => {
+    constructor(props) {
+        super(props);
+        this.state = {
+            navBar: null,
+        };
+    }
+    renderNavBar = () => {
+        if (!this.state.user.UserMaster) {
+            this.setState({
+                navBar:
+                    <NavBar
+                        checked={() => this.props.navigation.navigate('ScreenToDo')}
+                        list={() => this.props.navigation.navigate('ListTask')}
+                        calendar={() => this.props.navigation.navigate('TaskAssignment')}
+                        nav={() => this.props.navigation.navigate('Statistics')}
+                        settings={() => this.props.navigation.navigate('Setting')}
+                    />
+            })
+        }
     }
 
     render() {
@@ -18,24 +35,18 @@ class CreateOrJoinTeam extends Component {
                 <View style={styles.contenidor}>
                     <View style={styles.header}>
                         <Image
-                            style={{width: 300, height: 90}}
-                            source={{uri: picture}}
+                            style={{ width: 300, height: 90 }}
+                            source={{ uri: picture }}
                         />
                     </View>
                     <View style={styles.body}>
                         <GenericIconButton button="Create Team" icon='plus'
-                                           press={() => this.props.navigation.navigate('YourTeam')}/>
+                            press={() => this.props.navigation.navigate('YourTeam')} />
                         <GenericIconButton button="Join Team" icon='users'
-                                           press={() => this.props.navigation.navigate('JoinTeam')}/>
+                            press={() => this.props.navigation.navigate('JoinTeam')} />
                     </View>
                     <View>
-                        <NavBar
-                            checked={() => this.props.navigation.navigate('ScreenToDo')}
-                            list={() => this.props.navigation.navigate('ListTask')}
-                            calendar={() => this.props.navigation.navigate('TaskAssignment')}
-                            nav={() => this.props.navigation.navigate('Statistics')}
-                            settings={() => this.props.navigation.navigate('Setting')}
-                        />
+                        {this.state.renderNavBar}
                     </View>
                 </View>
             </>

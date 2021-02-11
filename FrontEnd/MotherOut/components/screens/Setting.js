@@ -69,7 +69,7 @@ class Setting extends Component {
                         </View>
                         <View style={styles.body}>
                             <GenericIconButton
-                                button="Create Team"
+                                button="Your Team"
                                 icon='users'
                                 press={() => this.checkMaster() }
                             />
