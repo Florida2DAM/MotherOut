@@ -1,14 +1,14 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {ScrollView, StyleSheet, Text, ToastAndroid, View} from 'react-native';
-import { Image } from 'react-native-elements';
+import {Image} from 'react-native-elements';
 import image from '../../assets/manualAssignment.png';
-import { InputData } from '../InputData';
-import { NavBar } from "../NavBar";
-import { RoundedButton } from "../RoundedButton";
-import { SelectedItem } from '../SelectedItem';
-import { SelectedTask } from '../SelectedTask';
+import {InputData} from '../InputData';
+import {NavBar} from "../NavBar";
+import {RoundedButton} from "../RoundedButton";
+import {SelectedItem} from '../SelectedItem';
+import {SelectedTask} from '../SelectedTask';
 
 const picture = Image.resolveAssetSource(image).uri;
 
@@ -40,50 +40,67 @@ class ManualAssignment extends Component {
     async getData() {
         try {
             const jsonValue = await AsyncStorage.getItem('logUser')
-            jsonValue != null ? this.setState({ user: JSON.parse(jsonValue) }) : null;
+            jsonValue != null ? this.setState({user: JSON.parse(jsonValue)}) : null;
         } catch (e) {
-            ToastAndroid.showWithGravityAndOffset(e, ToastAndroid.LONG,ToastAndroid.TOP,25,50);
+            ToastAndroid.showWithGravityAndOffset("User data could not be loaded.", ToastAndroid.LONG,
+                ToastAndroid.TOP,
+                25,
+                50);
         }
     }
 
     getTaskbyTeam = async (idTeam) => {
         axios.get('http://52.0.146.162:80/api/UserTasks?idTeam=' + idTeam)
             .then(response => {
-                this.setState({ listTasks: response.data })
+                this.setState({listTasks: response.data})
             })
-            .catch((error) => {
-                ToastAndroid.showWithGravityAndOffset(error, ToastAndroid.LONG,ToastAndroid.TOP,25,50);
+            .catch(() => {
+                ToastAndroid.showWithGravityAndOffset("The list could not be uploaded.", ToastAndroid.LONG,
+                    ToastAndroid.TOP,
+                    25,
+                    50);
             });
     }
 
     getUsersByTeam = async (idTeam) => {
         axios.get('http://52.0.146.162:80/api/Users?idTeam=' + idTeam).then(response => {
-            this.setState({ listUsers: response.data });
-        })
-            .catch(function (error) {
-                ToastAndroid.showWithGravityAndOffset(error, ToastAndroid.LONG,ToastAndroid.TOP,25,50);
-            });
+            this.setState({listUsers: response.data});
+        }).catch(function (error) {
+            ToastAndroid.showWithGravityAndOffset("The list could not be uploaded.", ToastAndroid.LONG,
+                ToastAndroid.TOP,
+                25,
+                50);
+        });
     }
 
     getName = (item) => {
         this.setState({
             name: item.Name,
             selectedIdUser: item.UserId
-        }, () => { console.log(this.state.name), console.log(this.state.date) })
+        }, () => {
+            console.log(this.state.name), console.log(this.state.date)
+        })
     };
 
     getTask = (item) => {
         this.setState({
             task: item.TaskName,
             selectedIdTask: item.UserTaskId
-        }, () => { console.log(this.state.task) })
+        }, () => {
+            console.log(this.state.task)
+        })
     };
 
     updateTask = async () => {
         axios.put('http://52.0.146.162:80/api/UserTasks?idUserTask=' + this.state.selectedIdTask + '&fecha=' + this.state.date + '&idUser=' + this.state.selectedIdUser)
-            .then(() => { ToastAndroid.showWithGravityAndOffset("another pig has the task", ToastAndroid.LONG,ToastAndroid.TOP,25,50) })
+            .then(() => {
+                ToastAndroid.showWithGravityAndOffset("Another pig has the task.", ToastAndroid.LONG, ToastAndroid.TOP, 25, 50)
+            })
             .catch(function (error) {
-                ToastAndroid.showWithGravityAndOffset(error, ToastAndroid.LONG,ToastAndroid.TOP,25,50);
+                ToastAndroid.showWithGravityAndOffset("The task could not be updated.", ToastAndroid.LONG,
+                    ToastAndroid.TOP,
+                    25,
+                    50);
             });
     }
 
@@ -93,22 +110,24 @@ class ManualAssignment extends Component {
                 <View style={styles.contenidor}>
                     <View style={styles.header}>
                         <Image
-                            style={{ width: 290, height: 90 }}
-                            source={{ uri: picture }} />
+                            style={{width: 290, height: 90}}
+                            source={{uri: picture}}/>
                     </View>
                     <ScrollView>
                         <View style={styles.body}>
                             <Text style={styles.textStyle}>Task name</Text>
-                            <SelectedTask list={this.state.listTasks} value={this.state.task} selectedItem={this.getTask} />
+                            <SelectedTask list={this.state.listTasks} value={this.state.task}
+                                          selectedItem={this.getTask}/>
                             <Text style={styles.textStyle}>Selected member</Text>
-                            <SelectedItem list={this.state.listUsers} value={this.state.name} selectedItem={this.getName} />
+                            <SelectedItem list={this.state.listUsers} value={this.state.name}
+                                          selectedItem={this.getName}/>
                             <Text style={styles.textStyle}>Select day</Text>
                             <InputData value={this.state.date}
-                                press={(item) => this.setState({ date: item.dateString })} />
+                                       press={(item) => this.setState({date: item.dateString})}/>
                         </View>
                     </ScrollView>
                     <View>
-                        <RoundedButton icon='check' press={this.updateTask} />
+                        <RoundedButton icon='check' press={this.updateTask}/>
                     </View>
                     <View>
                         <NavBar
