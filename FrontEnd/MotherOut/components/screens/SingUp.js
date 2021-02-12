@@ -1,8 +1,5 @@
 import React, {Component} from 'react';
-import {
-    ScrollView, StyleSheet,
-    View, Text, Linking, ToastAndroid
-} from 'react-native';
+import {ScrollView, StyleSheet, View, Text, Linking, ToastAndroid} from 'react-native';
 import {
     Image,
 } from 'react-native-elements';
@@ -46,7 +43,9 @@ class SingUp extends Component {
         this.setState({password: null})
     }
 
+
     addUser = async () => {
+
         let user = {
             Name: this.state.name,
             Email: this.state.email,
@@ -54,37 +53,46 @@ class SingUp extends Component {
             Help: true,
         };
 
-        if (this.state.email === null && this.state.name === null && this.state.password === null
-        ) {
+        if (this.state.email === null && this.state.name === null && this.state.password === null) {
+
             ToastAndroid.showWithGravityAndOffset("Todo está vacío.", ToastAndroid.LONG,
                 ToastAndroid.TOP,
                 25,
                 50);
 
+
         } else if (this.state.name === null || this.state.name === '') {
+
             ToastAndroid.showWithGravityAndOffset("El nombre está vacío.", ToastAndroid.LONG,
                 ToastAndroid.TOP,
                 25,
                 50);
+
         } else if (this.state.password === null || this.state.password === '') {
+
             ToastAndroid.showWithGravityAndOffset("La contraseña está vacía", ToastAndroid.LONG,
                 ToastAndroid.TOP,
                 25,
                 50);
-        } else if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3,4})+$/).test(this.state.email.value)) {
-            alert(this.state.email);
+
+        } else if (this.state.email.startsWith('@', 0) || !this.state.email.includes('@') || this.state.email.endsWith('@', this.state.email.length)) {
+
             ToastAndroid.showWithGravityAndOffset("Debes de introducir una extensión válida de email", ToastAndroid.LONG,
                 ToastAndroid.TOP,
                 25,
                 50);
-        } else if (this.state.email === '' || this.state.email === null
-        ) {
+
+        } else if (this.state.email === '' || this.state.email === null) {
+
             ToastAndroid.showWithGravityAndOffset("El email está vacío.", ToastAndroid.LONG,
                 ToastAndroid.TOP,
                 25,
                 50);
+
         } else {
+
             if (this.state.checked) {
+
                 axios.post('http://52.0.146.162:80/api/Users', user)
                     .then(() => {
                         this.getUserbyEmail(this.state.email);
@@ -99,14 +107,20 @@ class SingUp extends Component {
                             25,
                             50);
                     });
+
                 this.props.navigation.navigate('Help1');
+
             } else {
+
                 ToastAndroid.showWithGravityAndOffset("You must agree to the terms in order to sell them, little piggy.", ToastAndroid.LONG,
                     ToastAndroid.TOP,
                     25,
                     50);
+
             }
+
         }
+
     };
 
     getUserbyEmail = (email) => {
