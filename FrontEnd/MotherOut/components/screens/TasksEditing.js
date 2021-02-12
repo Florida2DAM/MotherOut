@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import React, {Component} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, ToastAndroid, View} from 'react-native';
 import {Image} from 'react-native-elements';
 import imagen from '../../assets/tasksEditing.png';
 import {GenericInput2} from '../GenericInput2';
@@ -54,10 +54,12 @@ class TasksEditing extends Component {
         axios.get('http://52.0.146.162:80/api/Users?idUser=' + idUser).then(response => {
             this.setState({idTeam: response.data.AsignedTeam});
             this.getUsersByTeam(this.state.idTeam);
-        })
-            .catch(function (error) {
-                alert(error);
-            });
+        }).catch(function (error) {
+            ToastAndroid.showWithGravityAndOffset("Team data could not be loaded.", ToastAndroid.LONG,
+                ToastAndroid.TOP,
+                25,
+                50);
+        });
     };
 
     getUsersByTeam = async (idTeam) => {
@@ -65,7 +67,10 @@ class TasksEditing extends Component {
             this.setState({teamData: response.data});
         })
             .catch(function (error) {
-                alert(error);
+                ToastAndroid.showWithGravityAndOffset("It has not been possible to load the data of the users of the equipment. ", ToastAndroid.LONG,
+                    ToastAndroid.TOP,
+                    25,
+                    50);
             });
     };
 
@@ -81,10 +86,16 @@ class TasksEditing extends Component {
     updateTask = async () => {
         axios.put('http://52.0.146.162:80/api/UserTasks?idUserTask=' + this.state.idTask + '&fecha=' + this.state.date + '&idUser=' + this.state.selectedIdUser)
             .then(() => {
-                alert('Lanzada peticion');
+                ToastAndroid.showWithGravityAndOffset("The task has been updated.", ToastAndroid.LONG,
+                    ToastAndroid.TOP,
+                    25,
+                    50);
             })
             .catch(function (error) {
-                alert(error);
+                ToastAndroid.showWithGravityAndOffset("The task could not be updated.", ToastAndroid.LONG,
+                    ToastAndroid.TOP,
+                    25,
+                    50);
             });
     };
 
