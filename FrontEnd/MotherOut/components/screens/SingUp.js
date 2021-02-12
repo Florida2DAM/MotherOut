@@ -32,7 +32,7 @@ class SingUp extends Component {
             const jsonValue = JSON.stringify(res);
             await AsyncStorage.setItem('logUser', jsonValue);
         } catch (e) {
-            ToastAndroid.showWithGravityAndOffset(e, ToastAndroid.LONG,
+            ToastAndroid.showWithGravityAndOffset("User data could not be stored.", ToastAndroid.LONG,
                 ToastAndroid.TOP,
                 25,
                 50);
@@ -92,8 +92,8 @@ class SingUp extends Component {
                 this.setState({user: res});
                 this.storeData(res);
             })
-            .catch(function (error) {
-                ToastAndroid.showWithGravityAndOffset(error, ToastAndroid.LONG,
+            .catch(() => {
+                ToastAndroid.showWithGravityAndOffset("The email already exists, you cannot enter this email.", ToastAndroid.LONG,
                     ToastAndroid.TOP,
                     25,
                     50);
