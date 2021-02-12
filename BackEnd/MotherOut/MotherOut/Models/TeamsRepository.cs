@@ -9,7 +9,7 @@ namespace MotherOut_BackEnd.Models
     {
         internal MotherOutContext context = new MotherOutContext();
 
-        #region
+        #region getTeams
         internal List<Team> getTeams()
         {
             List<Team> listTeams = context.Teams.ToList();
