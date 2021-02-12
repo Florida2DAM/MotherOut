@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import {ScrollView, StyleSheet, View, Text, Linking, ToastAndroid} from 'react-native';
-import {
-    Image,
-} from 'react-native-elements';
+import {Image,} from 'react-native-elements';
 import imagen from '../../assets/logo.png';
 import {GenericButton} from '../GenericButton';
 import {GenericInput1} from '../GenericInput1';
