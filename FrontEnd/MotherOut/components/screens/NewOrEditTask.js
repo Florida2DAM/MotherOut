@@ -42,7 +42,7 @@ class NewOrEditTask extends Component {
             const jsonValue = await AsyncStorage.getItem('logUser');
             jsonValue != null ? this.setState({user: JSON.parse(jsonValue)}) : null;
         } catch (e) {
-            alert(e);
+            ToastAndroid.showWithGravityAndOffset('User data could not be loaded ', ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
         }
     }
 
@@ -65,8 +65,8 @@ class NewOrEditTask extends Component {
                 .then(() => {
                     ToastAndroid.showWithGravityAndOffset('your piggy task is send', ToastAndroid.LONG, ToastAndroid.TOP,25,50);
                 })
-                .catch((error) => {
-                    alert(error);
+                .catch((e) => {
+                    ToastAndroid.showWithGravityAndOffset('the assigment could not be carried out, because you hace entered a non-existent team', ToastAndroid.LONG, ToastAndroid.TOP,25,50);
                 });
         }
     };
@@ -76,8 +76,8 @@ class NewOrEditTask extends Component {
             .then(response => {
                 this.setState({listIcons: response.data});
             })
-            .catch((error) => {
-                alert(error);
+            .catch((e) => {
+                ToastAndroid.showWithGravityAndOffset('the assigment could not be carried out, because you hace entered a non-existent team', ToastAndroid.LONG, ToastAndroid.TOP,25,50);
             });
     };
 
