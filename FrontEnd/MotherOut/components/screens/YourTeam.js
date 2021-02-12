@@ -80,9 +80,9 @@ class YourTeam extends Component {
     putNameTeam = () => {
         axios.put('http://52.0.146.162:80/api/Teams?idTeam=' + this.state.user.AsignedTeam + '&newTeamName=' + this.state.newNameTeam).then(response => {
             if (response.data == true) {
-                alert('Your new name team is changed');
+                ToastAndroid.showWithGravityAndOffset('Your new name team is changed', ToastAndroid.LONG, ToastAndroid.TOP,25,50);
             } else {
-                alert('not change your name team');
+                ToastAndroid.showWithGravityAndOffset('not change your name team', ToastAndroid.LONG, ToastAndroid.TOP,25,50);
             }
         });
     };
@@ -100,9 +100,9 @@ class YourTeam extends Component {
             };
             axios.post('http://52.0.146.162:80/api/Teams?&idUser=' + this.state.user.UserId, newTeam).then(response => {
                 if (response.data !== true) {
-                    alert('you have a new team');
+                    ToastAndroid.showWithGravityAndOffset('piggy, you have a new pig team', ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
                 } else {
-                    alert('Don´t have new team');
+                    ToastAndroid.showWithGravityAndOffset('fuck off!! impossible to do a new team', ToastAndroid.LONG, ToastAndroid.TOP,25,50);
                 }
             });
         }
@@ -112,9 +112,9 @@ class YourTeam extends Component {
     deletedTeamUser = (item) => {
         axios.put('http://52.0.146.162:80/api/Users?idUser=' + item.UserId).then(response => {
             if (response.data === true) {
-                alert('the fucking ' + item.Name + ' is history');
+                ToastAndroid.showWithGravityAndOffset('the fucking ' + item.Name + ' is history', ToastAndroid.LONG, ToastAndroid.TOP,25,50);
             } else {
-                alert('No deleted user');
+                ToastAndroid.showWithGravityAndOffset('No deleted user', ToastAndroid.LONG, ToastAndroid.TOP,25,50);
             }
             this.getUserByTeam(item.AsignedTeam);
         });
