@@ -54,7 +54,29 @@ class SingUp extends Component {
             Help: true,
         };
 
-        if (this.state.name !== '' || this.state.email !== '' || this.state.password !== '') {
+        if (this.state.email === '' || this.state.email === null
+        ) {
+            ToastAndroid.showWithGravityAndOffset("El email está vacío.", ToastAndroid.LONG,
+                ToastAndroid.TOP,
+                25,
+                50);
+
+        } else if (this.state.name === null || this.state.name === '') {
+            ToastAndroid.showWithGravityAndOffset("El nombre está vacío.", ToastAndroid.LONG,
+                ToastAndroid.TOP,
+                25,
+                50);
+        } else if (this.state.password === null || this.state.password === '') {
+            ToastAndroid.showWithGravityAndOffset("La contraseña está vacía", ToastAndroid.LONG,
+                ToastAndroid.TOP,
+                25,
+                50);
+        } else if (!this.state.email.endsWith("@*")) {
+            ToastAndroid.showWithGravityAndOffset("Debes de introducir una extensión válida de email", ToastAndroid.LONG,
+                ToastAndroid.TOP,
+                25,
+                50);
+        } else {
             if (this.state.checked) {
                 axios.post('http://52.0.146.162:80/api/Users', user)
                     .then(() => {
@@ -77,11 +99,6 @@ class SingUp extends Component {
                     25,
                     50);
             }
-        } else {
-            ToastAndroid.showWithGravityAndOffset("There are empty fields, piggy. You must fill them all in.", ToastAndroid.LONG,
-                ToastAndroid.TOP,
-                25,
-                50);
         }
     };
 
