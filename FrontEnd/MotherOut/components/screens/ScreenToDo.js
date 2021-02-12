@@ -62,7 +62,7 @@ class ScreenToDo extends Component {
                 ToastAndroid.TOP,
                 25,
                 50))
-            .catch((error) => {
+            .catch(() => {
                 ToastAndroid.showWithGravityAndOffset("The list could not be checked.", ToastAndroid.LONG,
                     ToastAndroid.TOP,
                     25,
