@@ -101,6 +101,7 @@ class YourTeam extends Component {
             axios.post('http://52.0.146.162:80/api/Teams?&idUser=' + this.state.user.UserId, newTeam).then(response => {
                 if (response.data !== true) {
                     ToastAndroid.showWithGravityAndOffset('piggy, you have a new pig team', ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
+                    this.props.navigation.navigate('ScreenToDo');
                 } else {
                     ToastAndroid.showWithGravityAndOffset('fuck off!! impossible to do a new team', ToastAndroid.LONG, ToastAndroid.TOP,25,50);
                 }
