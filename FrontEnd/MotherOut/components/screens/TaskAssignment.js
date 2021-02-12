@@ -1,11 +1,6 @@
 import React, {Component} from 'react';
-import {
-    StyleSheet, ToastAndroid,
-    View,
-} from 'react-native';
-import {
-    Image,
-} from 'react-native-elements';
+import {StyleSheet, ToastAndroid, View,} from 'react-native';
+import {Image,} from 'react-native-elements';
 import imagen from '../../assets/taskAssignment.png';
 import {GenericIconButton} from '../GenericIconButton';
 import {NavBar} from '../NavBar';
@@ -35,11 +30,14 @@ class TaskAssignment extends Component {
             const jsonValue = await AsyncStorage.getItem('logUser');
             jsonValue != null ? this.setState({user: JSON.parse(jsonValue)}) : null;
         } catch (e) {
-            ToastAndroid.showWithGravityAndOffset(e, ToastAndroid.LONG,ToastAndroid.TOP,25,50);
+            ToastAndroid.showWithGravityAndOffset("User data could not be loaded.", ToastAndroid.LONG,
+                ToastAndroid.TOP,
+                25,
+                50);
         }
     };
     randomTask = async () => {
-        axios.put('http://52.0.146.162:80/api/UserTasks?idTeam='+this.state.user.AsignedTeam);
+        axios.put('http://52.0.146.162:80/api/UserTasks?idTeam=' + this.state.user.AsignedTeam);
         this.props.navigation.navigate('AsignedTask');
     };
 
