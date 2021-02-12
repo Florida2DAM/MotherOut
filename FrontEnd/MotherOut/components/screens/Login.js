@@ -1,13 +1,8 @@
 import axios from 'axios';
 import React, {Component} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {
-    ScrollView, StyleSheet,
-    Text, View,
-} from 'react-native';
-import {
-    Image,
-} from 'react-native-elements';
+import {ScrollView, StyleSheet, Text, ToastAndroid, View,} from 'react-native';
+import {Image,} from 'react-native-elements';
 import imagen from '../../assets/logo.png';
 import {GenericButton} from '../GenericButton';
 import {GenericInput1} from '../GenericInput1';
@@ -32,7 +27,10 @@ class Login extends Component {
             const jsonValue = JSON.stringify(res);
             await AsyncStorage.setItem('logUser', jsonValue);
         } catch (e) {
-            alert(e);
+            ToastAndroid.showWithGravityAndOffset(e, ToastAndroid.LONG,
+                ToastAndroid.TOP,
+                25,
+                50);
         }
     }
 
@@ -49,7 +47,10 @@ class Login extends Component {
                 }
             })
             .catch(function (error) {
-                alert(error);
+                ToastAndroid.showWithGravityAndOffset(error, ToastAndroid.LONG,
+                    ToastAndroid.TOP,
+                    25,
+                    50);
             });
     };
 
