@@ -63,6 +63,7 @@ class NewOrEditTask extends Component {
 
             axios.post('http://52.0.146.162:80/api/UserTasks', task)
                 .then(() => {
+                    ToastAndroid.showWithGravityAndOffset('your piggy task is send', ToastAndroid.LONG, ToastAndroid.TOP,25,50);
                     alert('Peticion enviada');
                 })
                 .catch((error) => {
