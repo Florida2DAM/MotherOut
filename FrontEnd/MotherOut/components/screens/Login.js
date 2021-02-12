@@ -15,6 +15,7 @@ class Login extends Component {
         this.state = {
             email: null,
             user: null,
+            password: null,
         };
     }
 
@@ -35,24 +36,31 @@ class Login extends Component {
     }
 
     getUserbyEmail = async () => {
-        axios.get('http://52.0.146.162:80/api/Users?email=' + this.state.email)
-            .then(response => {
-                const res = response.data;
-                this.setState({user: res});
-                this.storeData(res);
-                if (!this.state.user.Help && this.state.user.AsignedTeam !== 0) {
-                    this.props.navigation.navigate('ScreenToDo');
-                } else {
-                    this.props.navigation.navigate('Help1');
-                }
-            })
-            .catch(() => {
-                ToastAndroid.showWithGravityAndOffset("The credentials entered are not correct.", ToastAndroid.LONG,
-                    ToastAndroid.TOP,
-                    25,
-                    50);
+        if (this.state.email !== null || this.state.password !== null) {
+            axios.get('http://52.0.146.162:80/api/Users?email=' + this.state.email)
+                .then(response => {
+                    const res = response.data;
+                    this.setState({user: res});
+                    this.storeData(res);
+                    if (!this.state.user.Help && this.state.user.AsignedTeam !== 0) {
+                        this.props.navigation.navigate('ScreenToDo');
+                    } else {
+                        this.props.navigation.navigate('Help1');
+                    }
+                })
+                .catch(() => {
+                    ToastAndroid.showWithGravityAndOffset("The credentials entered are not correct.", ToastAndroid.LONG,
+                        ToastAndroid.TOP,
+                        25,
+                        50);
+                });
+        } else {
+            ToastAndroid.showWithGravityAndOffset("No field should be left empty. Please re-enter your credentials.", ToastAndroid.LONG,
+                ToastAndroid.TOP,
+                25,
+                50);
+        }
 
-            });
     };
 
     render() {
@@ -69,7 +77,8 @@ class Login extends Component {
                         <View style={styles.inputs}>
                             <GenericInput1 placeHolder="Email" value={this.state.email}
                                            onChange={(item) => this.setState({email: item})}/>
-                            <GenericInput1 placeHolder="Password"/>
+                            <GenericInput1 placeHolder="Password" value={this.state.password}
+                                           onChange={(item) => this.setState({password: item})}/>
                         </View>
                         <View style={styles.buttons}>
                             <GenericButton button="Log In" press={this.getUserbyEmail}/>
