@@ -4,7 +4,7 @@ import {
     Pressable, ScrollView, StyleSheet,
     Text, ToastAndroid, View,
 } from 'react-native';
-import {Image, Slider} from 'react-native-elements';
+import {Image, Input, Slider} from 'react-native-elements';
 import importAvatar2 from '../../assets/avatar2.png';
 import importIcon from '../../assets/bathtub.png';
 import importAvatar from '../../assets/circle-cropped.png';
@@ -64,13 +64,11 @@ class NewOrEditTask extends Component {
             axios.post('http://52.0.146.162:80/api/UserTasks', task)
                 .then(() => {
                     ToastAndroid.showWithGravityAndOffset('your piggy task is send', ToastAndroid.LONG, ToastAndroid.TOP,25,50);
-                    alert('Peticion enviada');
                 })
                 .catch((error) => {
                     alert(error);
                 });
         }
-
     };
 
     getIcons = async (idTeam) => {
@@ -96,13 +94,13 @@ class NewOrEditTask extends Component {
 
                         <Text style={styles.textStyle}>TaskName</Text>
                         <GenericInput2 value={this.state.taskName}
+                                       length={18}
                                        onChange={(item) => this.setState({taskName: item})}/>
                         <Text style={styles.textStyle}>Score</Text>
                         <GenericInput2 value={this.state.taskScore}
                                        numeric={'numeric'}
                                        onChange={(item) => this.setState({taskScore: item})}/>
                         <Text style={styles.textStyle}>Icon</Text>
-
                         <FlatList
                             data={this.state.listIcons}
                             keyExtractor={(item, index) => index.toString()}
