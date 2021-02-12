@@ -80,9 +80,9 @@ class YourTeam extends Component {
     putNameTeam = () => {
         axios.put('http://52.0.146.162:80/api/Teams?idTeam=' + this.state.user.AsignedTeam + '&newTeamName=' + this.state.newNameTeam).then(response => {
             if (response.data == true) {
-                ToastAndroid.showWithGravityAndOffset('Your new name team is changed', ToastAndroid.LONG, ToastAndroid.TOP,25,50);
+                ToastAndroid.showWithGravityAndOffset('Your new name team is changed', ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
             } else {
-                ToastAndroid.showWithGravityAndOffset('not change your name team', ToastAndroid.LONG, ToastAndroid.TOP,25,50);
+                ToastAndroid.showWithGravityAndOffset('not change your name team', ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
             }
         });
     };
@@ -91,31 +91,58 @@ class YourTeam extends Component {
         if (this.state.newNameTeam === null || this.state.newNameTeam === '') {
             ToastAndroid.showWithGravityAndOffset('piggy, put the field empty', ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
         }
-        if (this.state.newNameTeam.length<3){
+        if (this.state.newNameTeam.length < 3) {
             ToastAndroid.showWithGravityAndOffset('piggy, your team must be much more big', ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
-        }
-        else {
+        } else {
             let newTeam = {
                 TeamName: this.state.newNameTeam,
             };
             axios.post('http://52.0.146.162:80/api/Teams?&idUser=' + this.state.user.UserId, newTeam).then(response => {
                 if (response.data !== true) {
+                    this.getActualUser();
                     ToastAndroid.showWithGravityAndOffset('piggy, you have a new pig team', ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
                     this.props.navigation.navigate('ScreenToDo');
                 } else {
-                    ToastAndroid.showWithGravityAndOffset('fuck off!! impossible to do a new team', ToastAndroid.LONG, ToastAndroid.TOP,25,50);
+                    ToastAndroid.showWithGravityAndOffset('fuck off!! impossible to do a new team', ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
                 }
             });
         }
 
     };
 
+    getActualUser = async () => {
+        axios.get('http://52.0.146.162:80/api/Users?email=' + this.state.user.Email)
+            .then(response => {
+                const res = response.data;
+                this.setState({user: res});
+                this.storeData(res).then(r => console.log(r));
+
+            }).catch((error) => {
+            ToastAndroid.showWithGravityAndOffset(error, ToastAndroid.LONG,
+                ToastAndroid.TOP,
+                25,
+                50);
+        });
+    };
+
+    async storeData(res) {
+        try {
+            const jsonValue = JSON.stringify(res);
+            await AsyncStorage.setItem('logUser', jsonValue);
+        } catch (e) {
+            ToastAndroid.showWithGravityAndOffset(e, ToastAndroid.LONG,
+                ToastAndroid.TOP,
+                25,
+                50);
+        }
+    }
+
     deletedTeamUser = (item) => {
         axios.put('http://52.0.146.162:80/api/Users?idUser=' + item.UserId).then(response => {
             if (response.data === true) {
-                ToastAndroid.showWithGravityAndOffset('the fucking ' + item.Name + ' is history', ToastAndroid.LONG, ToastAndroid.TOP,25,50);
+                ToastAndroid.showWithGravityAndOffset('the fucking ' + item.Name + ' is history', ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
             } else {
-                ToastAndroid.showWithGravityAndOffset('No deleted user', ToastAndroid.LONG, ToastAndroid.TOP,25,50);
+                ToastAndroid.showWithGravityAndOffset('No deleted user', ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
             }
             this.getUserByTeam(item.AsignedTeam);
         });
@@ -187,6 +214,7 @@ class YourTeam extends Component {
                         <GenericInput3 placeHolder={this.state.nameTeam} value={this.state.newNameTeam}
                                        onChange={(item) => this.setState({newNameTeam: item})}/>
                         {this.state.flatList}
+                        <Text style={styles.text}>Your id team is: {this.state.user.AsignedTeam}</Text>
                     </View>
                     <View style={styles.button}>
                         {this.state.roundedButton}
@@ -216,6 +244,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-evenly',
         padding: 10,
         flex: 10,
+        marginBottom: -100,
     },
     text: {
         fontWeight: 'bold',
