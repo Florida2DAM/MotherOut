@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
-import {FlatList, Pressable, StyleSheet,ToastAndroid, Text, View} from 'react-native';
-import {Image} from 'react-native-elements';
+import React, { Component } from 'react';
+import { FlatList, Pressable, StyleSheet, ToastAndroid, Text, View } from 'react-native';
+import { Image } from 'react-native-elements';
 import imagen from '../../assets/yourTeam.jpg';
 import { GenericInput3 } from '../GenericInput3';
 import { NavBar } from '../NavBar';
@@ -43,7 +43,7 @@ class YourTeam extends Component {
             const jsonValue = await AsyncStorage.getItem('logUser');
             jsonValue != null ? this.setState({ user: JSON.parse(jsonValue) }) : null;
         } catch (e) {
-            ToastAndroid.showWithGravityAndOffset(e, ToastAndroid.LONG,ToastAndroid.TOP,25,50);
+            ToastAndroid.showWithGravityAndOffset(e, ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
         }
     };
 
@@ -54,7 +54,7 @@ class YourTeam extends Component {
             this.renderNavBar();
         })
             .catch(function (error) {
-                ToastAndroid.showWithGravityAndOffset(error, ToastAndroid.LONG,ToastAndroid.TOP,25,50);
+                ToastAndroid.showWithGravityAndOffset(error, ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
             });
     };
 
@@ -63,17 +63,17 @@ class YourTeam extends Component {
             this.setState({ nameTeam: response.data });
         })
             .catch(function (error) {
-                ToastAndroid.showWithGravityAndOffset(error, ToastAndroid.LONG,ToastAndroid.TOP,25,50);
+                ToastAndroid.showWithGravityAndOffset(error, ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
             });
     };
 
     deleteTeam = async () => {
-        axios.delete('http://52.0.146.162:80/api/Teams?idTeam='+this.state.user.AsignedTeam).then(response=>{
-            if(response.data===true){
-                ToastAndroid.showWithGravityAndOffset("your team is history", ToastAndroid.LONG,ToastAndroid.TOP,25,50);
+        axios.delete('http://52.0.146.162:80/api/Teams?idTeam=' + this.state.user.AsignedTeam).then(response => {
+            if (response.data === true) {
+                ToastAndroid.showWithGravityAndOffset("your team is history", ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
             }
             else {
-                ToastAndroid.showWithGravityAndOffset("not delete the team", ToastAndroid.LONG,ToastAndroid.TOP,25,50);
+                ToastAndroid.showWithGravityAndOffset("not delete the team", ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
             }
         });
     };
@@ -183,9 +183,7 @@ class YourTeam extends Component {
                     <View style={styles.button}>
                         {this.state.roundedButton}
                     </View>
-                    <View>
-                        {this.state.navBar}
-                    </View>
+                    {this.state.navBar}
                 </View>
             </>
         );
@@ -217,7 +215,7 @@ const styles = StyleSheet.create({
     },
     garbage: {
         flexDirection: 'row',
-        justifyContent: 'space-evenly',
+        justifyContent: 'space-around',
         alignItems: 'center',
     },
     userBox: {
