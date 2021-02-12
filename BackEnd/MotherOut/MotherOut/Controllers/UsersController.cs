@@ -12,6 +12,13 @@ namespace MotherOut_BackEnd.Controllers
     {
         internal UsersRepository repo = new UsersRepository();
         // GET: api/Users
+        public IEnumerable<User> Get()
+        {
+            List<User> users = repo.getUsers();
+            return users;
+        }
+
+        // GET: api/Users
         public IEnumerable<User> Get(int idTeam)
         {            
             List<User>users= repo.showUserByteam(idTeam);
@@ -62,8 +69,9 @@ namespace MotherOut_BackEnd.Controllers
         }
 
         // DELETE: api/Users/5
-        public void Delete(int id)
+        public bool Delete(int id)
         {
+            return repo.deleteUser(id);
         }
     }
 }

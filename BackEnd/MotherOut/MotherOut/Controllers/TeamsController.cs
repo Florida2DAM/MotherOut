@@ -11,9 +11,11 @@ namespace MotherOut_BackEnd.Controllers
     public class TeamsController : ApiController
     {
         // GET: api/Teams
-        public IEnumerable<string> Get()
+        public List<Team> Get()
         {
-            return new string[] { "value1", "value2" };
+            var repo = new TeamsRepository();
+            List<Team> listTeams = repo.getTeams();
+            return listTeams;
         }
 
         // GET: api/Teams/5
@@ -49,8 +51,11 @@ namespace MotherOut_BackEnd.Controllers
         }
 
         // DELETE: api/Teams/5
-        public void Delete(int id)
+        public bool Delete(int idTeam)
         {
+            var repo = new TeamsRepository();
+            bool deleted = repo.deleteTeam(idTeam);
+            return deleted;
         }
     }
 }

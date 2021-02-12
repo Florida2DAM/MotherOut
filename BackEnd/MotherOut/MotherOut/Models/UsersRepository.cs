@@ -9,6 +9,13 @@ namespace MotherOut_BackEnd.Models
     {
 
         MotherOutContext context = new MotherOutContext();
+
+        internal List<User> getUsers()
+        {
+            List<User> listUsers = context.Users.ToList();
+            return listUsers;
+        }
+
         internal List<User> showUserByteam(int idTeam)
         {
             // Team team = new Team();
@@ -229,16 +236,31 @@ namespace MotherOut_BackEnd.Models
             {
                 TeamsRepository teams = new TeamsRepository();
                 User user = getUserById(idUser);
-                /*teams.decrementTeamMembers(user.AsignedTeam);*/
+                teams.decrementTeamMembers(user.AsignedTeam);
                 user.AsignedTeam = 0;
                 context.Update(user);
                 context.SaveChanges();
                 return true;
-
             }
             catch (Exception e)
             {
                 Console.WriteLine("Se ha producido un error inesperado: " + e);
+                return false;
+                throw;
+            }
+        }
+
+        internal bool deleteUser(int idUser)
+        {
+            try
+            {
+                User user = context.Users.FirstOrDefault(u => u.UserId == idUser);
+                context.Remove(user);
+                context.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
                 return false;
                 throw;
             }

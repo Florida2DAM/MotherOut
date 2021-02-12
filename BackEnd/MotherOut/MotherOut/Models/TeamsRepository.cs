@@ -9,6 +9,14 @@ namespace MotherOut_BackEnd.Models
     {
         internal MotherOutContext context = new MotherOutContext();
 
+        #region
+        internal List<Team> getTeams()
+        {
+            List<Team> listTeams = context.Teams.ToList();
+            return listTeams;
+        }
+        #endregion
+
         #region saveNewTeam
 
         /// <summary>
@@ -276,7 +284,6 @@ namespace MotherOut_BackEnd.Models
 
         #endregion
 
-
         #region decrementTeamMembers
 
         internal bool decrementTeamMembers(int idTeam)
@@ -297,6 +304,34 @@ namespace MotherOut_BackEnd.Models
                 throw;
             }
             
+        }
+
+        #endregion
+
+        #region Delete Team
+        internal bool deleteTeam(int idTeam)
+        {
+            try
+            {
+                //Update users team
+                List<User> listUsers = context.Users.Where(u => u.AsignedTeam == idTeam).ToList();
+                foreach (User user in listUsers)
+                {
+                    user.AsignedTeam = 0;
+                    context.Update(user);
+                    context.SaveChanges();
+                }
+                //Delete team
+                Team team = context.Teams.FirstOrDefault(t => t.TeamId == idTeam);
+                context.Remove(team);
+                context.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+                throw;
+            }     
         }
 
         #endregion
