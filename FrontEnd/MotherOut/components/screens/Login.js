@@ -46,11 +46,12 @@ class Login extends Component {
                     this.props.navigation.navigate('Help1');
                 }
             })
-            .catch(function (error) {
-                ToastAndroid.showWithGravityAndOffset(error, ToastAndroid.LONG,
+            .catch(() => {
+                ToastAndroid.showWithGravityAndOffset("The credentials entered are not correct.", ToastAndroid.LONG,
                     ToastAndroid.TOP,
                     25,
                     50);
+
             });
     };
 
