@@ -4,7 +4,7 @@ import {
     Pressable, ScrollView, StyleSheet,
     Text, ToastAndroid, View,
 } from 'react-native';
-import {Image} from 'react-native-elements';
+import {Image, Slider} from 'react-native-elements';
 import importAvatar2 from '../../assets/avatar2.png';
 import importIcon from '../../assets/bathtub.png';
 import importAvatar from '../../assets/circle-cropped.png';
@@ -50,7 +50,11 @@ class NewOrEditTask extends Component {
         console.log('el nombre del task es ahora: ' + this.state.taskName);
         if (this.state.taskName === null || this.state.taskScore === null || this.state.taskName === '' || this.state.taskScore === '') {
             ToastAndroid.showWithGravityAndOffset('piggy, put the field empty', ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
-        } else {
+        }
+        if (this.state.taskScore<0 || this.state.taskScore>30){
+            ToastAndroid.showWithGravityAndOffset('piggy, your score must be between 0 and 30', ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
+        }
+        else {
             let task = {
                 TeamId: this.state.user.AsignedTeam,
                 TaskScore: this.state.taskScore,
