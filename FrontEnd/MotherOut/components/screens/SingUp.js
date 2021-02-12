@@ -54,9 +54,9 @@ class SingUp extends Component {
             Help: true,
         };
 
-        if (this.state.email === '' || this.state.email === null
+        if (this.state.email === null && this.state.name === null && this.state.password === null
         ) {
-            ToastAndroid.showWithGravityAndOffset("El email está vacío.", ToastAndroid.LONG,
+            ToastAndroid.showWithGravityAndOffset("Todo está vacío.", ToastAndroid.LONG,
                 ToastAndroid.TOP,
                 25,
                 50);
@@ -71,8 +71,15 @@ class SingUp extends Component {
                 ToastAndroid.TOP,
                 25,
                 50);
-        } else if (!this.state.email.endsWith("@*")) {
+        } else if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3,4})+$/).test(this.state.email.value)) {
+            alert(this.state.email);
             ToastAndroid.showWithGravityAndOffset("Debes de introducir una extensión válida de email", ToastAndroid.LONG,
+                ToastAndroid.TOP,
+                25,
+                50);
+        } else if (this.state.email === '' || this.state.email === null
+        ) {
+            ToastAndroid.showWithGravityAndOffset("El email está vacío.", ToastAndroid.LONG,
                 ToastAndroid.TOP,
                 25,
                 50);
