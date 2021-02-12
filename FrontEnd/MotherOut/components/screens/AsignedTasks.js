@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
-import {FlatList, StyleSheet, Text, ToastAndroid, View} from 'react-native';
-import { Image } from 'react-native-elements';
+import React, {Component} from 'react';
+import {FlatList, StyleSheet, ToastAndroid, View} from 'react-native';
+import {Image} from 'react-native-elements';
 import importedPicture from '../../assets/asignedTasks.png';
-import { NavBar } from '../NavBar';
-import { TaskCardTwoIcons } from '../TaskCardTwoIcons';
+import {NavBar} from '../NavBar';
+import {TaskCardTwoIcons} from '../TaskCardTwoIcons';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const picture = Image.resolveAssetSource(importedPicture).uri;
 
 class AsignedTasks extends Component {
@@ -31,19 +32,25 @@ class AsignedTasks extends Component {
     async getData() {
         try {
             const jsonValue = await AsyncStorage.getItem('logUser')
-            jsonValue != null ? this.setState({ user: JSON.parse(jsonValue) }) : null;
+            jsonValue != null ? this.setState({user: JSON.parse(jsonValue)}) : null;
         } catch (e) {
-            ToastAndroid.showWithGravityAndOffset(e, ToastAndroid.LONG,ToastAndroid.TOP,25,50);
+            ToastAndroid.showWithGravityAndOffset("User data could not be loaded.", ToastAndroid.LONG,
+                ToastAndroid.TOP,
+                25,
+                50);
         }
     }
 
     getTaskbyTeam = async (idTeam) => {
         axios.get('http://52.0.146.162:80/api/UserTasks?idTeam=' + idTeam)
             .then(response => {
-                this.setState({ taskUsers: response.data })
+                this.setState({taskUsers: response.data})
             })
-            .catch((error) => {
-                ToastAndroid.showWithGravityAndOffset(error, ToastAndroid.LONG,ToastAndroid.TOP,25,50);
+            .catch(() => {
+                ToastAndroid.showWithGravityAndOffset("It has not been possible to obtain information on the tasks per team.", ToastAndroid.LONG,
+                    ToastAndroid.TOP,
+                    25,
+                    50);
             });
     }
 
@@ -60,8 +67,11 @@ class AsignedTasks extends Component {
             .then((error) => {
                 this.getTaskbyTeam(this.state.user.AsignedTeam)
             })
-            .catch((error) => {
-                ToastAndroid.showWithGravityAndOffset(error, ToastAndroid.LONG,ToastAndroid.TOP,25,50);
+            .catch(() => {
+                ToastAndroid.showWithGravityAndOffset("The task could not be deleted due to network error.", ToastAndroid.LONG,
+                    ToastAndroid.TOP,
+                    25,
+                    50);
             });
     }
 
@@ -71,14 +81,14 @@ class AsignedTasks extends Component {
                 <View style={styles.contenidor}>
                     <View style={styles.header}>
                         <Image
-                            style={{ width: 300, height: 90 }}
-                            source={{ uri: picture }} />
+                            style={{width: 300, height: 90}}
+                            source={{uri: picture}}/>
                     </View>
                     <View style={styles.body}>
                         <FlatList
                             data={this.state.taskUsers}
                             keyExtractor={(item, index) => index.toString()}
-                            renderItem={({ item }) =>
+                            renderItem={({item}) =>
                                 <View style={styles.flatStyle}>
                                     <TaskCardTwoIcons
                                         task={item.TaskName}
