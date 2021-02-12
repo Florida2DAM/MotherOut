@@ -28,7 +28,7 @@ class Login extends Component {
             const jsonValue = JSON.stringify(res);
             await AsyncStorage.setItem('logUser', jsonValue);
         } catch (e) {
-            ToastAndroid.showWithGravityAndOffset(e, ToastAndroid.LONG,
+            ToastAndroid.showWithGravityAndOffset("User data could not be stored.", ToastAndroid.LONG,
                 ToastAndroid.TOP,
                 25,
                 50);
