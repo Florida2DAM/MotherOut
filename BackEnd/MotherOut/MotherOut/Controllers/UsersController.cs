@@ -69,9 +69,9 @@ namespace MotherOut_BackEnd.Controllers
         }
 
         // DELETE: api/Users/5
-        public bool Delete(int id)
+        public bool Delete(int idUser)
         {
-            return repo.deleteUser(id);
+            return repo.deleteUser(idUser);
         }
     }
 }

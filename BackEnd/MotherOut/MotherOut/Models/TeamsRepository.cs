@@ -17,6 +17,23 @@ namespace MotherOut_BackEnd.Models
         }
         #endregion
 
+        #region getTeamsById
+        //this method return list because is used to show data in dataTable on backoffice
+        internal List<Team> getTeamById(int idTeam)
+        {
+            List<Team> listTeams = context.Teams.Where(t => t.TeamId == idTeam).ToList();
+            return listTeams;
+        }
+        #endregion
+
+        #region getTeamsByName
+        internal List<Team> getTeamByName(string name)
+        {
+            List<Team> listTeams = context.Teams.Where(t => t.TeamName == name).ToList();
+            return listTeams;
+        }
+        #endregion
+
         #region saveNewTeam
 
         /// <summary>
