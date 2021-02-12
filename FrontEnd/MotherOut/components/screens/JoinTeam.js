@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {StyleSheet, ToastAndroid, View} from 'react-native';
-import { Image } from 'react-native-elements';
+import {Image} from 'react-native-elements';
 import imagen from '../../assets/joinTeam.png';
-import { GenericInput2 } from '../GenericInput2';
-import { NavBar } from '../NavBar';
-import { GenericButton } from '../GenericButton';
+import {GenericInput2} from '../GenericInput2';
+import {NavBar} from '../NavBar';
+import {GenericButton} from '../GenericButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
@@ -23,23 +23,33 @@ class JoinTeam extends Component {
     }
 
     componentDidMount = () => {
-        this.getData().then(() => { console.log(this.state.user) })
+        this.getData().then(() => {
+            console.log(this.state.user)
+        })
     }
 
     async getData() {
         try {
             const jsonValue = await AsyncStorage.getItem('logUser')
-            jsonValue != null ? this.setState({ user: JSON.parse(jsonValue) }) : null;
+            jsonValue != null ? this.setState({user: JSON.parse(jsonValue)}) : null;
         } catch (e) {
-            ToastAndroid.showWithGravityAndOffset(e, ToastAndroid.LONG,ToastAndroid.TOP,25,50);
+            ToastAndroid.showWithGravityAndOffset("User data could not be loaded.", ToastAndroid.LONG,
+                ToastAndroid.TOP,
+                25,
+                50);
         }
     }
 
     asignTeamToUser = async () => {
         axios.put('http://52.0.146.162:80/api/Teams?idTeam=' + this.state.idTeam + '&idUser=' + this.state.user.UserId)
-            .then(() => {   ToastAndroid.showWithGravityAndOffset("you´re part of a pig team", ToastAndroid.LONG,ToastAndroid.TOP,25,50) })
-            .catch(function (error) {
-                ToastAndroid.showWithGravityAndOffset(error, ToastAndroid.LONG,ToastAndroid.TOP,25,50);
+            .then(() => {
+                ToastAndroid.showWithGravityAndOffset("You´re part of a pig team.", ToastAndroid.LONG, ToastAndroid.TOP, 25, 50)
+            })
+            .catch(() => {
+                ToastAndroid.showWithGravityAndOffset("The assignment could not be carried out, because you have entered a non-existent team.", ToastAndroid.LONG,
+                    ToastAndroid.TOP,
+                    25,
+                    50);
             });
     }
 
@@ -64,12 +74,13 @@ class JoinTeam extends Component {
                 <View style={styles.contenidor}>
                     <View style={styles.header}>
                         <Image
-                            style={{ width: 300, height: 90 }}
-                            source={{ uri: picture }} />
+                            style={{width: 300, height: 90}}
+                            source={{uri: picture}}/>
                     </View>
                     <View style={styles.body}>
-                        <GenericInput2 placeHolder="Id Team" value={this.state.idTeam} onChange={(item) => this.setState({ idTeam: item })} />
-                        <GenericButton button="Join Team" press={this.asignTeamToUser} />
+                        <GenericInput2 placeHolder="Id Team" value={this.state.idTeam}
+                                       onChange={(item) => this.setState({idTeam: item})}/>
+                        <GenericButton button="Join Team" press={this.asignTeamToUser}/>
                     </View>
                     <View>
                         {this.state.navBar}
