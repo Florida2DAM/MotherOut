@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {FlatList, StyleSheet, View} from 'react-native';
+import {FlatList, StyleSheet, ToastAndroid, View} from 'react-native';
 import {Image} from 'react-native-elements';
 import imagen from '../../assets/statistics.png';
 import {NavBar} from '../NavBar';
@@ -34,17 +34,22 @@ class Statistics extends Component {
             const jsonValue = await AsyncStorage.getItem('logUser');
             jsonValue != null ? this.setState({user: JSON.parse(jsonValue)}) : null;
         } catch (e) {
-            alert(e);
+            ToastAndroid.showWithGravityAndOffset("User data could not be loaded.", ToastAndroid.LONG,
+                ToastAndroid.TOP,
+                25,
+                50);
         }
     }
 
     getUserByTeam = async (idTeam) => {
         axios.get('http://52.0.146.162:80/api/Users?idTeam=' + idTeam).then(response => {
             this.setState({teamData: response.data});
-        })
-            .catch(function (error) {
-                alert(error);
-            });
+        }).catch(function (error) {
+            ToastAndroid.showWithGravityAndOffset("It has not been possible to obtain the user per team.", ToastAndroid.LONG,
+                ToastAndroid.TOP,
+                25,
+                50);
+        });
     };
 
     render() {
