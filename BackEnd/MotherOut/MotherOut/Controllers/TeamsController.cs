@@ -18,6 +18,20 @@ namespace MotherOut_BackEnd.Controllers
             return listTeams;
         }
 
+        public List<Team> GetTeamByName(string name)
+        {
+            var repo = new TeamsRepository();
+            List<Team> listTeams = repo.getTeamByName(name);
+            return listTeams;
+        }
+
+        public List<Team> GetTeamByTeamId(int TeamId)
+        {
+            var repo = new TeamsRepository();
+            List<Team> listTeams = repo.getTeamById(TeamId);
+            return listTeams;
+        }
+
         // GET: api/Teams/5
         public string GetNameTeam(int idTeam)
         {

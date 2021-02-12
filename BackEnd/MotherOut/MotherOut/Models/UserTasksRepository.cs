@@ -9,6 +9,12 @@ namespace MotherOut_BackEnd.Models
     {
         internal MotherOutContext context = new MotherOutContext();
 
+        internal List<UserTask> getTasks()
+        {
+            List<UserTask> listTasks = context.UserTasks.ToList();
+            return listTasks;
+        }
+
         //Return list of task by team
         internal List<UserTask> showTask(int IdTeam)
         {

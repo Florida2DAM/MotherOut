@@ -13,9 +13,9 @@ namespace MotherOut_BackEnd.Controllers
         internal UserTasksRepository repo = new UserTasksRepository();
 
         // GET: api/UserTasks
-        public IEnumerable<string> Get()
+        public List<UserTask> Get()
         {
-            return new string[] { "value1", "value2" };
+            return repo.getTasks();
         }
 
         // GET: api/UserTasks/5
