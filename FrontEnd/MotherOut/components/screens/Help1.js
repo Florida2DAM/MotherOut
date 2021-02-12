@@ -55,7 +55,6 @@ class Help1 extends Component {
     render() {
         return (
             <>
-
                 <View style={styles.container}>
                     <Swiper>
                         <View style={styles.pictures}>
@@ -99,7 +98,6 @@ class Help1 extends Component {
 
         );
     }
-
 }
 
 const styles = StyleSheet.create({

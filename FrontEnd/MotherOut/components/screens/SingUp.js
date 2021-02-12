@@ -125,8 +125,12 @@ class SingUp extends Component {
         axios.get('http://52.0.146.162:80/api/Users?email=' + email)
             .then(response => {
                 const res = response.data;
-                this.setState({user: res});
-                this.storeData(res);
+                this.setState({user: res}, () =>{
+                    this.storeData(res).then((response)=>{
+                        console.log(response);
+                    });
+                });
+
             })
             .catch(() => {
                 ToastAndroid.showWithGravityAndOffset("The email already exists, you cannot enter this email.", ToastAndroid.LONG,
