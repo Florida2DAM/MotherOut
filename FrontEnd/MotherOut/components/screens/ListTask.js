@@ -33,7 +33,7 @@ class ListTask extends Component {
             const jsonValue = await AsyncStorage.getItem('logUser')
             jsonValue != null ? this.setState({user: JSON.parse(jsonValue)}) : null;
         } catch (e) {
-            ToastAndroid.showWithGravityAndOffset(e, ToastAndroid.LONG,
+            ToastAndroid.showWithGravityAndOffset("User data could not be loaded.", ToastAndroid.LONG,
                 ToastAndroid.TOP,
                 25,
                 50);
@@ -50,8 +50,8 @@ class ListTask extends Component {
                     res2.push(item);
                 });
                 this.setState({listTasks: res2});
-            }).catch((error)=>{
-            ToastAndroid.showWithGravityAndOffset(error, ToastAndroid.LONG,
+            }).catch(() => {
+            ToastAndroid.showWithGravityAndOffset("The list could not be uploaded.", ToastAndroid.LONG,
                 ToastAndroid.TOP,
                 25,
                 50);
@@ -64,8 +64,8 @@ class ListTask extends Component {
                 ToastAndroid.TOP,
                 25,
                 50))
-            .catch((error) => {
-                ToastAndroid.showWithGravityAndOffset(error, ToastAndroid.LONG,
+            .catch(() => {
+                ToastAndroid.showWithGravityAndOffset("The task could not be eliminated.", ToastAndroid.LONG,
                     ToastAndroid.TOP,
                     25,
                     50);
