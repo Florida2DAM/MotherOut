@@ -47,13 +47,12 @@ class Login extends Component {
                     } else {
                         this.props.navigation.navigate('Help1');
                     }
-                })
-                .catch(() => {
-                    ToastAndroid.showWithGravityAndOffset("The credentials entered are not correct.", ToastAndroid.LONG,
-                        ToastAndroid.TOP,
-                        25,
-                        50);
-                });
+                }).catch(() => {
+                ToastAndroid.showWithGravityAndOffset("The credentials entered are not correct.", ToastAndroid.LONG,
+                    ToastAndroid.TOP,
+                    25,
+                    50);
+            });
         } else {
             ToastAndroid.showWithGravityAndOffset("No field should be left empty. Please re-enter your credentials.", ToastAndroid.LONG,
                 ToastAndroid.TOP,
