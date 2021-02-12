@@ -94,6 +94,7 @@ class NewOrEditTask extends Component {
                                        onChange={(item) => this.setState({taskName: item})}/>
                         <Text style={styles.textStyle}>Score</Text>
                         <GenericInput2 value={this.state.taskScore}
+                                       numeric={'numeric'}
                                        onChange={(item) => this.setState({taskScore: item})}/>
                         <Text style={styles.textStyle}>Icon</Text>
 

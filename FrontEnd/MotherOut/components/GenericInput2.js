@@ -11,11 +11,10 @@ export class GenericInput2 extends Component {
         return (
             <Input inputStyle={styles.personalInput} onChangeText={this.props.onChange} value={this.props.value}
                    secureTextEntry={this.props.passValue} placeholder={this.props.placeHolder}
-                   placeholderTextColor='black' disabled={this.props.disabled}/>
+                   placeholderTextColor='black' disabled={this.props.disabled} keyboardType={this.props.numeric}/>
         );
     }
 }
-
 const styles = StyleSheet.create({
     personalInput: {
         backgroundColor: '#D7B9D5',
