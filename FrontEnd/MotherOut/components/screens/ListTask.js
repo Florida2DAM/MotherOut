@@ -11,6 +11,7 @@ import {RoundedButton} from '../RoundedButton';
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {ReloadedButton} from "../ReloadedButton";
+let Image_Http_URL = { uri: 'https://i.imgur.com/M54G2e2.png' };
 
 const picture = Image.resolveAssetSource(imagen).uri;
 
@@ -73,7 +74,6 @@ class ListTask extends Component {
                     50);
             });
     };
-
 
     render() {
         return (

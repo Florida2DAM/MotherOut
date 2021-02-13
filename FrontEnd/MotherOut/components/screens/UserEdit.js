@@ -6,14 +6,12 @@ import {
 import {
     Image
 } from 'react-native-elements';
-import imagen from '../../assets/logo.png';
 import {GenericButton} from '../GenericButton';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import {NavBar} from "../NavBar";
 import {GenericInput2} from "../GenericInput2";
-
-const picture = Image.resolveAssetSource(imagen).uri;
+let Image_Http_URL = { uri: 'https://i.imgur.com/vo3TWM2.png?1' };
 
 class UserEdit extends Component {
 
@@ -118,8 +116,8 @@ class UserEdit extends Component {
                     <ScrollView>
                         <View style={styles.pictures}>
                             <Image
-                                style={{width: 310, height: 270}}
-                                source={{uri: picture}}
+                                style={{width: 333, height:81}}
+                                source={Image_Http_URL}
                             />
                         </View>
                         <View style={styles.inputs}>

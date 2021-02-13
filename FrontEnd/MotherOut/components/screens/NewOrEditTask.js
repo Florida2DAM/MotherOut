@@ -7,11 +7,7 @@ import {NavBar} from '../NavBar';
 import {RoundedButton} from '../RoundedButton';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-let Image_Http_URL ={ uri: 'https://i.ibb.co/SVvdmW2/bathtub.png'};
-
-const picture = Image.resolveAssetSource(importedPicture).uri;
-
+let Image_Header = { uri: 'https://i.imgur.com/QhQFvRY.png?1' };
 
 class NewOrEditTask extends Component {
     constructor(props) {
@@ -76,8 +72,8 @@ class NewOrEditTask extends Component {
                 <View style={styles.contenidor}>
                     <View style={styles.header}>
                         <Image
-                            style={{width: 300, height: 90}}
-                            source={{uri: picture}}/>
+                            style={{ width: 300, height: 80 }}
+                            source={Image_Header} />
                     </View>
                     <View style={styles.body}>
 
