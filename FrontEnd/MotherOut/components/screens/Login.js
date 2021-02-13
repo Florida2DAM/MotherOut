@@ -6,7 +6,7 @@ import {Image,} from 'react-native-elements';
 import {GenericButton} from '../GenericButton';
 import {GenericInput1} from '../GenericInput1';
 
-let Image_Http_URL ={ uri: 'https://i.imgur.com/NvwzH7g.png'};
+let Image_Http_URL = {uri: 'https://i.imgur.com/NvwzH7g.png'};
 
 class Login extends Component {
     constructor(props) {
@@ -36,7 +36,7 @@ class Login extends Component {
 
     getUserbyEmail = async () => {
         if (this.state.email !== null || this.state.password !== null) {
-            axios.get('http://52.0.146.162:80/api/Users?email=' + this.state.email)
+            axios.get('http://52.0.146.162:80/api/Users?email=' + this.state.email + "&passord=" + this.state.password)
                 .then(response => {
                     const res = response.data;
                     this.setState({user: res});
