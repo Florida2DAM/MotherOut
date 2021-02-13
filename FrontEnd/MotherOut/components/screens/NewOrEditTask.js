@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {FlatList, Pressable, StyleSheet, Text, View} from 'react-native';
-import {Image} from 'react-native-elements';
+import {Image,Slider} from 'react-native-elements';
 import importedPicture from '../../assets/newOrEditTask.png';
 import {GenericInput2} from '../GenericInput2';
 import {NavBar} from '../NavBar';
