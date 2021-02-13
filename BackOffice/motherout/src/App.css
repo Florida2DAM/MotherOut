@@ -1,3 +1,24 @@
+.background {
+  width: 1024px;
+  height: 768px;
+  background-color: #2a323d;
+}
+
+.menuBar {
+  display: flex;
+  justify-content: space-evenly;
+  background-color: #2a323d;
+  padding: 10px;
+}
+
+.active {
+  text-decoration-color: #c298d8;
+}
+
+.link {
+  color: White;
+}
+
 .App {
   text-align: center;
 }
