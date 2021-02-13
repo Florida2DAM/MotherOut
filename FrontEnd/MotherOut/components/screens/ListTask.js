@@ -1,10 +1,6 @@
 import React, {Component} from 'react';
-
 import {FlatList, StyleSheet, ToastAndroid, View} from 'react-native';
-
 import {Image} from 'react-native-elements';
-
-import imagen from '../../assets/listTask.png';
 import {NavBar} from '../NavBar';
 import {TaskCard} from '../TaskCard';
 import {RoundedButton} from '../RoundedButton';
@@ -12,10 +8,6 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {ReloadedButton} from "../ReloadedButton";
 let Image_Http_URL = { uri: 'https://i.imgur.com/M54G2e2.png' };
-
-const picture = Image.resolveAssetSource(imagen).uri;
-
-let Image_Http_URL ={ uri: 'https://i.imgur.com/M54G2e2.png'};
 
 class ListTask extends Component {
     constructor(props) {
