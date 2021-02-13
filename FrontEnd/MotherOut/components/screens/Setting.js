@@ -10,8 +10,7 @@ import {GenericIconButton} from '../GenericIconButton';
 import {NavBar} from '../NavBar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const picture = Image.resolveAssetSource(imagen).uri;
-
+const picture = {uri: 'https://i.imgur.com/2kVO6BG.png?1'};
 class Setting extends Component {
 
     constructor(props) {
@@ -25,18 +24,6 @@ class Setting extends Component {
 
     componentDidMount = () => {
         this.getData().then(() => console.log(this.state.user));
-    }
-
-    async getData() {
-        try {
-            const jsonValue = await AsyncStorage.getItem('logUser')
-            jsonValue != null ? this.setState({user: JSON.parse(jsonValue)}) : null;
-        } catch (e) {
-            ToastAndroid.showWithGravityAndOffset(e, ToastAndroid.LONG,
-                ToastAndroid.TOP,
-                25,
-                50);
-        }
     }
 
     async getData() {
@@ -70,8 +57,8 @@ class Setting extends Component {
                         <View style={styles.header}>
                             <View style={styles.pictures}>
                                 <Image
-                                    style={{width: 300, height: 90}}
-                                    source={{uri: picture}}
+                                    style={{width: 325, height: 81}}
+                                    source={picture}
                                 />
                             </View>
                         </View>
