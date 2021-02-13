@@ -32,7 +32,7 @@ namespace MotherOut_BackEnd.Controllers
             return user;
         }
 
-        public User Login(string email, string password)
+        public User GetLogin(string email, string password)
         {
             User user = repo.login(email, password);
             return user;

@@ -6,18 +6,18 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Drawing;
 using MotherOut_BackEnd.Models;
-
+using Icon = MotherOut_BackEnd.Models.Icon;
 
 namespace MotherOut_BackEnd.Controllers
 {
     public class IconsController : ApiController
     {
         // GET: api/Icons
-        public IEnumerable<Image> Get()
+        public List<Icon> Get()
         {
-            var repo = new IconsRepository();
-            List<Image> icons = repo.showIcons();
-            return icons;
+            IconsRepository repo = new IconsRepository();
+               List<Icon> icons = repo.showIcons();
+                return icons;
         }
 
         // GET: api/Icons/5

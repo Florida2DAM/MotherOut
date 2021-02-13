@@ -136,6 +136,12 @@ namespace MotherOut_BackEnd.Models
             {
                 try
                 {
+                    //random avatar
+                    Random rnd = new Random();
+                    int numRnd = rnd.Next(5, 10);
+                    Icon importAvatar = context.Icons.FirstOrDefault(i => i.IconId == numRnd);
+                    user.Avatar = importAvatar.IconImage;
+                    //insert user
                     context.Users.Add(user);
                     context.SaveChanges();
                     state = 1;

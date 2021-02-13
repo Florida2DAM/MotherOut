@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -19,11 +18,12 @@ namespace MotherOut_BackEnd.Models
         /// </summary>
         /// <returns>List<Images></returns>
 
-        internal List<Image> showIcons()
+        internal List<Icon> showIcons()
         {    
             try
             {
-                return null;
+                List<Icon> icons = context.Icons.ToList();
+                return icons;
 
             }
             catch (Exception e)
