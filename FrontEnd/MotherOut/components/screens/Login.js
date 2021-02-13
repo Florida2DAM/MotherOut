@@ -75,7 +75,7 @@ class Login extends Component {
                         <View style={styles.inputs}>
                             <GenericInput1 placeHolder="Email" value={this.state.email}
                                            onChange={(item) => this.setState({email: item})}/>
-                            <GenericInput1 placeHolder="Password" value={this.state.password}
+                            <GenericInput1 passValue={true} placeHolder="Password" value={this.state.password}
                                            onChange={(item) => this.setState({password: item})}/>
                         </View>
                         <View style={styles.buttons}>

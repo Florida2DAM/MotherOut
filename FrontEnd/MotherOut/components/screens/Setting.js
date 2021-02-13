@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import {ScrollView, StyleSheet, ToastAndroid, View} from 'react-native';
 import {Image} from 'react-native-elements';
-import imagen from '../../assets/setting.png';
 import {GenericIconButton} from '../GenericIconButton';
 import {NavBar} from '../NavBar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const picture = {uri: 'https://i.imgur.com/2kVO6BG.png?1'};
+let picture = {uri: 'https://i.imgur.com/2kVO6BG.png?1'};
+
 class Setting extends Component {
 
     constructor(props) {
@@ -53,7 +53,7 @@ class Setting extends Component {
                         <View style={styles.header}>
                             <View style={styles.pictures}>
                                 <Image
-                                    style={{width: 325, height: 81}}
+                                    style={{width: 333, height: 95}}
                                     source={picture}
                                 />
                             </View>

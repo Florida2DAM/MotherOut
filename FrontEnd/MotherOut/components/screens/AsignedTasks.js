@@ -80,7 +80,7 @@ class AsignedTasks extends Component {
                 <View style={styles.contenidor}>
                     <View style={styles.header}>
                         <Image
-                            style={{width: 333, height: 81}}
+                            style={{width: 351, height: 91}}
                             source={Image_Http_URL}/>
                     </View>
                     <View style={styles.body}>
@@ -94,7 +94,7 @@ class AsignedTasks extends Component {
                                         name={item.SelectMember}
                                         icon1="trash"
                                         icon2="edit"
-                                        iconCard={'https://i.ibb.co/SVvdmW2/bathtub.png'}
+                                        iconCard={item.TaskIcon}
                                         press1={() => this.deleteTask(item)}
                                         press2={() => this.taskEditing(item)}
                                     />

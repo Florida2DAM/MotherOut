@@ -1,14 +1,12 @@
 import React, {Component} from 'react';
 import {StyleSheet, ToastAndroid, View,} from 'react-native';
 import {Image,} from 'react-native-elements';
-import imagen from '../../assets/taskAssignment.png';
 import {GenericIconButton} from '../GenericIconButton';
 import {NavBar} from '../NavBar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
-const picture = Image.resolveAssetSource(imagen).uri;
-let Image_Http_URL ={ uri: 'https://i.imgur.com/0uFZU2k.png?1'};
+let Image_Http_URL = {uri: 'https://i.imgur.com/0uFZU2k.png?1'};
 
 class TaskAssignment extends Component {
 
@@ -49,7 +47,7 @@ class TaskAssignment extends Component {
                     <View style={styles.header}>
                         <View style={styles.pictures}>
                             <Image
-                                style={{width: 333, height: 81}}
+                                style={{width: 333, height: 90}}
                                 source={Image_Http_URL}
                             />
                         </View>

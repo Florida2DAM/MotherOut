@@ -4,9 +4,6 @@ import {Image, StyleSheet, Text, View} from 'react-native';
 import {Icon} from 'react-native-elements';
 
 //Se le pasará un icono de la base de datos, dejo este codigo como ejemplo para otros imports locales
-import logo from '../assets/bathtub.png';
-
-const defaultLogo = Image.resolveAssetSource(logo).uri;
 
 export class TaskCard extends Component {
 
@@ -16,7 +13,7 @@ export class TaskCard extends Component {
                 <View style={styles.cardTaskbox}>
                     <Image
                         style={styles.logo}
-                        source={{uri: defaultLogo}}
+                        source={{uri: this.props.image}}
                     />
                     <Text style={styles.textStyle}>{this.props.text}</Text>
                     <View style={styles.paddingView}>

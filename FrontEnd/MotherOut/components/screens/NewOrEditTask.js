@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
-import {FlatList, Pressable, StyleSheet, Text, View} from 'react-native';
-import {Image,Slider} from 'react-native-elements';
-import importedPicture from '../../assets/newOrEditTask.png';
+import {FlatList, Pressable, StyleSheet, Text, ToastAndroid, View} from 'react-native';
+import {Image, Slider} from 'react-native-elements';
 import {GenericInput2} from '../GenericInput2';
 import {NavBar} from '../NavBar';
 import {RoundedButton} from '../RoundedButton';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-let Image_Header = { uri: 'https://i.imgur.com/QhQFvRY.png?1' };
+
+let Image_Header = {uri: 'https://i.imgur.com/QhQFvRY.png?1'};
 
 class NewOrEditTask extends Component {
     constructor(props) {
@@ -19,6 +19,7 @@ class NewOrEditTask extends Component {
             listIcons: [],
             user: [],
             value: null,
+            iconSel: null,
         };
     }
 
@@ -38,33 +39,42 @@ class NewOrEditTask extends Component {
 
     insertTask = async () => {
         if (this.state.taskName === null || this.state.taskName === '') {
-            ToastAndroid.showWithGravityAndOffset('piggy, put the field empty', ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
+            ToastAndroid.showWithGravityAndOffset('Piggy, put the field empty', ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
         } else {
             let task = {
                 TeamId: this.state.user.AsignedTeam,
                 TaskScore: this.state.value,
                 TaskName: this.state.taskName,
+                TaskIcon: this.state.iconSel
             };
 
             axios.post('http://52.0.146.162:80/api/UserTasks', task)
                 .then(() => {
-                    ToastAndroid.showWithGravityAndOffset('your piggy task is send', ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
+                    ToastAndroid.showWithGravityAndOffset('Your piggy task is send', ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
+                    this.props.navigation.navigate('ListTask');
                 })
                 .catch((e) => {
-                    ToastAndroid.showWithGravityAndOffset('the assigment could not be carried out, because you hace entered a non-existent team', ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
+                    ToastAndroid.showWithGravityAndOffset('The assigment could not be carried out, because you hace entered a non-existent team', ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
                 });
         }
     };
 
-    getIcons = async (idTeam) => {
+    getIcons = async () => {
         axios.get('http://52.0.146.162:80/api/Icons')
             .then(response => {
-                this.setState({listIcons: response.data});
+                this.setState({listIcons: response.data.splice(0, 4)})
             })
             .catch((e) => {
-                ToastAndroid.showWithGravityAndOffset('the assigment could not be carried out, because you hace entered a non-existent team', ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
+                ToastAndroid.showWithGravityAndOffset('The assigment could not be carried out, because you hace entered a non-existent team', ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
             });
     };
+
+    iconSelected = async (iconSelected) => {
+        alert(iconSelected);
+        this.setState({iconSel: iconSelected.toString()}).then(() => {
+            ToastAndroid.showWithGravityAndOffset('Very good, little padaPig, you have chosen an icon', ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
+        })
+    }
 
     render() {
         return (
@@ -72,8 +82,8 @@ class NewOrEditTask extends Component {
                 <View style={styles.contenidor}>
                     <View style={styles.header}>
                         <Image
-                            style={{ width: 300, height: 80 }}
-                            source={Image_Header} />
+                            style={{width: 300, height: 80}}
+                            source={Image_Header}/>
                     </View>
                     <View style={styles.body}>
 
@@ -95,10 +105,11 @@ class NewOrEditTask extends Component {
                             keyExtractor={(item, index) => index.toString()}
                             renderItem={({item}) =>
                                 <View style={styles.iconBox}>
-                                    <Pressable>
+                                    <Pressable onPress={() => this.setState({iconSel: item.IconImage})
+                                    }>
                                         <Image
                                             style={{width: 90, height: 90}}
-                                            source={item.IconImage}/>
+                                            source={{uri: item.IconImage}}/>
                                     </Pressable>
                                 </View>
                             }
@@ -138,7 +149,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-evenly',
         flex: 10,
     },
-    textSlide:{
+    textSlide: {
         fontSize: 30,
         fontWeight: 'bold',
         fontFamily: 'Roboto',

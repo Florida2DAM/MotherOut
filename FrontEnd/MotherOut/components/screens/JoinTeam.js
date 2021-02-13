@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import {StyleSheet, ToastAndroid, View} from 'react-native';
 import {Image} from 'react-native-elements';
-import imagen from '../../assets/joinTeam.png';
 import {GenericInput2} from '../GenericInput2';
 import {NavBar} from '../NavBar';
 import {GenericButton} from '../GenericButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-let Image_Http_URL = { uri: 'https://i.imgur.com/emIiUc3.png?1' };
+
+let Image_Http_URL = {uri: 'https://i.imgur.com/emIiUc3.png?1'};
 
 class JoinTeam extends Component {
 
@@ -41,7 +41,8 @@ class JoinTeam extends Component {
     asignTeamToUser = async () => {
         axios.put('http://52.0.146.162:80/api/Teams?idTeam=' + this.state.idTeam + '&idUser=' + this.state.user.UserId)
             .then(() => {
-                ToastAndroid.showWithGravityAndOffset("You´re part of a pig team.", ToastAndroid.LONG, ToastAndroid.TOP, 25, 50)
+                ToastAndroid.showWithGravityAndOffset("You´re part of a pig team.", ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
+                this.props.navigation.navigate('ScreenToDo');
             })
             .catch(() => {
                 ToastAndroid.showWithGravityAndOffset("The assignment could not be carried out, because you have entered a non-existent team.", ToastAndroid.LONG,
@@ -72,12 +73,13 @@ class JoinTeam extends Component {
                 <View style={styles.contenidor}>
                     <View style={styles.header}>
                         <Image
-                            style={{ width: 305, height:81 }}
-                            source={Image_Http_URL} />
+                            style={{width: 305, height: 81}}
+                            source={Image_Http_URL}/>
                     </View>
                     <View style={styles.body}>
-                        <GenericInput2 numeric={'numeric'} placeHolder="Id Team" value={this.state.idTeam} onChange={(item) => this.setState({ idTeam: item })} />
-                        <GenericButton button="Join Team" press={this.asignTeamToUser}  />
+                        <GenericInput2 numeric={'numeric'} placeHolder="Id Team" value={this.state.idTeam}
+                                       onChange={(item) => this.setState({idTeam: item})}/>
+                        <GenericButton button="Join Team" press={this.asignTeamToUser}/>
                     </View>
                     <View>
                         {this.state.navBar}

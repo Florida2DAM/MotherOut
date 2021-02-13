@@ -1,17 +1,13 @@
 import React, {Component} from 'react';
-import {
-    ScrollView, StyleSheet, ToastAndroid,
-    View
-} from 'react-native';
-import {
-    Image
-} from 'react-native-elements';
+import {ScrollView, StyleSheet, ToastAndroid, View} from 'react-native';
+import {Image} from 'react-native-elements';
 import {GenericButton} from '../GenericButton';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import {NavBar} from "../NavBar";
 import {GenericInput2} from "../GenericInput2";
-let Image_Http_URL = { uri: 'https://i.imgur.com/vo3TWM2.png?1' };
+
+let Image_Http_URL = {uri: 'https://i.imgur.com/vo3TWM2.png?1'};
 
 class UserEdit extends Component {
 
@@ -116,7 +112,7 @@ class UserEdit extends Component {
                     <ScrollView>
                         <View style={styles.pictures}>
                             <Image
-                                style={{width: 333, height:81}}
+                                style={{width: 333, height: 90}}
                                 source={Image_Http_URL}
                             />
                         </View>

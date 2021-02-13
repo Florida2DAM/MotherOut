@@ -110,7 +110,7 @@ class ManualAssignment extends Component {
                 <View style={styles.contenidor}>
                     <View style={styles.header}>
                         <Image
-                            style={{width: 333, height: 81}}
+                            style={{width: 340, height: 91}}
                             source={Image_Http_URL}/>
                     </View>
                     <ScrollView>

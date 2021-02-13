@@ -35,7 +35,7 @@ class CreateOrJoinTeam extends Component {
                 <View style={styles.contenidor}>
                     <View style={styles.header}>
                         <Image
-                            style={{width: 333, height: 81}}
+                            style={{width: 333, height: 90}}
                             source={Image_Http_URL}
                         />
                     </View>

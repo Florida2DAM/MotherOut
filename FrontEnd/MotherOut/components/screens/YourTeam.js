@@ -99,7 +99,7 @@ class YourTeam extends Component {
                 TeamName: this.state.newNameTeam,
             };
             axios.post('http://52.0.146.162:80/api/Teams?&idUser=' + this.state.user.UserId, newTeam).then(response => {
-                if (response.data !== true) {
+                if (response.data === true) {
                     this.getActualUser();
                     ToastAndroid.showWithGravityAndOffset('piggy, you have a new pig team', ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
                     this.props.navigation.navigate('ScreenToDo');
@@ -201,7 +201,7 @@ class YourTeam extends Component {
                 <View style={styles.contenidor}>
                     <View style={styles.header}>
                         <Image
-                            style={{width: 333, height: 81}}
+                            style={{width: 333, height: 90}}
                             source={Image_Http_URL}/>
                     </View>
                     <View style={styles.body}>

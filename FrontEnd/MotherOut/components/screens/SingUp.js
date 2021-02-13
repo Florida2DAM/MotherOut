@@ -8,7 +8,7 @@ import {CheckBox} from 'react-native-elements'
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const picture = Image.resolveAssetSource(imagen).uri;
+let Image_Http_URL = {uri: 'https://i.imgur.com/NvwzH7g.png'};
 
 class SingUp extends Component {
 
@@ -34,14 +34,6 @@ class SingUp extends Component {
         }
     }
 
-    //no me queda claro
-    componentWillUnmount() {
-        this.setState({name: null})
-        this.setState({email: null})
-        this.setState({password: null})
-    }
-
-
     addUser = async () => {
 
         let user = {
@@ -53,7 +45,7 @@ class SingUp extends Component {
 
         if (this.state.email === null && this.state.name === null && this.state.password === null) {
 
-            ToastAndroid.showWithGravityAndOffset("Todo está vacío.", ToastAndroid.LONG,
+            ToastAndroid.showWithGravityAndOffset("All fields are empty. That's incomprehensible, you pig.", ToastAndroid.LONG,
                 ToastAndroid.TOP,
                 25,
                 50);
@@ -61,28 +53,28 @@ class SingUp extends Component {
 
         } else if (this.state.name === null || this.state.name === '') {
 
-            ToastAndroid.showWithGravityAndOffset("El nombre está vacío.", ToastAndroid.LONG,
+            ToastAndroid.showWithGravityAndOffset("The name field is empty.", ToastAndroid.LONG,
                 ToastAndroid.TOP,
                 25,
                 50);
 
         } else if (this.state.password === null || this.state.password === '') {
 
-            ToastAndroid.showWithGravityAndOffset("La contraseña está vacía", ToastAndroid.LONG,
+            ToastAndroid.showWithGravityAndOffset("The password field is empty.", ToastAndroid.LONG,
                 ToastAndroid.TOP,
                 25,
                 50);
 
         } else if (this.state.email.startsWith('@', 0) || !this.state.email.includes('@') || this.state.email.endsWith('@', this.state.email.length)) {
 
-            ToastAndroid.showWithGravityAndOffset("Debes de introducir una extensión válida de email", ToastAndroid.LONG,
+            ToastAndroid.showWithGravityAndOffset("You must enter a valid email extension.", ToastAndroid.LONG,
                 ToastAndroid.TOP,
                 25,
                 50);
 
         } else if (this.state.email === '' || this.state.email === null) {
 
-            ToastAndroid.showWithGravityAndOffset("El email está vacío.", ToastAndroid.LONG,
+            ToastAndroid.showWithGravityAndOffset("The email field is empty.", ToastAndroid.LONG,
                 ToastAndroid.TOP,
                 25,
                 50);
@@ -121,12 +113,12 @@ class SingUp extends Component {
 
     };
 
-    getUserbyEmail = (email) => {
+    getUserbyEmail = async (email) => {
         axios.get('http://52.0.146.162:80/api/Users?email=' + email)
             .then(response => {
                 const res = response.data;
-                this.setState({user: res}, () =>{
-                    this.storeData(res).then((response)=>{
+                this.setState({user: res}, () => {
+                    this.storeData(res).then((response) => {
                         console.log(response);
                     });
                 });
@@ -148,7 +140,7 @@ class SingUp extends Component {
                         <View style={styles.pictures}>
                             <Image
                                 style={{width: 310, height: 270}}
-                                source={{uri: picture}}
+                                source={Image_Http_URL}
                             />
                         </View>
                         <View style={styles.inputs}>
@@ -167,7 +159,7 @@ class SingUp extends Component {
                                 title={
                                     <Text style={styles.textCheck}
                                           onPress={() => Linking.openURL('https://www.boe.es/eli/es/lo/2018/12/05/3/con')}>
-                                        Aceptar términos y condiciones
+                                        Accept terms and conditions
                                     </Text>}
                             />
                         </View>

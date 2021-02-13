@@ -1,13 +1,12 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, ToastAndroid, View} from 'react-native';
+import {StyleSheet, ToastAndroid, View} from 'react-native';
 import {Image} from 'react-native-elements';
-import image from '../../assets/GSettings.png';
 import {NavBar} from '../NavBar';
 import {GenericIconButton} from '../GenericIconButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
-const picture = Image.resolveAssetSource(image).uri;
+let Image_Http_URL = {uri: 'https://i.imgur.com/uCqVyr4.png?1'};
 
 class GlobalSettings extends Component {
 
@@ -102,8 +101,8 @@ class GlobalSettings extends Component {
                 <View style={styles.contenidor}>
                     <View style={styles.header}>
                         <Image
-                            style={{width: 350, height: 100}}
-                            source={{uri: picture}}/>
+                            style={{width: 375, height: 99}}
+                            source={Image_Http_URL}/>
                     </View>
                     <View style={styles.body}>
                         <GenericIconButton press={this.enabledOrDisabledHelp} icon={this.state.icon}

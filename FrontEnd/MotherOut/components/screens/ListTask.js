@@ -7,7 +7,8 @@ import {RoundedButton} from '../RoundedButton';
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {ReloadedButton} from "../ReloadedButton";
-let Image_Http_URL = { uri: 'https://i.imgur.com/M54G2e2.png' };
+
+let Image_Http_URL = {uri: 'https://i.imgur.com/M54G2e2.png'};
 
 class ListTask extends Component {
     constructor(props) {
@@ -82,7 +83,7 @@ class ListTask extends Component {
                                   keyExtractor={(item, index) => index.toString()}
                                   renderItem={({item}) => (
                                       <View style={{padding: 5}}>
-                                          <TaskCard text={item.TaskName} icon={"trash"}
+                                          <TaskCard text={item.TaskName} image={item.TaskIcon} icon={"trash"}
                                                     press={() => this.deleteTask(item)}/>
                                       </View>)}
                         />

@@ -57,7 +57,7 @@ class Statistics extends Component {
                 <View style={styles.contenidor}>
                     <View style={styles.header}>
                         <Image
-                            style={{width: 333, height: 81}}
+                            style={{width: 333, height: 90}}
                             source={Image_Http_URL}
                         />
                     </View>
@@ -67,7 +67,7 @@ class Statistics extends Component {
                                   renderItem={({item}) => (
                                       <View style={{padding: 10}}>
                                           <StatisticCard user={item.Name} quantity={item.NTaks}
-                                                         score={item.UserScore}/>
+                                                         score={item.UserScore} avatarUser={item.Avatar}/>
                                       </View>)}
                         />
                     </View>

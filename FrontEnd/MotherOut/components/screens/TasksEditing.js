@@ -3,14 +3,14 @@ import axios from 'axios';
 import React, {Component} from 'react';
 import {StyleSheet, Text, ToastAndroid, View} from 'react-native';
 import {Image} from 'react-native-elements';
-import imagen from '../../assets/tasksEditing.png';
 import {GenericInput2} from '../GenericInput2';
 import {InputData} from '../InputData';
 import {NavBar} from '../NavBar';
 import {RoundedButton} from '../RoundedButton';
 import {SelectedItem} from '../SelectedItem';
 
-const picture = Image.resolveAssetSource(imagen).uri;
+let Image_Http_URL = {uri: 'https://i.imgur.com/EX3C8SA.png?1'};
+
 
 class TasksEditing extends Component {
     constructor(props) {
@@ -106,7 +106,7 @@ class TasksEditing extends Component {
                     <View style={styles.header}>
                         <Image
                             style={{width: 300, height: 90}}
-                            source={{uri: picture}}/>
+                            source={Image_Http_URL}/>
                     </View>
                     <View style={styles.body}>
                         <Text style={styles.textStyle}>Task name</Text>

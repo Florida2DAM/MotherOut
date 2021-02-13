@@ -1,15 +1,11 @@
 import React, {Component} from 'react';
 import {FlatList, StyleSheet, Text, ToastAndroid, View} from 'react-native';
 import {Image} from 'react-native-elements';
-import image from '../../assets/avatar2.png';
 import {NavBar} from "../NavBar";
 import {TaskCard} from "../TaskCard";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from "axios";
 import {ReloadedButton} from "../ReloadedButton";
-
-const picture = Image.resolveAssetSource(image).uri;
-let Image_Http_URL ={ uri: 'https://i.imgur.com/yNjnZTV.png?1'};
 
 class ScreenToDo extends Component {
 
@@ -113,7 +109,7 @@ class ScreenToDo extends Component {
                     <View style={styles.header}>
                         <Image
                             style={{width: 90, height: 90}}
-                            source={Image_Http_URL}/>
+                            source={{uri: this.state.user.Avatar}}/>
                         <View style={styles.rowView}>
                             <Text style={styles.textStyle}>{this.state.user.Name}</Text>
                         </View>
@@ -124,7 +120,8 @@ class ScreenToDo extends Component {
                                   renderItem={({item}) =>
                                       <View style={styles.paddingView}>
                                           <TaskCard text={item.TaskName} icon={"square-o"}
-                                                    press={() => this.completeTask(item)}/>
+                                                    press={() => this.completeTask(item)}
+                                                    image={item.TaskIcon}/>
                                       </View>
 
                                   }
@@ -134,7 +131,8 @@ class ScreenToDo extends Component {
                                   renderItem={({item}) =>
                                       <View style={styles.paddingView}>
                                           <TaskCard text={item.TaskName} icon={"check-square-o"}
-                                                    press={() => this.uncheckTaskCompleted(item)}/>
+                                                    press={() => this.uncheckTaskCompleted(item)}
+                                                    image={item.TaskIcon}/>
                                       </View>
                                   }
                         />
