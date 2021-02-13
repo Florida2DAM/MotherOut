@@ -1,13 +1,12 @@
 import React, {Component} from 'react';
 import {FlatList, StyleSheet, ToastAndroid, View} from 'react-native';
 import {Image} from 'react-native-elements';
-import importedPicture from '../../assets/asignedTasks.png';
 import {NavBar} from '../NavBar';
 import {TaskCardTwoIcons} from '../TaskCardTwoIcons';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const picture = Image.resolveAssetSource(importedPicture).uri;
+let Image_Http_URL = {uri: 'https://i.imgur.com/t9OAsHQ.png'};
 
 class AsignedTasks extends Component {
 
@@ -81,8 +80,8 @@ class AsignedTasks extends Component {
                 <View style={styles.contenidor}>
                     <View style={styles.header}>
                         <Image
-                            style={{width: 300, height: 90}}
-                            source={{uri: picture}}/>
+                            style={{width: 333, height: 81}}
+                            source={Image_Http_URL}/>
                     </View>
                     <View style={styles.body}>
                         <FlatList
