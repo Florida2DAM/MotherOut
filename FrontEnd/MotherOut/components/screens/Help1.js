@@ -39,7 +39,7 @@ class Help1 extends Component {
     }
 
     checkExistenceOfTeam = async () => {
-        if (this.state.user.AsignedTeam === 0 || this.state.user.AsignedTeam === null) {
+        if (this.state.user.AsignedTeam === 0 || this.state.user.AsignedTeam === null || this.state.user.NTaks===0 || this.state.user.UserScore===0) {
             this.props.navigation.navigate('CreateOrJoinTeam');
         } else {
             this.props.navigation.navigate('ScreenToDo');
