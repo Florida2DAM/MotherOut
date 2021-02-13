@@ -14,6 +14,8 @@ import {ReloadedButton} from "../ReloadedButton";
 
 const picture = Image.resolveAssetSource(imagen).uri;
 
+let Image_Http_URL ={ uri: 'https://i.imgur.com/M54G2e2.png'};
+
 class ListTask extends Component {
     constructor(props) {
         super(props);
@@ -79,8 +81,8 @@ class ListTask extends Component {
                 <View style={styles.contenidor}>
                     <View style={styles.header}>
                         <Image
-                            style={{width: 300, height: 90}}
-                            source={{uri: picture}}
+                            style={{width: 333, height: 81}}
+                            source={Image_Http_URL}
                         />
                     </View>
                     <View style={styles.body}>
