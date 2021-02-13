@@ -14,6 +14,7 @@ import {NavBar} from '../NavBar';
 import {RoundedButton} from '../RoundedButton';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {backgroundColor} from 'react-native-calendars/src/style';
 
 let Image_Http_URL = {uri: 'https://i.ibb.co/SVvdmW2/bathtub.png'};
 
@@ -29,6 +30,7 @@ class NewOrEditTask extends Component {
             taskName: null,
             listIcons: [],
             user: [],
+            value: null,
         };
     }
 
@@ -47,26 +49,21 @@ class NewOrEditTask extends Component {
     }
 
     insertTask = async () => {
-        console.log('el nombre del task es ahora: ' + this.state.taskName);
-        if (this.state.taskName === null || this.state.taskScore === null || this.state.taskName === '' || this.state.taskScore === '') {
+        if (this.state.taskName === null || this.state.taskName === '') {
             ToastAndroid.showWithGravityAndOffset('piggy, put the field empty', ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
-        }
-        if (this.state.taskScore<0 || this.state.taskScore>30){
-            ToastAndroid.showWithGravityAndOffset('piggy, your score must be between 0 and 30', ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
-        }
-        else {
+        } else {
             let task = {
                 TeamId: this.state.user.AsignedTeam,
-                TaskScore: this.state.taskScore,
+                TaskScore: this.state.value,
                 TaskName: this.state.taskName,
             };
 
             axios.post('http://52.0.146.162:80/api/UserTasks', task)
                 .then(() => {
-                    ToastAndroid.showWithGravityAndOffset('your piggy task is send', ToastAndroid.LONG, ToastAndroid.TOP,25,50);
+                    ToastAndroid.showWithGravityAndOffset('your piggy task is send', ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
                 })
                 .catch((e) => {
-                    ToastAndroid.showWithGravityAndOffset('the assigment could not be carried out, because you hace entered a non-existent team', ToastAndroid.LONG, ToastAndroid.TOP,25,50);
+                    ToastAndroid.showWithGravityAndOffset('the assigment could not be carried out, because you hace entered a non-existent team', ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
                 });
         }
     };
@@ -77,7 +74,7 @@ class NewOrEditTask extends Component {
                 this.setState({listIcons: response.data});
             })
             .catch((e) => {
-                ToastAndroid.showWithGravityAndOffset('the assigment could not be carried out, because you hace entered a non-existent team', ToastAndroid.LONG, ToastAndroid.TOP,25,50);
+                ToastAndroid.showWithGravityAndOffset('the assigment could not be carried out, because you hace entered a non-existent team', ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
             });
     };
 
@@ -97,9 +94,13 @@ class NewOrEditTask extends Component {
                                        length={18}
                                        onChange={(item) => this.setState({taskName: item})}/>
                         <Text style={styles.textStyle}>Score</Text>
-                        <GenericInput2 value={this.state.taskScore}
-                                       numeric={'numeric'}
-                                       onChange={(item) => this.setState({taskScore: item})}/>
+                        <Slider value={this.state.value} onValueChange={(value => this.setState({value}))}
+                                minimumValue={0} maximumValue={30} step={1}
+                                trackStyle={{backgroundColor: 'transparent'}}
+                                thumbStyle={{backgroundColor: '#D7B9D5'}}/>
+                        <View style={{alignItems: 'center', marginTop: 15}}>
+                            <Text style={styles.textSlide}>{this.state.value}</Text>
+                        </View>
                         <Text style={styles.textStyle}>Icon</Text>
                         <FlatList
                             data={this.state.listIcons}
@@ -148,6 +149,12 @@ const styles = StyleSheet.create({
         padding: 10,
         justifyContent: 'space-evenly',
         flex: 10,
+    },
+    textSlide:{
+        fontSize: 30,
+        fontWeight: 'bold',
+        fontFamily: 'Roboto',
+        color: 'white',
     },
     textStyle: {
         padding: 10,
