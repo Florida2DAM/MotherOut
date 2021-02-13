@@ -1,35 +1,37 @@
-
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
     FlatList,
     Pressable, ScrollView, StyleSheet,
-    Text, View
+    Text, ToastAndroid, View,
 } from 'react-native';
-import { Image } from 'react-native-elements';
+import {Image, Input, Slider} from 'react-native-elements';
 import importAvatar2 from '../../assets/avatar2.png';
 import importIcon from '../../assets/bathtub.png';
 import importAvatar from '../../assets/circle-cropped.png';
 import importedPicture from '../../assets/newOrEditTask.png';
-import { GenericInput2 } from '../GenericInput2';
-import { NavBar } from '../NavBar';
-import { RoundedButton } from '../RoundedButton';
+import {GenericInput2} from '../GenericInput2';
+import {NavBar} from '../NavBar';
+import {RoundedButton} from '../RoundedButton';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-let Image_Http_URL ={ uri: 'https://i.ibb.co/SVvdmW2/bathtub.png'};
+import {backgroundColor} from 'react-native-calendars/src/style';
+
+let Image_Http_URL = {uri: 'https://i.ibb.co/SVvdmW2/bathtub.png'};
 
 const picture = Image.resolveAssetSource(importedPicture).uri;
 
 
 class NewOrEditTask extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             name: null,
             taskScore: null,
             taskName: null,
             listIcons: [],
             user: [],
-        }
+            value: null,
+        };
     }
 
     componentDidMount() {
@@ -39,38 +41,42 @@ class NewOrEditTask extends Component {
 
     async getData() {
         try {
-            const jsonValue = await AsyncStorage.getItem('logUser')
-            jsonValue != null ? this.setState({ user: JSON.parse(jsonValue) }) : null;
+            const jsonValue = await AsyncStorage.getItem('logUser');
+            jsonValue != null ? this.setState({user: JSON.parse(jsonValue)}) : null;
         } catch (e) {
-            alert(e)
+            ToastAndroid.showWithGravityAndOffset('User data could not be loaded ', ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
         }
     }
 
-    insertTask = async() => {
-        let task = {
-            TeamId: this.state.user.AsignedTeam,
-            TaskScore: this.state.taskScore,
-            TaskName: this.state.taskName
+    insertTask = async () => {
+        if (this.state.taskName === null || this.state.taskName === '') {
+            ToastAndroid.showWithGravityAndOffset('piggy, put the field empty', ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
+        } else {
+            let task = {
+                TeamId: this.state.user.AsignedTeam,
+                TaskScore: this.state.value,
+                TaskName: this.state.taskName,
+            };
+
+            axios.post('http://52.0.146.162:80/api/UserTasks', task)
+                .then(() => {
+                    ToastAndroid.showWithGravityAndOffset('your piggy task is send', ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
+                })
+                .catch((e) => {
+                    ToastAndroid.showWithGravityAndOffset('the assigment could not be carried out, because you hace entered a non-existent team', ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
+                });
         }
+    };
 
-        axios.post('http://52.0.146.162:80/api/UserTasks', task)
-            .then(() => {
-                alert("Peticion enviada")
-            })
-            .catch((error) => {
-                alert(error);
-            });
-    }
-
-    getIcons =async (idTeam) => {
+    getIcons = async (idTeam) => {
         axios.get('http://52.0.146.162:80/api/Icons')
             .then(response => {
-                this.setState({ listIcons: response.data })
+                this.setState({listIcons: response.data});
             })
-            .catch((error) => {
-                alert(error);
+            .catch((e) => {
+                ToastAndroid.showWithGravityAndOffset('the assigment could not be carried out, because you hace entered a non-existent team', ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
             });
-    }
+    };
 
     render() {
         return (
@@ -78,32 +84,39 @@ class NewOrEditTask extends Component {
                 <View style={styles.contenidor}>
                     <View style={styles.header}>
                         <Image
-                            style={{ width: 300, height: 90 }}
-                            source={{ uri: picture }} />
+                            style={{width: 300, height: 90}}
+                            source={{uri: picture}}/>
                     </View>
                     <View style={styles.body}>
 
                         <Text style={styles.textStyle}>TaskName</Text>
-                        <GenericInput2 value={this.state.taskName} onChange={(item) => this.setState({ taskName: item })} />
+                        <GenericInput2 value={this.state.taskName}
+                                       length={18}
+                                       onChange={(item) => this.setState({taskName: item})}/>
                         <Text style={styles.textStyle}>Score</Text>
-                        <GenericInput2 value={this.state.taskScore} onChange={(item) => this.setState({ taskScore: item })} />
+                        <Slider value={this.state.value} onValueChange={(value => this.setState({value}))}
+                                minimumValue={0} maximumValue={30} step={1}
+                                trackStyle={{backgroundColor: 'transparent'}}
+                                thumbStyle={{backgroundColor: '#D7B9D5'}}/>
+                        <View style={{alignItems: 'center', marginTop: 15}}>
+                            <Text style={styles.textSlide}>{this.state.value}</Text>
+                        </View>
                         <Text style={styles.textStyle}>Icon</Text>
-
                         <FlatList
                             data={this.state.listIcons}
                             keyExtractor={(item, index) => index.toString()}
-                            renderItem={({ item }) =>
+                            renderItem={({item}) =>
                                 <View style={styles.iconBox}>
                                     <Pressable>
                                         <Image
-                                            style={{ width: 90, height: 90 }}
-                                            source={Image_Http_URL} />
+                                            style={{width: 90, height: 90}}
+                                            source={Image_Http_URL}/>
                                     </Pressable>
                                 </View>
                             }
                         />
 
-                        <RoundedButton icon="plus" press={this.insertTask} />
+                        <RoundedButton icon="plus" press={this.insertTask}/>
                     </View>
                     <View>
                         <NavBar
@@ -129,7 +142,7 @@ const styles = StyleSheet.create({
     header: {
         marginTop: 2,
         flexDirection: 'row',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     body: {
         marginTop: 2,
@@ -137,15 +150,21 @@ const styles = StyleSheet.create({
         justifyContent: 'space-evenly',
         flex: 10,
     },
+    textSlide:{
+        fontSize: 30,
+        fontWeight: 'bold',
+        fontFamily: 'Roboto',
+        color: 'white',
+    },
     textStyle: {
         padding: 10,
         fontSize: 25,
-        fontFamily: "Roboto",
-        fontWeight: "bold"
+        fontFamily: 'Roboto',
+        fontWeight: 'bold',
     },
     iconBox: {
         backgroundColor: '#D7B9D5',
-        alignItems: 'center'
+        alignItems: 'center',
     },
 });
 export default NewOrEditTask;

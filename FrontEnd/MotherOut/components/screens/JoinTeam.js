@@ -68,8 +68,8 @@ class JoinTeam extends Component {
                             source={{ uri: picture }} />
                     </View>
                     <View style={styles.body}>
-                        <GenericInput2 placeHolder="Id Team" value={this.state.idTeam} onChange={(item) => this.setState({ idTeam: item })} />
-                        <GenericButton button="Join Team" press={this.asignTeamToUser} />
+                        <GenericInput2 numeric={'numeric'} placeHolder="Id Team" value={this.state.idTeam} onChange={(item) => this.setState({ idTeam: item })} />
+                        <GenericButton button="Join Team" press={this.asignTeamToUser}  />
                     </View>
                     <View>
                         {this.state.navBar}
