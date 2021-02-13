@@ -15,7 +15,8 @@ import { NavBar } from '../NavBar';
 import { RoundedButton } from '../RoundedButton';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-let Image_Http_URL ={ uri: 'https://i.ibb.co/SVvdmW2/bathtub.png'};
+let Image_Http_URL = { uri: 'https://i.ibb.co/SVvdmW2/bathtub.png' };
+let Image_Header = { uri: 'https://i.imgur.com/QhQFvRY.png?1' };
 
 const picture = Image.resolveAssetSource(importedPicture).uri;
 
@@ -46,7 +47,7 @@ class NewOrEditTask extends Component {
         }
     }
 
-    insertTask = async() => {
+    insertTask = async () => {
         let task = {
             TeamId: this.state.user.AsignedTeam,
             TaskScore: this.state.taskScore,
@@ -62,7 +63,7 @@ class NewOrEditTask extends Component {
             });
     }
 
-    getIcons =async (idTeam) => {
+    getIcons = async (idTeam) => {
         axios.get('http://52.0.146.162:80/api/Icons')
             .then(response => {
                 this.setState({ listIcons: response.data })
@@ -78,8 +79,8 @@ class NewOrEditTask extends Component {
                 <View style={styles.contenidor}>
                     <View style={styles.header}>
                         <Image
-                            style={{ width: 300, height: 90 }}
-                            source={{ uri: picture }} />
+                            style={{ width: 300, height: 80 }}
+                            source={Image_Header} />
                     </View>
                     <View style={styles.body}>
 
