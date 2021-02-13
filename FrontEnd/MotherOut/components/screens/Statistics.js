@@ -1,13 +1,12 @@
 import React, {Component} from 'react';
 import {FlatList, StyleSheet, ToastAndroid, View} from 'react-native';
 import {Image} from 'react-native-elements';
-import imagen from '../../assets/statistics.png';
 import {NavBar} from '../NavBar';
 import {StatisticCard} from '../StatisticCard';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const picture = Image.resolveAssetSource(imagen).uri;
+let Image_Http_URL = {uri: 'https://i.imgur.com/q9mJ5bM.png?1'};
 
 class Statistics extends Component {
     constructor(props) {
@@ -58,8 +57,8 @@ class Statistics extends Component {
                 <View style={styles.contenidor}>
                     <View style={styles.header}>
                         <Image
-                            style={{width: 300, height: 90}}
-                            source={{uri: picture}}
+                            style={{width: 333, height: 81}}
+                            source={Image_Http_URL}
                         />
                     </View>
                     <View style={styles.body}>
