@@ -335,6 +335,10 @@
     <Compile Include="Migrations\20210204155858_m2.designer.cs">
       <DependentUpon>20210204155858_m2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20210213144350_m3.cs" />
+    <Compile Include="Migrations\20210213144350_m3.designer.cs">
+      <DependentUpon>20210213144350_m3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\MotherOutContextModelSnapshot.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />

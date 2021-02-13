@@ -10,6 +10,6 @@ namespace MotherOut_BackEnd.Models
     {
         [Key]
         public int IconId { get; set; }
-        public byte[] IconImage { get; set; }
+        public string IconImage { get; set; }
     }
 }

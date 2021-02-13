@@ -20,19 +20,10 @@ namespace MotherOut_BackEnd.Models
         /// <returns>List<Images></returns>
 
         internal List<Image> showIcons()
-        {
-            List<Image> images = new List<Image>();
-
+        {    
             try
             {
-                List<Icon> icons = context.Icons.ToList();
-
-                for (int i = 0; i < icons.Count; i++)
-                {
-                    MemoryStream ms = new MemoryStream(icons[i].IconImage);
-
-                    images.Add(Image.FromStream(ms));
-                }
+                return null;
 
             }
             catch (Exception e)
@@ -40,9 +31,16 @@ namespace MotherOut_BackEnd.Models
                 Console.WriteLine("Se ha producido un error inesperado: " + e);
 
                 throw;
-            }
+            }      
+        }
 
-            return images;
+        #endregion
+
+        #region randomAsignment
+
+        internal void randomAsignment(int idUser)
+        {
+
         }
 
         #endregion

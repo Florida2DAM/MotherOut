@@ -8,7 +8,7 @@ namespace MotherOut_BackEnd.Models
 {
     public class User
     {
-        public User(int userId, string name, byte[] avatar, string email, string password, int nTaks, bool userMaster, int userScore, int teamId, bool help, List<Team> team)
+        public User(int userId, string name, string avatar, string email, string password, int nTaks, bool userMaster, int userScore, int teamId, bool help, List<Team> team)
         {
             UserId = userId;
             Name = name;
@@ -30,7 +30,7 @@ namespace MotherOut_BackEnd.Models
         [Key]
         public int UserId { get; set; }
         public string Name { get; set; }
-        public byte[] Avatar { get; set; }
+        public string Avatar { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
         public int NTaks { get; set; }

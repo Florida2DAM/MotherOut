@@ -87,7 +87,6 @@ namespace MotherOut_BackEnd.Models
             }
         }
 
-
         internal bool updateUser(int idUser, string email, string name, string password)
         {
             bool check;
@@ -264,6 +263,23 @@ namespace MotherOut_BackEnd.Models
                 return false;
                 throw;
             }
+        }
+
+        internal User login(string email, string password)
+        {
+            User user = new User();
+            bool check = checkEmail(email);
+            if (!check)
+            {
+                user = context.Users.Where(u => u.Email == email)
+                            .Where(u => u.Password == password)
+                            .FirstOrDefault();
+            }
+            else
+            {
+                user = null;
+            }
+            return user;
         }
     }
 }

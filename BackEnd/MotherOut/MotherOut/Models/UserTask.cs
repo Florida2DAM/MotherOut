@@ -14,7 +14,7 @@ namespace MotherOut_BackEnd.Models
         public string SelectMember { get; set; }
         public DateTime SelectDay { get; set; }
         public int TaskScore { get; set; }
-        public byte[] TaskIcon { get; set; }
+        public string TaskIcon { get; set; }
         public bool Done { get; set; }
         public String TaskName { get; set; }
         public int UserId { get; set; }
@@ -23,7 +23,7 @@ namespace MotherOut_BackEnd.Models
         public int TeamId { get; set; }
         public Team Team { get; set; }
 
-        public UserTask(int userTaskId, int idTeam, string selectMember, DateTime selectDay, int taskScore, byte[] taskIcon, bool done, string taskName, int userId)
+        public UserTask(int userTaskId, int idTeam, string selectMember, DateTime selectDay, int taskScore, string taskIcon, bool done, string taskName, int userId)
         {
             UserTaskId = userTaskId;
             TeamId = idTeam;
