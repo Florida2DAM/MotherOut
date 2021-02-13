@@ -59,11 +59,10 @@ export class TeamView extends Component {
                 </TabView>
                 <div className='card'>
                     <DataTable value={this.state.tableValues}>
-                        <Column field='UserId' header='UserId' style={{width: '5%'}}/>
-                        <Column field='Name' header='Name' style={{width: '10%'}}/>
-                        <Column field='Email' header='Email' style={{width: '15%'}}/>
-                        <Column field='UserMaster' header='User Master' style={{width: '10%'}}/>
-                        <Column field='AsignedTeam' header='Id Team' style={{width: '10%'}}/>
+                        <Column field='TeamId' header='Team Id'/>
+                        <Column field='TeamName' header='Team Name'/>
+                        <Column field='TeamMembers' header='Team Members'/>
+                        <Column field='UserId' header='User Master iD'/>
                     </DataTable>
                 </div>
             </>
@@ -89,14 +88,14 @@ export class TeamView extends Component {
         this.axiosRequest('http://52.0.146.162:80/api/Teams')
     }
     filterByName = () => {
-        this.axiosRequestArray('http://52.0.146.162:80/api/Teams?name=' + this.state.searchValueName);
+        this.axiosRequest('http://52.0.146.162:80/api/Teams?name=' + this.state.searchValueName);
     }
     filterByIdTeam = () => {
         this.axiosRequest('http://52.0.146.162:80/api/Teams?TeamId=' + this.state.searchValueIdTeam);
     }
     delTeams = () => {
         if (this.state.deleteValue !== '') {
-            this.advAxiosRequest('http://52.0.146.162:80/api/Teams?TeamId=' + this.state.deleteValue, 'http://52.0.146.162:80/api/Teams', 'Team deleted', 'delete')
+            this.advAxiosRequest('http://52.0.146.162:80/api/Teams?idTeam=' + this.state.deleteValue, 'http://52.0.146.162:80/api/Teams', 'Team deleted', 'delete')
         } else {
             this.showToast('warn', 'Empty Fields')
         }
@@ -107,7 +106,6 @@ export class TeamView extends Component {
     //Axios
     axiosRequest = (url) => {
         axios.get(url).then((response) => {
-            this.changeFormat(response);
             this.setState({tableValues: response.data});
         })
     }

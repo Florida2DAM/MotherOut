@@ -9,7 +9,7 @@ export class ReportView extends Component {
         super(prop);
         this.state = {
             arrayData: [],
-            labelGeneralData: ["Users","Teams","Tasks"],
+            labelGeneralData: ["Users", "Teams", "Tasks"],
             numUsers: null,
             numTeams: null,
             numTasks: null,
@@ -25,23 +25,16 @@ export class ReportView extends Component {
             labels: this.state.labelGeneralData,
             datasets: [
                 {
-                    label: 'Apuestas por días',
+                    fill: true,
+                    label: 'Generic Info.',
                     backgroundColor: '#743380',
                     data: this.state.arrayData
                 }
             ]
         };
-        const DataUsers = {
-            labels: this.state.listLabelsUsers,
-            datasets: [
-                {
-                    label: 'Usuarios por días',
-                    backgroundColor: '#743380',
-                    data: this.state.listDataUsers
-                }
-            ]
-        };
+
         let basicOptions = {
+            display: true,
             legend: {
                 labels: {
                     fontColor: 'White'
@@ -67,12 +60,7 @@ export class ReportView extends Component {
                          onTabChange={(e) => this.setState({activeIndex: e.index})}>
                     <TabPanel header='General Info'>
                         <div className="card">
-                            <Chart type="card" data={generalData} options={basicOptions}/>
-                        </div>
-                    </TabPanel>
-                    <TabPanel header='Altas por día'>
-                        <div className="card">
-                            <Chart type="line" data={DataUsers} options={basicOptions}/>
+                            <Chart type="bar" data={generalData} options={basicOptions}/>
                         </div>
                     </TabPanel>
                 </TabView>
