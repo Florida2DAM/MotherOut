@@ -214,7 +214,7 @@ class YourTeam extends Component {
                         <GenericInput3 placeHolder={this.state.nameTeam} value={this.state.newNameTeam}
                                        onChange={(item) => this.setState({newNameTeam: item})}/>
                         {this.state.flatList}
-                        <Text style={styles.text}>Your id team is: {this.state.user.AsignedTeam}</Text>
+                        <Text style={{fontWeight:'bold', fontSize:25, paddingTop:10, color:'white'}}>Your id team is: {this.state.user.AsignedTeam}</Text>
                     </View>
                     <View style={styles.button}>
                         {this.state.roundedButton}
