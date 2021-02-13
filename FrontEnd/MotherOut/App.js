@@ -1,16 +1,11 @@
 import 'react-native-gesture-handler';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import React, { Component } from 'react';
-import {
-    StyleSheet
-} from 'react-native';
-import {
-    Colors
-} from 'react-native/Libraries/NewAppScreen';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import React, {Component} from 'react';
+import {StyleSheet} from 'react-native';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
 //All screens
 import Help1 from './components/screens/Help1';
-import AddUser from './components/screens/AddUser';
 import AsignedTask from './components/screens/AsignedTasks';
 import CreateOrJoinTeam from './components/screens/CreateOrJoinTeam';
 import JoinTeam from './components/screens/JoinTeam';
@@ -37,7 +32,6 @@ class App extends Component {
                 <NavigationContainer>
                     <navigationContainer.Navigator>
                         <navigationContainer.Screen options={{ headerShown: false }} name="Login" component={Login} />
-                        <navigationContainer.Screen options={{ headerShown: false }} name="AddUser" component={AddUser} />
                         <navigationContainer.Screen options={{ headerShown: false }} name="AsignedTask" component={AsignedTask} />
                         <navigationContainer.Screen options={{ headerShown: false }} name="CreateOrJoinTeam" component={CreateOrJoinTeam} />
                         <navigationContainer.Screen options={{ headerShown: false }} name="JoinTeam" component={JoinTeam} />

@@ -1,18 +1,12 @@
 import axios from 'axios';
 import React, {Component} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {
-    ScrollView, StyleSheet,
-    Text, View,
-} from 'react-native';
-import {
-    Image,
-} from 'react-native-elements';
-import imagen from '../../assets/logo.png';
+import {ScrollView, StyleSheet, Text, ToastAndroid, View,} from 'react-native';
+import {Image,} from 'react-native-elements';
 import {GenericButton} from '../GenericButton';
 import {GenericInput1} from '../GenericInput1';
 
-const picture = Image.resolveAssetSource(imagen).uri;
+let Image_Http_URL = {uri: 'https://i.imgur.com/NvwzH7g.png'};
 
 class Login extends Component {
     constructor(props) {
@@ -20,6 +14,7 @@ class Login extends Component {
         this.state = {
             email: null,
             user: null,
+            password: null,
         };
     }
 
@@ -32,25 +27,38 @@ class Login extends Component {
             const jsonValue = JSON.stringify(res);
             await AsyncStorage.setItem('logUser', jsonValue);
         } catch (e) {
-            alert(e);
+            ToastAndroid.showWithGravityAndOffset("User data could not be stored.", ToastAndroid.LONG,
+                ToastAndroid.TOP,
+                25,
+                50);
         }
     }
 
     getUserbyEmail = async () => {
-        axios.get('http://52.0.146.162:80/api/Users?email=' + this.state.email)
-            .then(response => {
-                const res = response.data;
-                this.setState({user: res});
-                this.storeData(res);
-                if (!this.state.user.Help && this.state.user.AsignedTeam !== 0) {
-                    this.props.navigation.navigate('ScreenToDo');
-                } else {
-                    this.props.navigation.navigate('Help1');
-                }
-            })
-            .catch(function (error) {
-                alert(error);
+        if (this.state.email !== null || this.state.password !== null) {
+            axios.get('http://52.0.146.162:80/api/Users?email=' + this.state.email + "&passord=" + this.state.password)
+                .then(response => {
+                    const res = response.data;
+                    this.setState({user: res});
+                    this.storeData(res);
+                    if (!this.state.user.Help && this.state.user.AsignedTeam !== 0) {
+                        this.props.navigation.navigate('ScreenToDo');
+                    } else {
+                        this.props.navigation.navigate('Help1');
+                    }
+                }).catch(() => {
+                ToastAndroid.showWithGravityAndOffset("The credentials entered are not correct.", ToastAndroid.LONG,
+                    ToastAndroid.TOP,
+                    25,
+                    50);
             });
+        } else {
+            ToastAndroid.showWithGravityAndOffset("No field should be left empty. Please re-enter your credentials.", ToastAndroid.LONG,
+                ToastAndroid.TOP,
+                25,
+                50);
+        }
+
     };
 
     render() {
@@ -61,13 +69,14 @@ class Login extends Component {
                         <View style={styles.pictures}>
                             <Image
                                 style={{width: 310, height: 270}}
-                                source={{uri: picture}}
+                                source={Image_Http_URL}
                             />
                         </View>
                         <View style={styles.inputs}>
                             <GenericInput1 placeHolder="Email" value={this.state.email}
                                            onChange={(item) => this.setState({email: item})}/>
-                            <GenericInput1 placeHolder="Password"/>
+                            <GenericInput1 placeHolder="Password" value={this.state.password}
+                                           onChange={(item) => this.setState({password: item})}/>
                         </View>
                         <View style={styles.buttons}>
                             <GenericButton button="Log In" press={this.getUserbyEmail}/>

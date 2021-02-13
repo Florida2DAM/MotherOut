@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Image } from 'react-native-elements';
-import image from '../../assets/CreateOrJoinTeam.png';
-import { GenericIconButton } from '../GenericIconButton';
-import { NavBar } from '../NavBar';
+import React, {Component} from 'react';
+import {StyleSheet, View} from 'react-native';
+import {Image} from 'react-native-elements';
+import {GenericIconButton} from '../GenericIconButton';
+import {NavBar} from '../NavBar';
 
-const picture = Image.resolveAssetSource(image).uri;
+let Image_Http_URL = {uri: 'https://i.imgur.com/RSLsLUP.png?1'};
 
 class CreateOrJoinTeam extends Component {
     constructor(props) {
@@ -14,6 +13,7 @@ class CreateOrJoinTeam extends Component {
             navBar: null,
         };
     }
+
     renderNavBar = () => {
         if (!this.state.user.UserMaster) {
             this.setState({
@@ -35,15 +35,15 @@ class CreateOrJoinTeam extends Component {
                 <View style={styles.contenidor}>
                     <View style={styles.header}>
                         <Image
-                            style={{ width: 300, height: 90 }}
-                            source={{ uri: picture }}
+                            style={{width: 333, height: 81}}
+                            source={Image_Http_URL}
                         />
                     </View>
                     <View style={styles.body}>
                         <GenericIconButton button="Create Team" icon='plus'
-                            press={() => this.props.navigation.navigate('YourTeam')} />
+                                           press={() => this.props.navigation.navigate('YourTeam')}/>
                         <GenericIconButton button="Join Team" icon='users'
-                            press={() => this.props.navigation.navigate('JoinTeam')} />
+                                           press={() => this.props.navigation.navigate('JoinTeam')}/>
                     </View>
                     <View>
                         {this.state.renderNavBar}

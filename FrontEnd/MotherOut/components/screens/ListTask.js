@@ -14,6 +14,8 @@ import {ReloadedButton} from "../ReloadedButton";
 
 const picture = Image.resolveAssetSource(imagen).uri;
 
+let Image_Http_URL ={ uri: 'https://i.imgur.com/M54G2e2.png'};
+
 class ListTask extends Component {
     constructor(props) {
         super(props);
@@ -33,7 +35,7 @@ class ListTask extends Component {
             const jsonValue = await AsyncStorage.getItem('logUser')
             jsonValue != null ? this.setState({user: JSON.parse(jsonValue)}) : null;
         } catch (e) {
-            ToastAndroid.showWithGravityAndOffset(e, ToastAndroid.LONG,
+            ToastAndroid.showWithGravityAndOffset("User data could not be loaded.", ToastAndroid.LONG,
                 ToastAndroid.TOP,
                 25,
                 50);
@@ -50,8 +52,8 @@ class ListTask extends Component {
                     res2.push(item);
                 });
                 this.setState({listTasks: res2});
-            }).catch((error)=>{
-            ToastAndroid.showWithGravityAndOffset(error, ToastAndroid.LONG,
+            }).catch(() => {
+            ToastAndroid.showWithGravityAndOffset("The list could not be uploaded.", ToastAndroid.LONG,
                 ToastAndroid.TOP,
                 25,
                 50);
@@ -64,8 +66,8 @@ class ListTask extends Component {
                 ToastAndroid.TOP,
                 25,
                 50))
-            .catch((error) => {
-                ToastAndroid.showWithGravityAndOffset(error, ToastAndroid.LONG,
+            .catch(() => {
+                ToastAndroid.showWithGravityAndOffset("The task could not be eliminated.", ToastAndroid.LONG,
                     ToastAndroid.TOP,
                     25,
                     50);
@@ -79,8 +81,8 @@ class ListTask extends Component {
                 <View style={styles.contenidor}>
                     <View style={styles.header}>
                         <Image
-                            style={{width: 300, height: 90}}
-                            source={{uri: picture}}
+                            style={{width: 333, height: 81}}
+                            source={Image_Http_URL}
                         />
                     </View>
                     <View style={styles.body}>

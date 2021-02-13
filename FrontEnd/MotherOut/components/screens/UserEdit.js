@@ -40,7 +40,7 @@ class UserEdit extends Component {
             const jsonValue = JSON.stringify(res)
             await AsyncStorage.setItem('logUser', jsonValue)
         } catch (e) {
-            ToastAndroid.showWithGravityAndOffset(e, ToastAndroid.LONG,
+            ToastAndroid.showWithGravityAndOffset("User data could not be stored.", ToastAndroid.LONG,
                 ToastAndroid.TOP,
                 25,
                 50);
@@ -52,29 +52,29 @@ class UserEdit extends Component {
             const jsonValue = await AsyncStorage.getItem('logUser')
             jsonValue != null ? this.setState({user: JSON.parse(jsonValue)}) : null;
         } catch (e) {
-            ToastAndroid.showWithGravityAndOffset(e, ToastAndroid.LONG,
+            ToastAndroid.showWithGravityAndOffset("User data could not be loaded.", ToastAndroid.LONG,
                 ToastAndroid.TOP,
                 25,
                 50);
         }
     }
 
-    getActualUser = async() => {
+    getActualUser = async () => {
         axios.get('http://52.0.146.162:80/api/Users?email=' + this.state.user.Email)
             .then(response => {
                 const res = response.data;
                 this.setState({user: res});
                 this.storeData(res).then(r => console.log(r));
 
-            }).catch((error) => {
-            ToastAndroid.showWithGravityAndOffset(error, ToastAndroid.LONG,
+            }).catch(() => {
+            ToastAndroid.showWithGravityAndOffset("The user could not be obtained.", ToastAndroid.LONG,
                 ToastAndroid.TOP,
                 25,
                 50);
         })
     }
 
-    updateUser =async () => {
+    updateUser = async () => {
         let name = this.state.name;
         let email = this.state.email;
         let password = this.state.password;
@@ -102,8 +102,8 @@ class UserEdit extends Component {
                     ToastAndroid.TOP,
                     25,
                     50), this.getActualUser())
-                .catch((error) => {
-                    ToastAndroid.showWithGravityAndOffset(error, ToastAndroid.LONG,
+                .catch(() => {
+                    ToastAndroid.showWithGravityAndOffset("The user has not been able to update.", ToastAndroid.LONG,
                         ToastAndroid.TOP,
                         25,
                         50);

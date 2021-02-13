@@ -1,9 +1,5 @@
 import React, {Component} from 'react';
-import {
-    ScrollView,
-    StyleSheet, ToastAndroid,
-    View
-} from 'react-native';
+import {ScrollView, StyleSheet, ToastAndroid, View} from 'react-native';
 import {Image} from 'react-native-elements';
 import imagen from '../../assets/setting.png';
 import {GenericIconButton} from '../GenericIconButton';
@@ -31,7 +27,7 @@ class Setting extends Component {
             const jsonValue = await AsyncStorage.getItem('logUser')
             jsonValue != null ? this.setState({user: JSON.parse(jsonValue)}) : null;
         } catch (e) {
-            ToastAndroid.showWithGravityAndOffset(e, ToastAndroid.LONG,
+            ToastAndroid.showWithGravityAndOffset("User data could not be loaded.", ToastAndroid.LONG,
                 ToastAndroid.TOP,
                 25,
                 50);

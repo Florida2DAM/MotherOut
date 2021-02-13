@@ -1,11 +1,6 @@
 import React, {Component} from 'react';
-import {
-    StyleSheet, ToastAndroid,
-    View,
-} from 'react-native';
-import {
-    Image,
-} from 'react-native-elements';
+import {StyleSheet, ToastAndroid, View,} from 'react-native';
+import {Image,} from 'react-native-elements';
 import imagen from '../../assets/taskAssignment.png';
 import {GenericIconButton} from '../GenericIconButton';
 import {NavBar} from '../NavBar';
@@ -13,6 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
 const picture = Image.resolveAssetSource(imagen).uri;
+let Image_Http_URL ={ uri: 'https://i.imgur.com/0uFZU2k.png?1'};
 
 class TaskAssignment extends Component {
 
@@ -35,11 +31,14 @@ class TaskAssignment extends Component {
             const jsonValue = await AsyncStorage.getItem('logUser');
             jsonValue != null ? this.setState({user: JSON.parse(jsonValue)}) : null;
         } catch (e) {
-            ToastAndroid.showWithGravityAndOffset(e, ToastAndroid.LONG,ToastAndroid.TOP,25,50);
+            ToastAndroid.showWithGravityAndOffset("User data could not be loaded.", ToastAndroid.LONG,
+                ToastAndroid.TOP,
+                25,
+                50);
         }
     };
     randomTask = async () => {
-        axios.put('http://52.0.146.162:80/api/UserTasks?idTeam='+this.state.user.AsignedTeam);
+        axios.put('http://52.0.146.162:80/api/UserTasks?idTeam=' + this.state.user.AsignedTeam);
         this.props.navigation.navigate('AsignedTask');
     };
 
@@ -50,8 +49,8 @@ class TaskAssignment extends Component {
                     <View style={styles.header}>
                         <View style={styles.pictures}>
                             <Image
-                                style={{width: 300, height: 90}}
-                                source={{uri: picture}}
+                                style={{width: 333, height: 81}}
+                                source={Image_Http_URL}
                             />
                         </View>
                     </View>

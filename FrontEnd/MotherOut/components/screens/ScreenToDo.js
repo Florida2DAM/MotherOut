@@ -9,6 +9,7 @@ import axios from "axios";
 import {ReloadedButton} from "../ReloadedButton";
 
 const picture = Image.resolveAssetSource(image).uri;
+let Image_Http_URL ={ uri: 'https://i.imgur.com/yNjnZTV.png?1'};
 
 class ScreenToDo extends Component {
 
@@ -44,8 +45,8 @@ class ScreenToDo extends Component {
                 this.setState({done: res2});
                 this.setState({undone: res3});
                 this.setState({listTask: re4});
-            }).catch((error) => {
-            ToastAndroid.showWithGravityAndOffset(error, ToastAndroid.LONG,
+            }).catch(() => {
+            ToastAndroid.showWithGravityAndOffset("The list could not be uploaded.", ToastAndroid.LONG,
                 ToastAndroid.TOP,
                 25,
                 50);
@@ -62,8 +63,8 @@ class ScreenToDo extends Component {
                 ToastAndroid.TOP,
                 25,
                 50))
-            .catch((error) => {
-                ToastAndroid.showWithGravityAndOffset(error, ToastAndroid.LONG,
+            .catch(() => {
+                ToastAndroid.showWithGravityAndOffset("The list could not be checked.", ToastAndroid.LONG,
                     ToastAndroid.TOP,
                     25,
                     50);
@@ -79,12 +80,12 @@ class ScreenToDo extends Component {
                 ToastAndroid.TOP,
                 25,
                 50))
-            .catch((error) => {
-                ToastAndroid.showWithGravityAndOffset(error, ToastAndroid.LONG,
+            .catch(() => {
+                ToastAndroid.showWithGravityAndOffset("The list could not be unchecked.", ToastAndroid.LONG,
                     ToastAndroid.TOP,
                     25,
                     50);
-            })
+            });
     }
 
 
@@ -98,7 +99,7 @@ class ScreenToDo extends Component {
             const jsonValue = await AsyncStorage.getItem('logUser')
             jsonValue != null ? this.setState({user: JSON.parse(jsonValue)}) : null;
         } catch (e) {
-            ToastAndroid.showWithGravityAndOffset(e, ToastAndroid.LONG,
+            ToastAndroid.showWithGravityAndOffset("User data could not be loaded.", ToastAndroid.LONG,
                 ToastAndroid.TOP,
                 25,
                 50);
@@ -112,7 +113,7 @@ class ScreenToDo extends Component {
                     <View style={styles.header}>
                         <Image
                             style={{width: 90, height: 90}}
-                            source={{uri: picture}}/>
+                            source={Image_Http_URL}/>
                         <View style={styles.rowView}>
                             <Text style={styles.textStyle}>{this.state.user.Name}</Text>
                         </View>

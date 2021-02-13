@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
-import { FlatList, Pressable, StyleSheet, ToastAndroid, Text, View } from 'react-native';
-import { Image } from 'react-native-elements';
-import imagen from '../../assets/yourTeam.jpg';
+import React, {Component} from 'react';
+import {FlatList, Pressable, StyleSheet, Text, ToastAndroid, View} from 'react-native';
+import {Image} from 'react-native-elements';
 import {GenericInput3} from '../GenericInput3';
 import {NavBar} from '../NavBar';
 import {RoundedButton} from '../RoundedButton';
@@ -9,7 +8,8 @@ import {RoundedButton2} from '../RoundedButton2';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
-const picture = Image.resolveAssetSource(imagen).uri;
+
+let Image_Http_URL = {uri: 'https://i.imgur.com/NO6loBM.png?1'};
 
 class YourTeam extends Component {
 
@@ -153,8 +153,8 @@ class YourTeam extends Component {
         if (!this.state.user.UserMaster) {
             this.setState({
                 roundedButton:
-                    <RoundedButton icon="plus" press={this.createTeam}/>,
-            });
+                    <RoundedButton icon="plus" press={this.createTeam}/>
+            })
         }
     };
 
@@ -184,7 +184,7 @@ class YourTeam extends Component {
                                   renderItem={({item}) =>
                                       <View style={styles.userBox}>
                                           <Pressable onLongPress={() => {
-                                              this.deletedTeamUser(item);
+                                              this.deletedTeamUser(item)
                                           }}>
                                               <Text style={styles.textStyle}>{item.Name}</Text>
                                           </Pressable>
@@ -201,8 +201,8 @@ class YourTeam extends Component {
                 <View style={styles.contenidor}>
                     <View style={styles.header}>
                         <Image
-                            style={{width: 310, height: 90}}
-                            source={{uri: picture}}/>
+                            style={{width: 333, height: 81}}
+                            source={Image_Http_URL}/>
                     </View>
                     <View style={styles.body}>
                         <View style={styles.garbage}>

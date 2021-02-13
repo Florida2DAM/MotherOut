@@ -1,22 +1,14 @@
 import React, {Component} from 'react';
-import {
-    FlatList,
-    Pressable, ScrollView, StyleSheet,
-    Text, ToastAndroid, View,
-} from 'react-native';
-import {Image, Input, Slider} from 'react-native-elements';
-import importAvatar2 from '../../assets/avatar2.png';
-import importIcon from '../../assets/bathtub.png';
-import importAvatar from '../../assets/circle-cropped.png';
+import {FlatList, Pressable, StyleSheet, Text, View} from 'react-native';
+import {Image} from 'react-native-elements';
 import importedPicture from '../../assets/newOrEditTask.png';
 import {GenericInput2} from '../GenericInput2';
 import {NavBar} from '../NavBar';
 import {RoundedButton} from '../RoundedButton';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {backgroundColor} from 'react-native-calendars/src/style';
 
-let Image_Http_URL = {uri: 'https://i.ibb.co/SVvdmW2/bathtub.png'};
+let Image_Http_URL ={ uri: 'https://i.ibb.co/SVvdmW2/bathtub.png'};
 
 const picture = Image.resolveAssetSource(importedPicture).uri;
 

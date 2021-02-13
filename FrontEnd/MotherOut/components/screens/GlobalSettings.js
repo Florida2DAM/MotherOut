@@ -34,8 +34,8 @@ class GlobalSettings extends Component {
                 const res = response.data;
                 this.setState({userSetting: res});
                 this.loadHelp();
-            }).catch((error) => {
-            ToastAndroid.showWithGravityAndOffset(error, ToastAndroid.LONG,
+            }).catch(() => {
+            ToastAndroid.showWithGravityAndOffset("The user could not be obtained.", ToastAndroid.LONG,
                 ToastAndroid.TOP,
                 25,
                 50);
@@ -52,8 +52,8 @@ class GlobalSettings extends Component {
                         50);
                     this.getActualUser();
                 })
-                .catch((error) => {
-                    ToastAndroid.showWithGravityAndOffset(error, ToastAndroid.LONG,
+                .catch(() => {
+                    ToastAndroid.showWithGravityAndOffset("The help could not be deactivated.", ToastAndroid.LONG,
                         ToastAndroid.TOP,
                         25,
                         50);
@@ -68,8 +68,11 @@ class GlobalSettings extends Component {
 
                     this.getActualUser();
                 })
-                .catch((error) => {
-                    alert(error);
+                .catch(() => {
+                    ToastAndroid.showWithGravityAndOffset("The help could not be deactivated.", ToastAndroid.LONG,
+                        ToastAndroid.TOP,
+                        25,
+                        50);
                 });
         }
 
@@ -80,7 +83,7 @@ class GlobalSettings extends Component {
             const jsonValue = await AsyncStorage.getItem('logUser');
             jsonValue != null ? this.setState({user: JSON.parse(jsonValue)}) : null;
         } catch (e) {
-            ToastAndroid.showWithGravityAndOffset(e, ToastAndroid.LONG,
+            ToastAndroid.showWithGravityAndOffset("User data could not be loaded.", ToastAndroid.LONG,
                 ToastAndroid.TOP,
                 25,
                 50);
