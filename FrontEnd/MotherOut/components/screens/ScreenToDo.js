@@ -9,6 +9,7 @@ import axios from "axios";
 import {ReloadedButton} from "../ReloadedButton";
 
 const picture = Image.resolveAssetSource(image).uri;
+let Image_Http_URL ={ uri: 'https://i.imgur.com/yNjnZTV.png?1'};
 
 class ScreenToDo extends Component {
 
@@ -112,7 +113,7 @@ class ScreenToDo extends Component {
                     <View style={styles.header}>
                         <Image
                             style={{width: 90, height: 90}}
-                            source={{uri: picture}}/>
+                            source={Image_Http_URL}/>
                         <View style={styles.rowView}>
                             <Text style={styles.textStyle}>{this.state.user.Name}</Text>
                         </View>
