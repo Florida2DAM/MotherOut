@@ -3,11 +3,10 @@ import React, {Component} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {ScrollView, StyleSheet, Text, ToastAndroid, View,} from 'react-native';
 import {Image,} from 'react-native-elements';
-import imagen from '../../assets/logo.png';
 import {GenericButton} from '../GenericButton';
 import {GenericInput1} from '../GenericInput1';
 
-const picture = Image.resolveAssetSource(imagen).uri;
+let Image_Http_URL ={ uri: 'https://i.imgur.com/NvwzH7g.png'};
 
 class Login extends Component {
     constructor(props) {
@@ -70,7 +69,7 @@ class Login extends Component {
                         <View style={styles.pictures}>
                             <Image
                                 style={{width: 310, height: 270}}
-                                source={{uri: picture}}
+                                source={Image_Http_URL}
                             />
                         </View>
                         <View style={styles.inputs}>
