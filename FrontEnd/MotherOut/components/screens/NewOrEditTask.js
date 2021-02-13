@@ -98,7 +98,7 @@ class NewOrEditTask extends Component {
                                     <Pressable>
                                         <Image
                                             style={{width: 90, height: 90}}
-                                            source={Image_Http_URL}/>
+                                            source={item.IconImage}/>
                                     </Pressable>
                                 </View>
                             }
