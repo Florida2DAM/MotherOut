@@ -8,38 +8,46 @@ import * as React from "react";
 import {ReportView} from "./Views/ReportView";
 import {TeamView} from "./Views/TeamView";
 import {Button} from 'primereact/button';
+import logo from './assets/cerdete.jpg'
 
 function App() {
-  return (
-      <HashRouter>
-        <div className='background'>
-          <div className={'menuBar'}>
-            <Button className="p-button-raised p-button-text">
-              <NavLink to="/users" activeClassName={'active'} className={'link'}>Users</NavLink>
-            </Button>
-            <Button className="p-button-raised p-button-text">
-              <NavLink to="/teams" activeClassName={'active'} className={'link'}>Teams</NavLink>
-            </Button>
-            <Button className="p-button-raised p-button-text">
-              <NavLink to="/reports" activeClassName={'active'} className={'link'}>Reports</NavLink>
-            </Button>
-          </div>
-          <Switch>
-            <Route path={'/users'}>
-              <UserView/>
-            </Route>
-            <Route path={'/teams'}>
-              <TeamView/>
-            </Route>
-            <Route path={'/reports'}>
-              <ReportView/>
-            </Route>
-            <Route path={'*'} exact>
-            </Route>
-          </Switch>
-        </div>
-      </HashRouter>
-  );
+    return (
+        <HashRouter>
+            <div className='background'>
+                <div className='head'>
+                    <div className={'logo'}>
+                        <img alt={"logo"} src={logo}/>
+                    </div>
+                    <div className={'menuBar'}>
+                        <Button className="p-button-raised p-button-text">
+                            <NavLink to="/users" activeClassName={'active'} className={'link'}>Users</NavLink>
+                        </Button>
+                        <Button className="p-button-raised p-button-text">
+                            <NavLink to="/teams" activeClassName={'active'} className={'link'}>Teams</NavLink>
+                        </Button>
+                        <Button className="p-button-raised p-button-text">
+                            <NavLink to="/reports" activeClassName={'active'} className={'link'}>Reports</NavLink>
+                        </Button>
+                    </div>
+                </div>
+                <div className={'body'}>
+                    <Switch>
+                        <Route path={'/users'}>
+                            <UserView/>
+                        </Route>
+                        <Route path={'/teams'}>
+                            <TeamView/>
+                        </Route>
+                        <Route path={'/reports'}>
+                            <ReportView/>
+                        </Route>
+                        <Route path={'*'} exact>
+                        </Route>
+                    </Switch>
+                </div>
+            </div>
+        </HashRouter>
+    );
 }
 
 export default App;

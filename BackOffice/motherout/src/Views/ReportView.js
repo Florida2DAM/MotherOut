@@ -25,9 +25,10 @@ export class ReportView extends Component {
             labels: this.state.labelGeneralData,
             datasets: [
                 {
+                    barPercentage: 0.5,
                     fill: true,
                     label: 'Generic Info.',
-                    backgroundColor: '#743380',
+                    backgroundColor: '#D7B9D5',
                     data: this.state.arrayData
                 }
             ]
@@ -48,6 +49,7 @@ export class ReportView extends Component {
                 }],
                 yAxes: [{
                     ticks: {
+                        beginAtZero: true,
                         fontColor: 'White'
                     }
                 }]
@@ -64,7 +66,6 @@ export class ReportView extends Component {
                         </div>
                     </TabPanel>
                 </TabView>
-
             </>
         );
     }
