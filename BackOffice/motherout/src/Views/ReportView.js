@@ -9,6 +9,7 @@ export class ReportView extends Component {
         super(prop);
         this.state = {
             arrayData: [],
+            labelGeneralData: ["Users","Teams","Tasks"],
             numUsers: null,
             numTeams: null,
             numTasks: null,
@@ -16,17 +17,17 @@ export class ReportView extends Component {
     }
 
     componentDidMount() {
-
+        this.getData()
     }
 
     render() {
-        const DataBets = {
-            labels: this.state.listLabelsBets,
+        const generalData = {
+            labels: this.state.labelGeneralData,
             datasets: [
                 {
                     label: 'Apuestas por días',
                     backgroundColor: '#743380',
-                    data: this.state.listDataBets
+                    data: this.state.arrayData
                 }
             ]
         };
@@ -64,9 +65,9 @@ export class ReportView extends Component {
             <>
                 <TabView activeIndex={this.state.activeIndex}
                          onTabChange={(e) => this.setState({activeIndex: e.index})}>
-                    <TabPanel header='Apuestas por día'>
+                    <TabPanel header='General Info'>
                         <div className="card">
-                            <Chart type="line" data={DataBets} options={basicOptions}/>
+                            <Chart type="card" data={generalData} options={basicOptions}/>
                         </div>
                     </TabPanel>
                     <TabPanel header='Altas por día'>
@@ -79,16 +80,17 @@ export class ReportView extends Component {
             </>
         );
     }
+
     getData = () => {
         axios.get('http://52.0.146.162:80/api/Users').then((response) => {
             this.setState({numUsers: response.data.length})
-        }).then(()=>{
+        }).then(() => {
             axios.get('http://52.0.146.162:80/api/Teams').then((response) => {
                 this.setState({numTeams: response.data.length})
-            }).then(()=>{
+            }).then(() => {
                 axios.get('http://52.0.146.162:80/api/UserTasks').then((response) => {
                     this.setState({numTasks: response.data.length})
-                }).then(()=>{
+                }).then(() => {
                     this.state.arrayData.push(this.state.numUsers)
                     this.state.arrayData.push(this.state.numTeams)
                     this.state.arrayData.push(this.state.numTasks)

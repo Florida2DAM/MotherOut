@@ -28,7 +28,7 @@ export class TeamView extends Component {
     }
 
     componentDidMount() {
-        this.getUsers();
+        this.getTeams();
     }
 
     render() {
@@ -39,9 +39,9 @@ export class TeamView extends Component {
                          onTabChange={(e) => this.setState({activeIndex: e.index})}>
                     <TabPanel header='Filter' leftIcon='pi pi-filter'>
                         <div className='p-grid p-fluid'>
-                            <RefreshButton onClick={this.getUsers}/>
+                            <RefreshButton onClick={this.getTeams}/>
                             <MotherOutInputText onChange={this.changeValueName} value={this.state.searchValueName}
-                                                size={'p-md-3'} name={'Email'}/>
+                                                size={'p-md-3'} name={'Name'}/>
                             <MotherOutInputText onChange={this.changeValueIdTeam}
                                                 value={this.state.searchValueIdTeam}
                                                 size={'p-md-3'} name={'Id Team'}/>
@@ -49,11 +49,11 @@ export class TeamView extends Component {
                     </TabPanel>
                     <TabPanel header='Delete' leftIcon='pi pi-trash'>
                         <div className='p-grid p-fluid'>
-                            <RefreshButton onClick={this.getUsers}/>
-                            <DeleteButton onClick={this.delUser}/>
+                            <RefreshButton onClick={this.getTeams}/>
+                            <DeleteButton onClick={this.delTeams}/>
                             <MotherOutInputText onChange={(e) => this.setState({deleteValue: e.target.value})}
                                                 value={this.state.deleteValue}
-                                                size={'p-md-3'} name={'Id User'}/>
+                                                size={'p-md-3'} name={'Id Team'}/>
                         </div>
                     </TabPanel>
                 </TabView>
@@ -73,19 +73,19 @@ export class TeamView extends Component {
     //Input handlers
     changeValueName = (event) => {
         this.setState({searchValueName: event.target.value}, () => {
-            this.state.searchValueName !== '' ? this.filterByName() : this.getUsers();
+            this.state.searchValueName !== '' ? this.filterByName() : this.getTeams();
             this.setState({searchValueIdTeam: ''})
         })
     }
     changeValueIdTeam = (event) => {
         this.setState({searchValueIdTeam: event.target.value}, () => {
-            this.state.searchValueIdTeam !== '' ? this.filterByIdTeam() : this.getUsers();
+            this.state.searchValueIdTeam !== '' ? this.filterByIdTeam() : this.getTeams();
             this.setState({searchValueName: ''})
         })
     }
 
     //Axios requests
-    getUsers = () => {
+    getTeams = () => {
         this.axiosRequest('http://52.0.146.162:80/api/Teams')
     }
     filterByName = () => {
@@ -94,7 +94,7 @@ export class TeamView extends Component {
     filterByIdTeam = () => {
         this.axiosRequest('http://52.0.146.162:80/api/Teams?TeamId=' + this.state.searchValueIdTeam);
     }
-    delUser = () => {
+    delTeams = () => {
         if (this.state.deleteValue !== '') {
             this.advAxiosRequest('http://52.0.146.162:80/api/Teams?TeamId=' + this.state.deleteValue, 'http://52.0.146.162:80/api/Teams', 'Team deleted', 'delete')
         } else {
