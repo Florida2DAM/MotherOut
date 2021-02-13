@@ -15,11 +15,7 @@ import { NavBar } from '../NavBar';
 import { RoundedButton } from '../RoundedButton';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-let Image_Http_URL = { uri: 'https://i.ibb.co/SVvdmW2/bathtub.png' };
 let Image_Header = { uri: 'https://i.imgur.com/QhQFvRY.png?1' };
-
-const picture = Image.resolveAssetSource(importedPicture).uri;
-
 
 class NewOrEditTask extends Component {
     constructor(props) {

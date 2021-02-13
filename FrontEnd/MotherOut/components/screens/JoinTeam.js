@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 import {StyleSheet, ToastAndroid, View} from 'react-native';
 import { Image } from 'react-native-elements';
-import imagen from '../../assets/joinTeam.png';
 import { GenericInput2 } from '../GenericInput2';
 import { NavBar } from '../NavBar';
 import { GenericButton } from '../GenericButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-
-
-const picture = Image.resolveAssetSource(imagen).uri;
+let Image_Http_URL = { uri: 'https://i.imgur.com/emIiUc3.png?1' };
 
 class JoinTeam extends Component {
 
@@ -64,8 +61,8 @@ class JoinTeam extends Component {
                 <View style={styles.contenidor}>
                     <View style={styles.header}>
                         <Image
-                            style={{ width: 300, height: 90 }}
-                            source={{ uri: picture }} />
+                            style={{ width: 305, height:81 }}
+                            source={Image_Http_URL} />
                     </View>
                     <View style={styles.body}>
                         <GenericInput2 placeHolder="Id Team" value={this.state.idTeam} onChange={(item) => this.setState({ idTeam: item })} />
