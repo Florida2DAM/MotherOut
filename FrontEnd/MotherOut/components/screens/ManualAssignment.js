@@ -3,14 +3,14 @@ import axios from 'axios';
 import React, {Component} from 'react';
 import {ScrollView, StyleSheet, Text, ToastAndroid, View} from 'react-native';
 import {Image} from 'react-native-elements';
-import image from '../../assets/manualAssignment.png';
 import {InputData} from '../InputData';
 import {NavBar} from "../NavBar";
 import {RoundedButton} from "../RoundedButton";
 import {SelectedItem} from '../SelectedItem';
 import {SelectedTask} from '../SelectedTask';
 
-const picture = Image.resolveAssetSource(image).uri;
+
+let Image_Http_URL = {uri: 'https://i.imgur.com/dVz7mfC.png?1'};
 
 class ManualAssignment extends Component {
 
@@ -110,8 +110,8 @@ class ManualAssignment extends Component {
                 <View style={styles.contenidor}>
                     <View style={styles.header}>
                         <Image
-                            style={{width: 290, height: 90}}
-                            source={{uri: picture}}/>
+                            style={{width: 333, height: 81}}
+                            source={Image_Http_URL}/>
                     </View>
                     <ScrollView>
                         <View style={styles.body}>
