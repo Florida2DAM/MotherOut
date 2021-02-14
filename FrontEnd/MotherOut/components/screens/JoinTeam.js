@@ -40,9 +40,18 @@ class JoinTeam extends Component {
 
     asignTeamToUser = async () => {
         axios.put('http://52.0.146.162:80/api/Teams?idTeam=' + this.state.idTeam + '&idUser=' + this.state.user.UserId)
-            .then(() => {
-                ToastAndroid.showWithGravityAndOffset("You´re part of a pig team.", ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
-                this.props.navigation.navigate('ScreenToDo');
+            .then((response) => {
+                if (response.data){
+                    ToastAndroid.showWithGravityAndOffset("You´re part of a pig team.", ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
+                    this.props.navigation.navigate('ScreenToDo');
+                }
+                else{
+                    ToastAndroid.showWithGravityAndOffset("The assignment could not be carried out, because you have entered a non-existent team.", ToastAndroid.LONG,
+                        ToastAndroid.TOP,
+                        25,
+                        50);
+                }
+
             })
             .catch(() => {
                 ToastAndroid.showWithGravityAndOffset("The assignment could not be carried out, because you have entered a non-existent team.", ToastAndroid.LONG,
