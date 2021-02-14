@@ -43,7 +43,7 @@ class JoinTeam extends Component {
             .then((response) => {
                 if (response.data){
                     ToastAndroid.showWithGravityAndOffset("You´re part of a pig team.", ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
-                    this.props.navigation.navigate('Login');
+                    this.props.navigation.navigate('ScreenToDo');
                 }
                 else{
                     ToastAndroid.showWithGravityAndOffset("The assignment could not be carried out, because you have entered a non-existent team.", ToastAndroid.LONG,
