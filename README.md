@@ -51,18 +51,18 @@ group living in a shared apartment.
     * react-navigation
     * react-navigation
     * react-native-async-storage
+## Bugs
+
+We have not been able to solve the problem that is randomly generated when a user is created,
+navigability in the creation process does not work properly. Pending solution.
 
 ## Link download app
-  Download in google drive
-  
-![](https://i.imgur.com/eaQaLAZ.png) &nbsp;
-
   
   Link to github:
 
 ![](https://i.imgur.com/EMhliW5.png) &nbsp;
 
-## Bugs
+  Download in google drive
+  
+![](https://i.imgur.com/eaQaLAZ.png) &nbsp;
 
-We have not been able to solve the problem that is randomly generated when a user is created,
-navigability in the creation process does not work properly. Pending solution.
