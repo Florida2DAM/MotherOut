@@ -1,29 +1,12 @@
 import React, {Component} from 'react';
-import {FlatList, StyleSheet, Text, View} from 'react-native';
+import {FlatList, StyleSheet, ToastAndroid, View} from 'react-native';
 import {Image} from 'react-native-elements';
-import importedPicture from '../../assets/asignedTasks.png';
-import importAvatar2 from '../../assets/avatar2.png';
-import importIcon from '../../assets/bathtub.png';
-import importAvatar from '../../assets/circle-cropped.png';
 import {NavBar} from '../NavBar';
 import {TaskCardTwoIcons} from '../TaskCardTwoIcons';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const avatar = Image.resolveAssetSource(importAvatar).uri
-const avatar2 = Image.resolveAssetSource(importAvatar2).uri
-const icon = Image.resolveAssetSource(importIcon).uri
-const picture = Image.resolveAssetSource(importedPicture).uri;
-
-
-const taskList = [
-    {task: "Clean Bathroom", blop: icon},
-    {task: "Clean Bathroom", blop: icon},
-    {task: "Clean Bathroom", blop: icon},
-    {task: "Clean Bathroom", blop: icon},
-];
-
-const listUsers = [
-    {name: 'Pablo', blop: avatar2}, {name: 'Juan', blop: avatar}, {name: 'Jesus', blop: avatar}
-]
+let Image_Http_URL = {uri: 'https://i.imgur.com/t9OAsHQ.png'};
 
 class AsignedTasks extends Component {
 
@@ -31,12 +14,64 @@ class AsignedTasks extends Component {
         super(props)
         this.state = {
             task: null,
+            taskTeam: [],
+            user: [],
+            asignedTeam: null,
         }
     }
 
+    componentDidMount() {
+        this.getData().then(
+            () => {
+                console.log(this.state.user);
+                this.getTaskbyTeam(this.state.user.AsignedTeam);
+            })
+    }
 
-    getTask = (itemSelected) => {
-        return alert(itemSelected)
+    async getData() {
+        try {
+            const jsonValue = await AsyncStorage.getItem('logUser')
+            jsonValue != null ? this.setState({user: JSON.parse(jsonValue)}) : null;
+        } catch (e) {
+            ToastAndroid.showWithGravityAndOffset("User data could not be loaded.", ToastAndroid.LONG,
+                ToastAndroid.TOP,
+                25,
+                50);
+        }
+    }
+
+    getTaskbyTeam = async (idTeam) => {
+        axios.get('http://52.0.146.162:80/api/UserTasks?idTeam=' + idTeam)
+            .then(response => {
+                this.setState({taskUsers: response.data})
+            })
+            .catch(() => {
+                ToastAndroid.showWithGravityAndOffset("It has not been possible to obtain information on the tasks per team.", ToastAndroid.LONG,
+                    ToastAndroid.TOP,
+                    25,
+                    50);
+            });
+    }
+
+    taskEditing = (item) => {
+        this.props.navigation.navigate('TasksEditing', {
+            taskId: item.UserTaskId,
+            userId: item.UserId,
+            taskName: item.TaskName
+        })
+    }
+
+    deleteTask = async (item) => {
+        axios.delete('http://52.0.146.162:80/api/UserTasks?IdTask=' + item.UserTaskId)
+            .then((error) => {
+                this.getTaskbyTeam(this.state.user.AsignedTeam)
+            })
+            .catch(() => {
+                ToastAndroid.showWithGravityAndOffset("The task could not be deleted due to network error.", ToastAndroid.LONG,
+                    ToastAndroid.TOP,
+                    25,
+                    50);
+            });
     }
 
     render() {
@@ -45,40 +80,30 @@ class AsignedTasks extends Component {
                 <View style={styles.contenidor}>
                     <View style={styles.header}>
                         <Image
-                            style={{width: 300, height: 90}}
-                            source={{uri: picture}}/>
+                            style={{width: 351, height: 91}}
+                            source={Image_Http_URL}/>
                     </View>
                     <View style={styles.body}>
                         <FlatList
-                            data={listUsers}
+                            data={this.state.taskUsers}
                             keyExtractor={(item, index) => index.toString()}
                             renderItem={({item}) =>
-                                <View>
-                                    <View style={styles.headUser}>
-                                        <Text style={styles.textStyle}>{item.name}</Text>
-                                        <Image
-                                            style={styles.logo}
-                                            source={{uri: item.blop}}
-                                        />
-                                    </View>
-                                    <FlatList
-                                        data={taskList}
-                                        keyExtractor={(item, index) => index.toString()}
-                                        renderItem={({item}) =>
-                                            <View style={styles.flatStyle}>
-                                                <TaskCardTwoIcons text={item.task}
-                                                                  icon1="trash"
-                                                                  icon2="edit"
-                                                                  iconCard={item.blop}/>
-                                            </View>
-                                        }
+                                <View style={styles.flatStyle}>
+                                    <TaskCardTwoIcons
+                                        task={item.TaskName}
+                                        name={item.SelectMember}
+                                        icon1="trash"
+                                        icon2="edit"
+                                        iconCard={item.TaskIcon}
+                                        press1={() => this.deleteTask(item)}
+                                        press2={() => this.taskEditing(item)}
                                     />
                                 </View>
                             }
                         />
                     </View>
                     <View>
-                    <NavBar
+                        <NavBar
                             checked={() => this.props.navigation.navigate('ScreenToDo')}
                             list={() => this.props.navigation.navigate('ListTask')}
                             calendar={() => this.props.navigation.navigate('TaskAssignment')}
@@ -93,8 +118,6 @@ class AsignedTasks extends Component {
 }
 
 const styles = StyleSheet.create({
-
-
     contenidor: {
         flex: 1,
         flexDirection: 'column',

@@ -1,34 +1,72 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
+import React, {Component} from 'react';
+import {FlatList, StyleSheet, ToastAndroid, View} from 'react-native';
+import {Image} from 'react-native-elements';
+import {NavBar} from '../NavBar';
+import {TaskCard} from '../TaskCard';
+import {RoundedButton} from '../RoundedButton';
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import {ReloadedButton} from "../ReloadedButton";
 
-import React, { Component } from 'react';
-
-import { FlatList, StyleSheet, View } from 'react-native';
-
-import { Image } from 'react-native-elements';
-
-import imagen from '../../assets/listTask.png';
-import { NavBar } from '../NavBar';
-import { TaskCard } from '../TaskCard';
-import { RoundedButton } from '../RoundedButton';
-
-const picture = Image.resolveAssetSource(imagen).uri;
+let Image_Http_URL = {uri: 'https://i.imgur.com/M54G2e2.png'};
 
 class ListTask extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: [{ taskName: 'trash', text: 'clean bathroom' },
-            { taskName: 'trash', text: 'clean room' },
-            { taskName: 'trash', text: '2 clean room' },
-            ],
+            user: null,
+            listTasks: [],
         };
     }
+
+    componentDidMount = () => {
+        this.getData().then(() => this.getListTask(this.state.user.AsignedTeam));
+
+    };
+
+    async getData() {
+        try {
+            const jsonValue = await AsyncStorage.getItem('logUser')
+            jsonValue != null ? this.setState({user: JSON.parse(jsonValue)}) : null;
+        } catch (e) {
+            ToastAndroid.showWithGravityAndOffset("User data could not be loaded.", ToastAndroid.LONG,
+                ToastAndroid.TOP,
+                25,
+                50);
+        }
+    }
+
+    getListTask = async (id) => {
+        axios.get('http://52.0.146.162:80/api/UserTasks?idTeam=' + id)
+            .then(response => {
+                let res;
+                let res2 = [];
+                res = response.data;
+                res.forEach((item) => {
+                    res2.push(item);
+                });
+                this.setState({listTasks: res2});
+            }).catch(() => {
+            ToastAndroid.showWithGravityAndOffset("The list could not be uploaded.", ToastAndroid.LONG,
+                ToastAndroid.TOP,
+                25,
+                50);
+        })
+    }
+
+    deleteTask = async (item) => {
+        axios.delete('http://52.0.146.162:80/api/UserTasks?IdTask=' + item.UserTaskId)
+            .then(this.getListTask(this.state.user.AsignedTeam), ToastAndroid.showWithGravityAndOffset("The tasks named: " + item.TaskName + " has been deleted. As long as they don't have to work, anything, little pig. ", ToastAndroid.LONG,
+                ToastAndroid.TOP,
+                25,
+                50))
+            .catch(() => {
+                ToastAndroid.showWithGravityAndOffset("The task could not be eliminated.", ToastAndroid.LONG,
+                    ToastAndroid.TOP,
+                    25,
+                    50);
+            });
+    };
 
     render() {
         return (
@@ -36,19 +74,25 @@ class ListTask extends Component {
                 <View style={styles.contenidor}>
                     <View style={styles.header}>
                         <Image
-                            style={{ width: 300, height: 90 }}
-                            source={{ uri: picture }}
+                            style={{width: 333, height: 81}}
+                            source={Image_Http_URL}
                         />
                     </View>
                     <View style={styles.body}>
-                        <FlatList data={this.state.data}
-                            keyExtractor={(item, index) => index.toString()}
-                            renderItem={({ item }) => (
-                                <View style={{ padding: 5 }}>
-                                    <TaskCard text={item.text} icon={item.taskName} />
-                                </View>)}
+                        <FlatList data={this.state.listTasks}
+                                  keyExtractor={(item, index) => index.toString()}
+                                  renderItem={({item}) => (
+                                      <View style={{padding: 5}}>
+                                          <TaskCard text={item.TaskName} image={item.TaskIcon} icon={"trash"}
+                                                    press={() => this.deleteTask(item)}/>
+                                      </View>)}
                         />
-                        <RoundedButton icon={'plus'} />
+
+                    </View>
+                    <View style={styles.buttonsView}>
+                        <ReloadedButton
+                            press={() => this.getListTask(this.state.user.AsignedTeam)}/>
+                        <RoundedButton icon={'plus'} press={() => this.props.navigation.navigate('NewOrEditTask')}/>
                     </View>
                     <View>
                         <NavBar
@@ -83,6 +127,10 @@ const styles = StyleSheet.create({
         padding: 15,
         flex: 10,
     },
+    buttonsView: {
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    }
 
 });
 

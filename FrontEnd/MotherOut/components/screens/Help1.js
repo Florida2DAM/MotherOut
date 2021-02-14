@@ -1,78 +1,97 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React, {Component} from 'react';
-
-import {ScrollView, StyleSheet, View} from 'react-native';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Swiper from 'react-native-swiper'
+import {StyleSheet, ToastAndroid, View} from 'react-native';
 import {Image} from 'react-native-elements';
-import imagen from '../../assets/help1_1.png';
-import imagen2 from '../../assets/help2_1.png';
-import imagen3 from '../../assets/help3_1.png';
-import imagen4 from '../../assets/help4_1.png';
-import imagen5 from '../../assets/help5_1.png';
-import GenericButton from '../GenericButton';
+import {GenericButton} from '../GenericButton';
 
-const picture = Image.resolveAssetSource(imagen).uri;
-const picture2 = Image.resolveAssetSource(imagen2).uri;
-const picture3 = Image.resolveAssetSource(imagen3).uri;
-const picture4 = Image.resolveAssetSource(imagen4).uri;
-const picture5 = Image.resolveAssetSource(imagen5).uri;
-
+let Image_Http_URL1 = {uri: 'https://i.imgur.com/SLt3m2U.png'};
+let Image_Http_URL2 = {uri: 'https://i.imgur.com/7dY0d9i.png'};
+let Image_Http_URL3 = {uri: 'https://i.imgur.com/AYId86I.png'};
+let Image_Http_URL4 = {uri: 'https://i.imgur.com/MNoC59o.png'};
+let Image_Http_URL5 = {uri: 'https://i.imgur.com/mNFy0JN.png'};
 
 class Help1 extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            user: [],
+        }
+
+    }
+
+    componentDidMount = () => {
+        this.getData().then(() => console.log(this.state.user));
+    }
+
+    async getData() {
+        try {
+            const jsonValue = await AsyncStorage.getItem('logUser')
+            jsonValue != null ? this.setState({user: JSON.parse(jsonValue)}) : null;
+        } catch (e) {
+            ToastAndroid.showWithGravityAndOffset("User data could not be loaded.", ToastAndroid.LONG,
+                ToastAndroid.TOP,
+                25,
+                50);
+        }
+    }
+
+    checkExistenceOfTeam = async () => {
+        if (this.state.user.AsignedTeam === 0 || this.state.user.AsignedTeam === null || this.state.user.NTaks===0 || this.state.user.UserScore===0) {
+            this.props.navigation.navigate('CreateOrJoinTeam');
+        } else {
+            this.props.navigation.navigate('ScreenToDo');
+        }
+    }
 
     render() {
         return (
             <>
                 <View style={styles.container}>
-                    <ScrollView horizontal={true}>
+                    <Swiper>
                         <View style={styles.pictures}>
                             <Image
-                                style={{width: 350, height: 550}}
-                                source={{uri: picture}}
+                                style={{width: 350, height: 470}}
+                                source={Image_Http_URL1}
                             />
                         </View>
                         <View style={styles.pictures}>
                             <Image
-                                style={{width: 350, height: 550}}
-                                source={{uri: picture2}}
+                                style={{width: 350, height: 470}}
+                                source={Image_Http_URL2}
                             />
                         </View>
                         <View style={styles.pictures}>
                             <Image
-                                style={{width: 350, height: 550}}
-                                source={{uri: picture3}}
+                                style={{width: 350, height: 470}}
+                                source={Image_Http_URL3}
                             />
                         </View>
                         <View style={styles.pictures}>
                             <Image
-                                style={{width: 350, height: 550}}
-                                source={{uri: picture4}}
+                                style={{width: 350, height: 470}}
+                                source={Image_Http_URL4}
                             />
                         </View>
                         <View style={styles.pictures}>
                             <Image
-                                style={{width: 400, height: 590}}
-                                source={{uri: picture5}}
+                                style={{width: 350, height: 470}}
+                                source={Image_Http_URL5}
                             />
-                            <View>
-                                <GenericButton button={'Skipt!'}/>
+                            <View style={{marginTop: 75}}>
+                                <GenericButton button={'Skipt!'}
+                                               press={this.checkExistenceOfTeam}/>
                             </View>
                         </View>
-                    </ScrollView>
+                    </Swiper>
                 </View>
 
             </>
 
         );
     }
-
 }
 
 const styles = StyleSheet.create({
@@ -83,7 +102,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#90A8C3',
     },
     pictures: {
-        padding: 5,
+        padding: 5
     },
 });
 

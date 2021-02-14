@@ -1,17 +1,16 @@
-import React, { Component } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { Image } from 'react-native-elements';
-import imagen from '../../assets/tasksEditing.png';
-import { GenericInput2 } from "../GenericInput2";
-import { InputData } from "../InputData";
-import { NavBar } from "../NavBar";
-import { RoundedButton } from "../RoundedButton";
-import { SelectedItem } from "../SelectedItem";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+import React, {Component} from 'react';
+import {StyleSheet, Text, ToastAndroid, View} from 'react-native';
+import {Image} from 'react-native-elements';
+import {GenericInput2} from '../GenericInput2';
+import {InputData} from '../InputData';
+import {NavBar} from '../NavBar';
+import {RoundedButton} from '../RoundedButton';
+import {SelectedItem} from '../SelectedItem';
 
-const picture = Image.resolveAssetSource(imagen).uri;
-const listUsers = [
-    { name: 'Pablo' }, { name: 'Juan' }, { name: 'Jesús' }
-];
+let Image_Http_URL = {uri: 'https://i.imgur.com/EX3C8SA.png?1'};
+
 
 class TasksEditing extends Component {
     constructor(props) {
@@ -19,14 +18,86 @@ class TasksEditing extends Component {
         this.state = {
             name: null,
             date: null,
+            idTeam: null,
+            idTask: null,
+            nameTask: null,
+            idUser: null,
+            selectedIdUser: null,
+            teamData: [],
+            user: [],
+        };
+    }
+
+    componentDidMount() {
+        this.getData().then(() => {
+            this.loadData();
+        });
+    }
+
+    async getData() {
+        try {
+            const jsonValue = await AsyncStorage.getItem('logUser');
+            jsonValue != null ? this.setState({user: JSON.parse(jsonValue)}) : null;
+        } catch (e) {
+            alert(e);
         }
     }
 
-    getName = (item) => {
-        return this.setState({
-            name: item.name
+    loadData = () => {
+        this.setState({idTask: this.props.route.params.taskId});
+        this.setState({nameTask: this.props.route.params.taskName});
+        this.setState({idUSer: this.props.route.params.userId});
+        this.getIdTeam(this.state.user.UserId);
+    };
+
+    getIdTeam = async (idUser) => {
+        axios.get('http://52.0.146.162:80/api/Users?idUser=' + idUser).then(response => {
+            this.setState({idTeam: response.data.AsignedTeam});
+            this.getUsersByTeam(this.state.idTeam);
+        }).catch(function (error) {
+            ToastAndroid.showWithGravityAndOffset("Team data could not be loaded.", ToastAndroid.LONG,
+                ToastAndroid.TOP,
+                25,
+                50);
+        });
+    };
+
+    getUsersByTeam = async (idTeam) => {
+        axios.get('http://52.0.146.162:80/api/Users?idTeam=' + idTeam).then(response => {
+            this.setState({teamData: response.data});
         })
-    }
+            .catch(function (error) {
+                ToastAndroid.showWithGravityAndOffset("It has not been possible to load the data of the users of the equipment. ", ToastAndroid.LONG,
+                    ToastAndroid.TOP,
+                    25,
+                    50);
+            });
+    };
+
+    getName = (item) => {
+        this.setState({
+            name: item.Name,
+            selectedIdUser: item.UserId,
+        }, () => {
+            console.log(this.state.name), console.log(this.state.date);
+        });
+    };
+
+    updateTask = async () => {
+        axios.put('http://52.0.146.162:80/api/UserTasks?idUserTask=' + this.state.idTask + '&fecha=' + this.state.date + '&idUser=' + this.state.selectedIdUser)
+            .then(() => {
+                ToastAndroid.showWithGravityAndOffset("The task has been updated.", ToastAndroid.LONG,
+                    ToastAndroid.TOP,
+                    25,
+                    50);
+            })
+            .catch(function (error) {
+                ToastAndroid.showWithGravityAndOffset("The task could not be updated.", ToastAndroid.LONG,
+                    ToastAndroid.TOP,
+                    25,
+                    50);
+            });
+    };
 
     render() {
         return (
@@ -34,22 +105,21 @@ class TasksEditing extends Component {
                 <View style={styles.contenidor}>
                     <View style={styles.header}>
                         <Image
-                            style={{ width: 290, height: 90 }}
-                            source={{ uri: picture }} />
+                            style={{width: 300, height: 90}}
+                            source={Image_Http_URL}/>
                     </View>
-                    <ScrollView>
-                        <View style={styles.body}>
-                            <Text style={styles.textStyle}>Task name</Text>
-                            <GenericInput2 placeHolder={"Clean room"} passValue={false} />
-                            <Text style={styles.textStyle}>Selected member</Text>
-                            <SelectedItem list={listUsers} value={this.state.name} selectedItem={this.getName} />
-                            <Text style={styles.textStyle}>Select day</Text>
-                            <InputData value={this.state.date}
-                                press={(item) => this.setState({ date: item.day + "-" + item.month + "-" + item.year })} />
-                        </View>
-                    </ScrollView>
+                    <View style={styles.body}>
+                        <Text style={styles.textStyle}>Task name</Text>
+                        <GenericInput2 disabled={true} placeHolder={this.state.nameTask} passValue={false}/>
+                        <Text style={styles.textStyle}>Selected member</Text>
+                        <SelectedItem list={this.state.teamData} value={this.state.name} selectedItem={this.getName}/>
+                        <Text style={styles.textStyle}>Select day</Text>
+                        <InputData value={this.state.date}
+                                   press={(item) => this.setState({date: item.dateString})}/>
+                    </View>
+
                     <View>
-                        <RoundedButton icon='check' />
+                        <RoundedButton icon='check' press={this.updateTask}/>
                     </View>
                     <View>
                         <NavBar
@@ -77,7 +147,7 @@ const styles = StyleSheet.create({
         marginTop: 2,
         flexDirection: 'row',
         justifyContent: 'space-evenly',
-        alignItems: "center",
+        alignItems: 'center',
     },
     body: {
         marginTop: 2,
@@ -86,9 +156,9 @@ const styles = StyleSheet.create({
         flex: 10,
     },
     textStyle: {
-        fontWeight: "bold",
+        fontWeight: 'bold',
         fontSize: 20,
-        fontFamily: "Roboto",
+        fontFamily: 'Roboto',
         padding: 10,
     },
 });

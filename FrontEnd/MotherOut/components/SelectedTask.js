@@ -9,7 +9,7 @@ import {
 } from 'react-native-elements';
 import Menu from 'react-native-material-menu';
 
-export class SelectedItem extends Component {
+export class SelectedTask extends Component {
 
     constructor(props) {
         super(props)
@@ -48,7 +48,7 @@ export class SelectedItem extends Component {
                         renderItem={({ item }) =>
                             <Pressable onPress={this.props.selectedItem.bind(this, item)}>
                                 <View style={styles.headUser}>
-                                    <Text style={styles.textStyle}>{item.Name}</Text>
+                                    <Text style={styles.textStyle}>{item.TaskName}</Text>
                                     <Image
                                         style={styles.logo}
                                         source={{ uri: item.blop }}

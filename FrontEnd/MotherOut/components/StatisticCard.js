@@ -56,7 +56,7 @@ export class StatisticCard extends Component {
                         <View style={styles.avatar}>
                             <Image
                                 style={styles.logo}
-                                source={{ uri: userAvatar }}
+                                source={{uri: this.props.avatarUser}}
                             />
                         </View>
                         <View style={styles.avatar}>

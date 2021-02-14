@@ -1,34 +1,107 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 import React, {Component} from 'react';
-import {ScrollView, StyleSheet, Text, View,} from 'react-native';
+import {ScrollView, StyleSheet, Text, ToastAndroid, View} from 'react-native';
 import {Image} from 'react-native-elements';
-import image from '../../assets/manualAssignment.png'
+import {InputData} from '../InputData';
 import {NavBar} from "../NavBar";
-import {GenericInput2} from "../GenericInput2";
 import {RoundedButton} from "../RoundedButton";
-import {InputData} from '../InputData'
-import {SelectedItem} from '../SelectedItem'
+import {SelectedItem} from '../SelectedItem';
+import {SelectedTask} from '../SelectedTask';
 
-const picture = Image.resolveAssetSource(image).uri;
-const listUsers = [
-    {name: 'Pablo'}, {name: 'Juan'}, {name: 'Jesús'}
-]
+
+let Image_Http_URL = {uri: 'https://i.imgur.com/dVz7mfC.png?1'};
 
 class ManualAssignment extends Component {
 
     constructor(props) {
         super(props);
-
         this.state = {
             name: null,
             date: null,
-        }
+            task: null,
+            idTeam: null,
+            idTask: null,
+            nameTask: null,
+            selectedIdUser: null,
+            selectedIdTask: null,
+            listUsers: [],
+            listTasks: [],
+            user: [],
+        };
+    }
 
+    componentDidMount = () => {
+        this.getData().then(() => {
+            this.getUsersByTeam(this.state.user.AsignedTeam)
+        }).then(() => this.getTaskbyTeam(this.state.user.AsignedTeam));
+    }
+
+    async getData() {
+        try {
+            const jsonValue = await AsyncStorage.getItem('logUser')
+            jsonValue != null ? this.setState({user: JSON.parse(jsonValue)}) : null;
+        } catch (e) {
+            ToastAndroid.showWithGravityAndOffset("User data could not be loaded.", ToastAndroid.LONG,
+                ToastAndroid.TOP,
+                25,
+                50);
+        }
+    }
+
+    getTaskbyTeam = async (idTeam) => {
+        axios.get('http://52.0.146.162:80/api/UserTasks?idTeam=' + idTeam)
+            .then(response => {
+                this.setState({listTasks: response.data})
+            })
+            .catch(() => {
+                ToastAndroid.showWithGravityAndOffset("The list could not be uploaded.", ToastAndroid.LONG,
+                    ToastAndroid.TOP,
+                    25,
+                    50);
+            });
+    }
+
+    getUsersByTeam = async (idTeam) => {
+        axios.get('http://52.0.146.162:80/api/Users?idTeam=' + idTeam).then(response => {
+            this.setState({listUsers: response.data});
+        }).catch(function (error) {
+            ToastAndroid.showWithGravityAndOffset("The list could not be uploaded.", ToastAndroid.LONG,
+                ToastAndroid.TOP,
+                25,
+                50);
+        });
     }
 
     getName = (item) => {
-        return this.setState({
-            name: item.name
+        this.setState({
+            name: item.Name,
+            selectedIdUser: item.UserId
+        }, () => {
+            console.log(this.state.name), console.log(this.state.date)
         })
+    };
+
+    getTask = (item) => {
+        this.setState({
+            task: item.TaskName,
+            selectedIdTask: item.UserTaskId
+        }, () => {
+            console.log(this.state.task)
+        })
+    };
+
+    updateTask = async () => {
+        axios.put('http://52.0.146.162:80/api/UserTasks?idUserTask=' + this.state.selectedIdTask + '&fecha=' + this.state.date + '&idUser=' + this.state.selectedIdUser)
+            .then(() => {
+                ToastAndroid.showWithGravityAndOffset("Another pig has the task.", ToastAndroid.LONG, ToastAndroid.TOP, 25, 50)
+            })
+            .catch(function (error) {
+                ToastAndroid.showWithGravityAndOffset("The task could not be updated.", ToastAndroid.LONG,
+                    ToastAndroid.TOP,
+                    25,
+                    50);
+            });
     }
 
     render() {
@@ -37,25 +110,27 @@ class ManualAssignment extends Component {
                 <View style={styles.contenidor}>
                     <View style={styles.header}>
                         <Image
-                            style={{width: 290, height: 90}}
-                            source={{uri: picture}}/>
+                            style={{width: 340, height: 91}}
+                            source={Image_Http_URL}/>
                     </View>
                     <ScrollView>
                         <View style={styles.body}>
                             <Text style={styles.textStyle}>Task name</Text>
-                            <GenericInput2 placeHolder={"Clean room"} passValue={false}/>
+                            <SelectedTask list={this.state.listTasks} value={this.state.task}
+                                          selectedItem={this.getTask}/>
                             <Text style={styles.textStyle}>Selected member</Text>
-                            <SelectedItem list={listUsers} value={this.state.name} selectedItem={this.getName}/>
+                            <SelectedItem list={this.state.listUsers} value={this.state.name}
+                                          selectedItem={this.getName}/>
                             <Text style={styles.textStyle}>Select day</Text>
                             <InputData value={this.state.date}
-                                       press={(item) => this.setState({date: item.day+"-"+item.month+"-"+item.year})}/>
+                                       press={(item) => this.setState({date: item.dateString})}/>
                         </View>
                     </ScrollView>
                     <View>
-                        <RoundedButton icon='check'/>
+                        <RoundedButton icon='check' press={this.updateTask}/>
                     </View>
                     <View>
-                    <NavBar
+                        <NavBar
                             checked={() => this.props.navigation.navigate('ScreenToDo')}
                             list={() => this.props.navigation.navigate('ListTask')}
                             calendar={() => this.props.navigation.navigate('TaskAssignment')}

@@ -1,15 +1,11 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import React, { Component } from 'react';
-import {
-    StyleSheet
-} from 'react-native';
 import 'react-native-gesture-handler';
-import {
-    Colors
-} from 'react-native/Libraries/NewAppScreen';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import React, {Component} from 'react';
+import {StyleSheet} from 'react-native';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
 //All screens
-import AddUser from './components/screens/AddUser';
+import Help1 from './components/screens/Help1';
 import AsignedTask from './components/screens/AsignedTasks';
 import CreateOrJoinTeam from './components/screens/CreateOrJoinTeam';
 import JoinTeam from './components/screens/JoinTeam';
@@ -24,7 +20,9 @@ import Statistics from './components/screens/Statistics';
 import TaskAssignment from './components/screens/TaskAssignment';
 import TasksEditing from './components/screens/TasksEditing';
 import YourTeam from './components/screens/YourTeam';
-//Help Screens
+import GlobalSettings from './components/screens/GlobalSettings';
+import UserEdit from "./components/screens/UserEdit";
+
 const navigationContainer = createStackNavigator();
 
 class App extends Component {
@@ -34,7 +32,6 @@ class App extends Component {
                 <NavigationContainer>
                     <navigationContainer.Navigator>
                         <navigationContainer.Screen options={{ headerShown: false }} name="Login" component={Login} />
-                        <navigationContainer.Screen options={{ headerShown: false }} name="AddUser" component={AddUser} />
                         <navigationContainer.Screen options={{ headerShown: false }} name="AsignedTask" component={AsignedTask} />
                         <navigationContainer.Screen options={{ headerShown: false }} name="CreateOrJoinTeam" component={CreateOrJoinTeam} />
                         <navigationContainer.Screen options={{ headerShown: false }} name="JoinTeam" component={JoinTeam} />
@@ -48,6 +45,9 @@ class App extends Component {
                         <navigationContainer.Screen options={{ headerShown: false }} name="TaskAssignment" component={TaskAssignment} />
                         <navigationContainer.Screen options={{ headerShown: false }} name="TasksEditing" component={TasksEditing} />
                         <navigationContainer.Screen options={{ headerShown: false }} name="YourTeam" component={YourTeam} />
+                        <navigationContainer.Screen options={{ headerShown: false }} name="Help1" component={Help1} />
+                        <navigationContainer.Screen options={{ headerShown: false }} name="UserEdit" component={UserEdit} />
+                        <navigationContainer.Screen options={{ headerShown: false }} name="GlobalSettings" component={GlobalSettings} />
                     </navigationContainer.Navigator>
                 </NavigationContainer>
             </>
