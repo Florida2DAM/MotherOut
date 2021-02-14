@@ -41,10 +41,17 @@ class Login extends Component {
                     const res = response.data;
                     this.setState({user: res});
                     this.storeData(res);
-                    if (!this.state.user.Help && this.state.user.AsignedTeam !== 0) {
-                        this.props.navigation.navigate('ScreenToDo');
+                    if (res.Password === this.state.password) {
+                        if (!this.state.user.Help && this.state.user.AsignedTeam !== 0) {
+                            this.props.navigation.navigate('ScreenToDo');
+                        } else {
+                            this.props.navigation.navigate('Help1');
+                        }
                     } else {
-                        this.props.navigation.navigate('Help1');
+                        ToastAndroid.showWithGravityAndOffset("The credentials entered are not correct.", ToastAndroid.LONG,
+                            ToastAndroid.TOP,
+                            25,
+                            50);
                     }
                 }).catch(() => {
                 ToastAndroid.showWithGravityAndOffset("The credentials entered are not correct.", ToastAndroid.LONG,

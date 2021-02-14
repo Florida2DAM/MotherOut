@@ -23,7 +23,7 @@ class Help1 extends Component {
     }
 
     componentDidMount = () => {
-        this.getData().then(() => console.log(this.state.user));
+        this.getData().then(() => console.log("componentdidmount help1 "+this.state.user.AsignedTeam));
     }
 
     async getData() {
