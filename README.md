@@ -51,6 +51,11 @@ group living in a shared apartment.
     * react-navigation
     * react-navigation
     * react-native-async-storage
+    
+## Remarks
+
+The latest version of the backend is in the MotherOut_Server branch.
+
 ## Bugs
 
 We have not been able to solve the problem that is randomly generated when a user is created,
