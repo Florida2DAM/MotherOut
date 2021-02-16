@@ -54,7 +54,7 @@ group living in a shared apartment.
     
 ## Remarks
 
-The latest version of the backend is in the MotherOut_Server branch.
+The latest version of the backend is in the MotherOut_Server branch. 
 Link to trello: https://trello.com/b/uPveVC4C/motherout
 
 ## Bugs
