@@ -102,7 +102,7 @@ class YourTeam extends Component {
                 if (response.data === true) {
                     this.getActualUser();
                     ToastAndroid.showWithGravityAndOffset('piggy, you have a new pig team', ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
-                    this.props.navigation.navigate('ScreenToDo');
+                    this.props.navigation.navigate('Login');
                 } else {
                     ToastAndroid.showWithGravityAndOffset('fuck off!! impossible to do a new team', ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
                 }
