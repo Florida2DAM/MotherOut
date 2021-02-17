@@ -1,14 +1,14 @@
-import React, {Component} from 'react';
-import {ScrollView, StyleSheet, View, Text, Linking, ToastAndroid} from 'react-native';
-import {Image,} from 'react-native-elements';
+import React, { Component } from 'react';
+import { ScrollView, StyleSheet, View, Text, Linking, ToastAndroid } from 'react-native';
+import { Image, } from 'react-native-elements';
 import imagen from '../../assets/logo.png';
-import {GenericButton} from '../GenericButton';
-import {GenericInput1} from '../GenericInput1';
-import {CheckBox} from 'react-native-elements'
+import { GenericButton } from '../GenericButton';
+import { GenericInput1 } from '../GenericInput1';
+import { CheckBox } from 'react-native-elements'
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-let Image_Http_URL = {uri: 'https://i.imgur.com/NvwzH7g.png'};
+let Image_Http_URL = { uri: 'https://i.imgur.com/NvwzH7g.png' };
 
 class SingUp extends Component {
 
@@ -20,6 +20,10 @@ class SingUp extends Component {
             email: null,
             password: null,
         };
+    }
+
+    componentDidMount() {
+
     }
 
     async storeData(res) {
@@ -90,6 +94,8 @@ class SingUp extends Component {
                             ToastAndroid.TOP,
                             25,
                             50)
+                            //console.log(this.state.user)
+    
                     })
                     .catch(() => {
                         ToastAndroid.showWithGravityAndOffset("Registration could not be completed.", ToastAndroid.LONG,
@@ -97,9 +103,7 @@ class SingUp extends Component {
                             25,
                             50);
                     });
-
-                this.props.navigation.navigate('Help1');
-
+                    this.props.navigation.navigate('Help1',{emailLogUser : user.Email});
             } else {
 
                 ToastAndroid.showWithGravityAndOffset("You must agree to the terms in order to sell them, little piggy.", ToastAndroid.LONG,
@@ -117,10 +121,8 @@ class SingUp extends Component {
         axios.get('http://52.0.146.162:80/api/Users?email=' + email)
             .then(response => {
                 const res = response.data;
-                this.setState({user: res}, () => {
-                    this.storeData(res).then((response) => {
-                        console.log(response);
-                    });
+                this.setState({ user: res }, () => {
+                    this.storeData(res)
                 });
 
             })
@@ -139,32 +141,32 @@ class SingUp extends Component {
                     <ScrollView>
                         <View style={styles.pictures}>
                             <Image
-                                style={{width: 310, height: 270}}
+                                style={{ width: 310, height: 270 }}
                                 source={Image_Http_URL}
                             />
                         </View>
                         <View style={styles.inputs}>
                             <GenericInput1 placeHolder="Name" value={this.state.name}
-                                           onChange={(item) => this.setState({name: item})}/>
+                                onChange={(item) => this.setState({ name: item })} />
                             <GenericInput1 placeHolder="Email" value={this.state.email}
-                                           onChange={(item) => this.setState({email: item})}/>
+                                onChange={(item) => this.setState({ email: item })} />
                             <GenericInput1 placeHolder="Pasword" value={this.state.passwordl} passValue={true}
-                                           onChange={(item) => this.setState({password: item})}/>
+                                onChange={(item) => this.setState({ password: item })} />
                             <CheckBox
                                 containerStyle={styles.check}
                                 checkedIcon={'check-square'}
                                 uncheckedIcon={'square'}
                                 checked={this.state.checked}
-                                onPress={() => this.setState({checked: !this.state.checked})}
+                                onPress={() => this.setState({ checked: !this.state.checked })}
                                 title={
                                     <Text style={styles.textCheck}
-                                          onPress={() => Linking.openURL('https://www.boe.es/eli/es/lo/2018/12/05/3/con')}>
+                                        onPress={() => Linking.openURL('https://www.boe.es/eli/es/lo/2018/12/05/3/con')}>
                                         Accept terms and conditions
                                     </Text>}
                             />
                         </View>
                         <View style={styles.button}>
-                            <GenericButton button="Create Account" press={this.addUser}/>
+                            <GenericButton button="Create Account" press={this.addUser} />
                         </View>
                     </ScrollView>
                 </View>
