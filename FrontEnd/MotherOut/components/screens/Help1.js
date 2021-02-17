@@ -29,7 +29,7 @@ class Help1 extends Component {
         if (this.props.route.params.emailLogUser != null) {
             this.setState({ emailLogUser: this.props.route.params.emailLogUser })
         }
-        this.getData().then(()=>{console.log(this.state.user)})
+        this.getData().then(() => { console.log(this.state.user) })
     }
 
     async getData() {
