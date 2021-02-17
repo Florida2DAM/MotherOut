@@ -18,9 +18,7 @@ class Login extends Component {
         };
     }
 
-    componentDidMount() {
 
-    }
 
     async storeData(res) {
         try {
@@ -45,7 +43,7 @@ class Login extends Component {
                         if (!this.state.user.Help && this.state.user.AsignedTeam !== 0) {
                             this.props.navigation.navigate('ScreenToDo');
                         } else {
-                            this.props.navigation.navigate('Help1');
+                            this.props.navigation.navigate('Help1',{emailLogUser : null});
                         }
                     } else {
                         ToastAndroid.showWithGravityAndOffset("The credentials entered are not correct.", ToastAndroid.LONG,
