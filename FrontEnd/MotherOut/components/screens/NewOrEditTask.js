@@ -1,13 +1,13 @@
-import React, {Component} from 'react';
-import {FlatList, Pressable, StyleSheet, Text, ToastAndroid, View} from 'react-native';
-import {Image, Slider} from 'react-native-elements';
-import {GenericInput2} from '../GenericInput2';
-import {NavBar} from '../NavBar';
-import {RoundedButton} from '../RoundedButton';
+import React, { Component } from 'react';
+import { FlatList, Pressable, StyleSheet, Text, ToastAndroid, View } from 'react-native';
+import { Image, Slider } from 'react-native-elements';
+import { GenericInput2 } from '../GenericInput2';
+import { NavBar } from '../NavBar';
+import { RoundedButton } from '../RoundedButton';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-let Image_Header = {uri: 'https://i.imgur.com/QhQFvRY.png?1'};
+let Image_Header = { uri: 'https://i.imgur.com/QhQFvRY.png?1' };
 
 class NewOrEditTask extends Component {
     constructor(props) {
@@ -20,6 +20,7 @@ class NewOrEditTask extends Component {
             user: [],
             value: null,
             iconSel: null,
+            border: null
         };
     }
 
@@ -31,7 +32,7 @@ class NewOrEditTask extends Component {
     async getData() {
         try {
             const jsonValue = await AsyncStorage.getItem('logUser');
-            jsonValue != null ? this.setState({user: JSON.parse(jsonValue)}) : null;
+            jsonValue != null ? this.setState({ user: JSON.parse(jsonValue) }) : null;
         } catch (e) {
             ToastAndroid.showWithGravityAndOffset('User data could not be loaded ', ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
         }
@@ -62,7 +63,7 @@ class NewOrEditTask extends Component {
     getIcons = async () => {
         axios.get('http://52.0.146.162:80/api/Icons')
             .then(response => {
-                this.setState({listIcons: response.data.splice(0, 4)})
+                this.setState({ listIcons: response.data.splice(0, 4) })
             })
             .catch((e) => {
                 ToastAndroid.showWithGravityAndOffset('The assigment could not be carried out, because you hace entered a non-existent team', ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
@@ -70,10 +71,8 @@ class NewOrEditTask extends Component {
     };
 
     iconSelected = async (iconSelected) => {
-        alert(iconSelected);
-        this.setState({iconSel: iconSelected.toString()}).then(() => {
-            ToastAndroid.showWithGravityAndOffset('Very good, little padaPig, you have chosen an icon', ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
-        })
+        this.setState({ iconSel: iconSelected })
+        console.log(this.state.iconSel)
     }
 
     render() {
@@ -82,40 +81,43 @@ class NewOrEditTask extends Component {
                 <View style={styles.contenidor}>
                     <View style={styles.header}>
                         <Image
-                            style={{width: 300, height: 80}}
-                            source={Image_Header}/>
+                            style={{ width: 300, height: 80 }}
+                            source={Image_Header} />
                     </View>
                     <View style={styles.body}>
-
                         <Text style={styles.textStyle}>TaskName</Text>
                         <GenericInput2 value={this.state.taskName}
-                                       length={18}
-                                       onChange={(item) => this.setState({taskName: item})}/>
+                            length={18}
+                            onChange={(item) => this.setState({ taskName: item })} />
                         <Text style={styles.textStyle}>Score</Text>
-                        <Slider value={this.state.value} onValueChange={(value => this.setState({value}))}
-                                minimumValue={0} maximumValue={30} step={1}
-                                trackStyle={{backgroundColor: 'transparent'}}
-                                thumbStyle={{backgroundColor: '#D7B9D5'}}/>
-                        <View style={{alignItems: 'center', marginTop: 15}}>
+                        <Slider value={this.state.value} onValueChange={(value => this.setState({ value }))}
+                            minimumValue={0} maximumValue={30} step={1}
+                            trackStyle={{ backgroundColor: 'transparent' }}
+                            thumbStyle={{ backgroundColor: '#D7B9D5' }} />
+                        <View style={{ alignItems: 'center', marginTop: 15 }}>
                             <Text style={styles.textSlide}>{this.state.value}</Text>
                         </View>
                         <Text style={styles.textStyle}>Icon</Text>
                         <FlatList
                             data={this.state.listIcons}
                             keyExtractor={(item, index) => index.toString()}
-                            renderItem={({item}) =>
+                            renderItem={({ item }) =>
                                 <View style={styles.iconBox}>
-                                    <Pressable onPress={() => this.setState({iconSel: item.IconImage})
+                                    <Pressable onPressOut={() => this.iconSelected(item.IconImage)
                                     }>
                                         <Image
-                                            style={{width: 90, height: 90}}
-                                            source={{uri: item.IconImage}}/>
+                                            style={{ width: 90, height: 90 }}
+                                            source={{ uri: item.IconImage }} />
                                     </Pressable>
                                 </View>
                             }
                         />
-
-                        <RoundedButton icon="plus" press={this.insertTask}/>
+                        <View style={styles.bottomBox}>
+                            <Image
+                                style={styles.boxIconSelected}
+                                source={{ uri: this.state.iconSel }} />
+                            <RoundedButton icon="plus" press={this.insertTask} />
+                        </View>
                     </View>
                     <View>
                         <NavBar
@@ -165,5 +167,18 @@ const styles = StyleSheet.create({
         backgroundColor: '#D7B9D5',
         alignItems: 'center',
     },
+    bottomBox: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        padding: 10
+    },
+    boxIconSelected: {
+        width: 75,
+        height: 75,
+        borderWidth: 2,
+        borderRadius: 10,
+        borderColor: "#D7B9D5"
+    }
+
 });
 export default NewOrEditTask;
