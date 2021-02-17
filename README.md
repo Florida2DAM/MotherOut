@@ -58,7 +58,7 @@ The latest version of the backend is in the MotherOut_Server branch.
 
 Link to trello: https://trello.com/b/uPveVC4C/motherout.
 
-## Bugs
+## Bugs: Problem Solved
 
 We have not been able to solve the problem that is randomly generated when a user is created,
 navigability in the creation process does not work properly. Pending solution.
