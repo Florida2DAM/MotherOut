@@ -105,7 +105,7 @@ class TasksEditing extends Component {
                 <View style={styles.contenidor}>
                     <View style={styles.header}>
                         <Image
-                            style={{width: 300, height: 90}}
+                            style={{width: 311, height: 80}}
                             source={Image_Http_URL}/>
                     </View>
                     <View style={styles.body}>
