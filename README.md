@@ -69,9 +69,9 @@ We have fixed the bug after the delivery date.
   
   Link to github:
 
-![](https://i.imgur.com/81BN3ed.png) &nbsp;
+![](https://i.imgur.com/18NFStg.png) &nbsp;
 
   Download in google drive
   
-![](https://i.imgur.com/wbyNOUv.png) &nbsp;
+![](https://i.imgur.com/c2aMLMh.png) &nbsp;
 
