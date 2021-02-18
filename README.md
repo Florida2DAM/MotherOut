@@ -63,13 +63,15 @@ Link to trello: https://trello.com/b/uPveVC4C/motherout.
 We have not been able to solve the problem that is randomly generated when a user is created,
 navigability in the creation process does not work properly. Pending solution.
 
+We have fixed the bug after the delivery date.
+
 ## Link download app
   
   Link to github:
 
-![](https://i.imgur.com/EMhliW5.png) &nbsp;
+![](https://i.imgur.com/81BN3ed.png) &nbsp;
 
   Download in google drive
   
-![](https://i.imgur.com/eaQaLAZ.png) &nbsp;
+![](https://i.imgur.com/wbyNOUv.png) &nbsp;
 
